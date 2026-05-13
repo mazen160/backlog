@@ -130,6 +130,15 @@ func (s *TaskService) Create(ctx context.Context, in models.CreateTaskInput) (*m
 		}
 	}
 
+	// Populate the embedded Project struct so the returned task is renderable
+	// (printers read task.Project.Alias). The project_id is already validated
+	// upstream — a missing row here is a real error, not silent empty output.
+	if proj, err := s.projects.GetByID(ctx, t.ProjectID); err == nil {
+		t.Project = proj
+	} else {
+		return nil, rollback(err, "load project for created task: %w", err)
+	}
+
 	for _, pi := range in.Plans {
 		pi.TaskID = t.ID
 		pi.Actor = in.Actor
