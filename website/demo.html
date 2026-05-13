@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backlog — live demo</title>
+  <meta name="description" content="A 45-second animated walkthrough of the agentic loop: human creates a task, an AI agent picks it up, ships it, and grabs the next one. All from one Backlog DB.">
+  <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Ccircle cx='3' cy='5.5' r='1.5' fill='%23B87333'/%3E%3Crect x='7' y='4' width='12' height='3' rx='1.5' fill='%23B87333'/%3E%3Ccircle cx='3' cy='11' r='1.5' fill='%23B87333' opacity='0.6'/%3E%3Crect x='7' y='9.5' width='9' height='3' rx='1.5' fill='%23B87333' opacity='0.6'/%3E%3Ccircle cx='3' cy='16.5' r='1.5' fill='%23B87333' opacity='0.35'/%3E%3Crect x='7' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.35'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:           #FBFAF7;
+      --bg-sidebar:   #F4F1EA;
+      --surface:      #FFFFFF;
+      --surface-2:    #F7F5F0;
+      --border:       #ECE8DF;
+      --border-2:     #DED8CC;
+      --fg:           #2F2B25;
+      --fg-2:         #47413A;
+      --fg-muted:     #7B756D;
+      --fg-subtle:    #A29B91;
+      --signal:       #B87333;
+      --signal-2:     #D49A5C;
+
+      --term-bg:      #1A1916;
+      --term-bg-2:    #232220;
+      --term-fg:      #ECEBE7;
+      --term-dim:     #6D6B64;
+      --term-green:   #7FB97F;
+      --term-copper:  #D49A5C;
+
+      --orange-bg:    #F5DEC5;  --orange-fg: #AD5C18;
+      --green-bg:     #DCEADB;  --green-fg:  #2D6A4F;
+      --red-bg:       #F6DDD7;  --red-fg:    #A33B2F;
+      --blue-bg:      #D8E7EE;  --blue-fg:   #2F6F8F;
+      --gray-bg:      #E7E4DD;  --gray-fg:   #5B554C;
+
+      --font:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:         #191918;
+        --bg-sidebar: #20201F;
+        --surface:    #20201F;
+        --surface-2:  #252522;
+        --border:     #30302D;
+        --border-2:   #3C3B37;
+        --fg:         #ECEBE7;
+        --fg-2:       #D9D7D1;
+        --fg-muted:   #929087;
+        --fg-subtle:  #6D6B64;
+        --signal:     #D49A5C;
+        --orange-bg:  #4A3520;  --orange-fg: #E69E5A;
+        --green-bg:   #233C2E;  --green-fg:  #95C29A;
+        --red-bg:     #4A2A26;  --red-fg:    #E89289;
+        --blue-bg:    #1F3744;  --blue-fg:   #82B5CB;
+        --gray-bg:    #2E2D2A;  --gray-fg:   #B0ACA3;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    .demo-page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    /* — Header — */
+    .demo-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .demo-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--fg);
+    }
+    .demo-brand svg { display: block; }
+    .demo-brand-word {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+    .demo-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+    }
+    .demo-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .demo-ctrl {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--fg-muted);
+      background: var(--surface);
+      border: 1px solid var(--border-2);
+      border-radius: 6px;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: all 140ms ease;
+    }
+    .demo-ctrl:hover { color: var(--fg); border-color: var(--signal); }
+    .demo-ctrl-primary { color: var(--signal); border-color: var(--signal); }
+
+    /* — Title strip — */
+    .demo-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -.025em;
+      margin: 0 0 6px;
+      line-height: 1.15;
+    }
+    .demo-title em {
+      font-style: italic;
+      font-weight: 600;
+      color: var(--signal);
+    }
+    .demo-sub {
+      font-size: 15px;
+      color: var(--fg-muted);
+      margin: 0 0 24px;
+      max-width: 680px;
+    }
+
+    /* — Stage area — */
+    .demo-stage {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+      position: relative;
+    }
+
+    @media (max-width: 900px) {
+      .demo-stage { grid-template-columns: 1fr; }
+    }
+
+    .stage-pane {
+      background: var(--surface);
+      border: 1px solid var(--border-2);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(47,43,37,.05);
+      display: flex;
+      flex-direction: column;
+      min-height: 540px;
+    }
+
+    /* — macOS-style window chrome — */
+    .win-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      background: var(--bg-sidebar);
+      border-bottom: 1px solid var(--border);
+    }
+    .win-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .win-dot-r { background: #FF5F57; }
+    .win-dot-y { background: #FEBC2E; }
+    .win-dot-g { background: #28C840; }
+    .win-bar-title {
+      flex: 1;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--fg-muted);
+    }
+    .win-bar-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--fg-subtle);
+      letter-spacing: .04em;
+    }
+
+    /* — Terminal pane (left) — */
+    .term-pane .win-bar {
+      background: var(--term-bg-2);
+      border-bottom: 1px solid #2A2926;
+    }
+    .term-pane .win-bar-title { color: #807C73; }
+
+    .term-body {
+      background: var(--term-bg);
+      color: var(--term-fg);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.65;
+      padding: 18px 20px;
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+    .term-line { display: block; min-height: 1.65em; }
+    .term-line.empty { height: .8em; }
+    .term-prompt { color: var(--term-copper); margin-right: 6px; }
+    .term-cmd { color: var(--term-fg); }
+    .term-out { color: var(--term-fg); }
+    .term-dim { color: var(--term-dim); }
+    .term-ok { color: var(--term-green); }
+    .term-copper { color: var(--term-copper); }
+    .term-cursor {
+      display: inline-block;
+      width: 7px;
+      height: 1em;
+      background: var(--term-copper);
+      vertical-align: -2px;
+      animation: blink 1s steps(2) infinite;
+      margin-left: 2px;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* — UI pane (right) — task page — */
+    .ui-pane .win-bar {
+      background: var(--bg-sidebar);
+    }
+
+    .ui-body {
+      padding: 24px 26px;
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ui-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--fg-subtle);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      text-align: center;
+      gap: 8px;
+    }
+    .ui-empty-glyph {
+      width: 48px;
+      height: 48px;
+      opacity: .35;
+    }
+
+    .ui-crumb {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--fg-subtle);
+      margin-bottom: 8px;
+      letter-spacing: .02em;
+    }
+    .ui-h1 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      color: var(--fg);
+      line-height: 1.25;
+      margin: 0 0 18px;
+    }
+    .ui-props {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 8px 14px;
+      margin-bottom: 22px;
+      font-size: 13px;
+    }
+    .ui-prop-k {
+      color: var(--fg-muted);
+      font-family: var(--font);
+      font-weight: 500;
+    }
+    .ui-prop-v { color: var(--fg); }
+    .badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: .01em;
+    }
+    .b-todo  { background: var(--orange-bg); color: var(--orange-fg); }
+    .b-doing { background: var(--blue-bg);   color: var(--blue-fg); }
+    .b-done  { background: var(--green-bg);  color: var(--green-fg); }
+    .b-bug   { background: var(--red-bg);    color: var(--red-fg); }
+    .b-vuln  { background: var(--red-bg);    color: var(--red-fg); }
+    .b-p1    { background: var(--red-bg);    color: var(--red-fg); }
+    .b-p2    { background: var(--orange-bg); color: var(--orange-fg); }
+
+    .ui-actor {
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    .ui-actor-ai { color: var(--signal); font-weight: 500; }
+
+    .ui-section { margin-bottom: 18px; }
+    .ui-section-h {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--fg-subtle);
+      margin-bottom: 8px;
+    }
+    .ui-desc {
+      font-size: 13.5px;
+      color: var(--fg-2);
+      line-height: 1.55;
+      margin: 0;
+    }
+    .ui-plan-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 13px;
+      color: var(--fg-2);
+    }
+    .ui-plan-list li {
+      padding: 4px 0 4px 22px;
+      position: relative;
+    }
+    .ui-plan-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 12px;
+      height: 12px;
+      border: 1.5px solid var(--border-2);
+      border-radius: 3px;
+    }
+    .ui-plan-list li.done::before {
+      background: var(--green-fg);
+      border-color: var(--green-fg);
+    }
+    .ui-plan-list li.done::after {
+      content: "✓";
+      position: absolute;
+      left: 1.5px;
+      top: 4.5px;
+      font-size: 9px;
+      color: white;
+      font-weight: bold;
+    }
+    .ui-plan-list li.done {
+      color: var(--fg-subtle);
+      text-decoration: line-through;
+      text-decoration-color: var(--fg-subtle);
+    }
+    .ui-activity {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 12.5px;
+      color: var(--fg-2);
+    }
+    .ui-activity li {
+      display: flex;
+      gap: 10px;
+      padding: 5px 0;
+      border-top: 1px solid var(--border);
+    }
+    .ui-activity li:first-child { border-top: none; }
+    .ui-activity-time {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--fg-subtle);
+      min-width: 60px;
+    }
+    .ui-activity-actor {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 500;
+    }
+    .actor-ai { color: var(--signal); }
+    .actor-human { color: var(--fg-2); }
+
+    /* — DB ping label between panes — */
+    .stage-link {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--bg);
+      border: 1px solid var(--signal);
+      color: var(--signal);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border-radius: 999px;
+      opacity: 0;
+      transition: opacity 240ms ease, transform 240ms ease;
+      pointer-events: none;
+      z-index: 5;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(184,115,51,.12);
+    }
+    .stage-link.show { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+    @media (max-width: 900px) {
+      .stage-link { display: none; }
+    }
+
+    /* — Bottom timeline strip — */
+    .demo-timeline {
+      margin-top: 24px;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--fg-subtle);
+    }
+    .demo-timeline-track {
+      flex: 1;
+      max-width: 600px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+    .demo-timeline-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0%;
+      background: var(--signal);
+      border-radius: 2px;
+      transition: width 200ms linear;
+    }
+    .demo-timeline-stage {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--fg-muted);
+      letter-spacing: .04em;
+      min-width: 220px;
+      text-align: center;
+    }
+
+    /* — Summary card overlay — */
+    .demo-summary {
+      position: fixed;
+      inset: 0;
+      background: rgba(47,43,37,.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 320ms ease;
+      z-index: 50;
+      padding: 24px;
+    }
+    .demo-summary.show { opacity: 1; pointer-events: auto; }
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--border-2);
+      border-radius: 16px;
+      padding: 36px 40px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 24px 80px rgba(47,43,37,.25);
+      transform: translateY(20px) scale(.96);
+      transition: transform 320ms cubic-bezier(.2,.7,.1,1);
+    }
+    .demo-summary.show .summary-card { transform: translateY(0) scale(1); }
+
+    .summary-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--signal);
+      margin-bottom: 10px;
+    }
+    .summary-h {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -.025em;
+      margin: 0 0 16px;
+      line-height: 1.2;
+    }
+    .summary-sub {
+      font-size: 14px;
+      color: var(--fg-muted);
+      line-height: 1.55;
+      margin: 0 0 24px;
+    }
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .summary-stat {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+    .summary-stat-num {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--signal);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .summary-stat-label {
+      font-size: 11px;
+      color: var(--fg-muted);
+      letter-spacing: .01em;
+    }
+    .summary-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .summary-btn {
+      display: inline-block;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 140ms ease;
+      border: 1px solid var(--border-2);
+      color: var(--fg);
+      background: var(--surface);
+      cursor: pointer;
+      font-family: var(--font);
+    }
+    .summary-btn:hover { border-color: var(--signal); color: var(--signal); }
+    .summary-btn-primary {
+      background: var(--fg);
+      color: var(--bg);
+      border-color: var(--fg);
+    }
+    .summary-btn-primary:hover {
+      background: var(--signal);
+      border-color: var(--signal);
+      color: white;
+    }
+
+    /* — Footer — */
+    .demo-foot {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--fg-subtle);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .demo-foot a { color: var(--fg-muted); text-decoration: none; }
+    .demo-foot a:hover { color: var(--signal); }
+  </style>
+</head>
+<body>
+
+  <main class="demo-page">
+
+    <header class="demo-head">
+      <a class="demo-brand" href="index.html" aria-label="Backlog home">
+        <svg width="24" height="24" viewBox="0 0 22 22" aria-hidden="true">
+          <circle cx="3"  cy="5.5"  r="1.5" fill="var(--signal)"/>
+          <rect   x="7"  y="4"    width="12" height="3" rx="1.5" fill="var(--signal)"/>
+          <circle cx="3"  cy="11"   r="1.5" fill="var(--signal)" opacity="0.6"/>
+          <rect   x="7"  y="9.5"  width="9"  height="3" rx="1.5" fill="var(--signal)" opacity="0.6"/>
+          <circle cx="3"  cy="16.5" r="1.5" fill="var(--signal)" opacity="0.35"/>
+          <rect   x="7"  y="15"   width="6"  height="3" rx="1.5" fill="var(--signal)" opacity="0.35"/>
+        </svg>
+        <span class="demo-brand-word">Backlog</span>
+      </a>
+      <span class="demo-eyebrow">Live demo · 45-second loop</span>
+      <div class="demo-controls">
+        <button class="demo-ctrl" id="demo-restart" type="button" title="Restart">↻ Restart</button>
+        <button class="demo-ctrl demo-ctrl-primary" id="demo-pause" type="button" title="Pause / play">⏸ Pause</button>
+      </div>
+    </header>
+
+    <h1 class="demo-title">
+      Watch one <em>agentic loop</em> close, end-to-end.
+    </h1>
+    <p class="demo-sub">
+      Human creates a task. An AI agent picks it up, plans, ships it, and grabs the next one. Same Backlog DB the whole way through.
+    </p>
+
+    <section class="demo-stage" aria-label="Live agentic loop demonstration">
+
+      <!-- LEFT: terminal/agent pane -->
+      <article class="stage-pane term-pane" aria-label="CLI and agent activity">
+        <div class="win-bar">
+          <span class="win-dot win-dot-r"></span>
+          <span class="win-dot win-dot-y"></span>
+          <span class="win-dot win-dot-g"></span>
+          <span class="win-bar-title" id="term-title">~/code/api</span>
+        </div>
+        <div class="term-body" id="term-body">
+          <!-- Lines injected by JS -->
+        </div>
+      </article>
+
+      <!-- DB ping label between panes -->
+      <div class="stage-link" id="stage-link">↻ writing to Backlog DB</div>
+
+      <!-- RIGHT: web UI task detail pane -->
+      <article class="stage-pane ui-pane" aria-label="Backlog task page">
+        <div class="win-bar">
+          <span class="win-dot win-dot-r"></span>
+          <span class="win-dot win-dot-y"></span>
+          <span class="win-dot win-dot-g"></span>
+          <span class="win-bar-title" id="ui-title">localhost:8080</span>
+        </div>
+        <div class="ui-body" id="ui-body">
+          <div class="ui-empty" id="ui-empty">
+            <svg class="ui-empty-glyph" viewBox="0 0 22 22" aria-hidden="true">
+              <circle cx="3"  cy="5.5"  r="1.5" fill="currentColor"/>
+              <rect   x="7"  y="4"    width="12" height="3" rx="1.5" fill="currentColor"/>
+              <circle cx="3"  cy="11"   r="1.5" fill="currentColor" opacity="0.6"/>
+              <rect   x="7"  y="9.5"  width="9"  height="3" rx="1.5" fill="currentColor" opacity="0.6"/>
+              <circle cx="3"  cy="16.5" r="1.5" fill="currentColor" opacity="0.35"/>
+              <rect   x="7"  y="15"   width="6"  height="3" rx="1.5" fill="currentColor" opacity="0.35"/>
+            </svg>
+            <div>No tasks yet</div>
+            <div style="font-size:11px;opacity:.7">backlog init &middot; ready</div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <div class="demo-timeline">
+      <span class="demo-timeline-stage" id="timeline-stage">▶ booting</span>
+      <div class="demo-timeline-track">
+        <div class="demo-timeline-fill" id="timeline-fill"></div>
+      </div>
+    </div>
+
+    <footer class="demo-foot">
+      <span>Backlog · the agentic loop · MIT</span>
+      <span>
+        <a href="index.html">← Back to site</a>
+        &nbsp;·&nbsp;
+        <a href="https://github.com/mazen160/backlog" rel="noopener">GitHub</a>
+      </span>
+    </footer>
+
+  </main>
+
+  <!-- Summary overlay -->
+  <div class="demo-summary" id="demo-summary" aria-hidden="true">
+    <div class="summary-card">
+      <div class="summary-eyebrow">While you slept</div>
+      <h2 class="summary-h">3 tasks shipped. 100% attributed.</h2>
+      <p class="summary-sub">
+        That's one agentic loop. Run four sessions in parallel and you ship 12&times; more in the same workday — at a fraction of the token cost of a single long-running thread.
+      </p>
+      <div class="summary-stats">
+        <div class="summary-stat">
+          <div class="summary-stat-num">3</div>
+          <div class="summary-stat-label">tasks shipped</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-stat-num">~50k</div>
+          <div class="summary-stat-label">tokens / session</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-stat-num">100%</div>
+          <div class="summary-stat-label">attributed</div>
+        </div>
+      </div>
+      <div class="summary-actions">
+        <a class="summary-btn summary-btn-primary" href="getting-started.html">Get started →</a>
+        <a class="summary-btn" href="https://github.com/mazen160/backlog" rel="noopener">★ Star on GitHub</a>
+        <button class="summary-btn" id="demo-replay" type="button">↻ Watch again</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ────────────────────────────────────────────────────────────────────────
+    //  Backlog live demo — scripted timeline
+    // ────────────────────────────────────────────────────────────────────────
+
+    const els = {
+      termTitle:     document.getElementById('term-title'),
+      termBody:      document.getElementById('term-body'),
+      uiTitle:       document.getElementById('ui-title'),
+      uiBody:        document.getElementById('ui-body'),
+      uiEmpty:       document.getElementById('ui-empty'),
+      stageLink:     document.getElementById('stage-link'),
+      timelineFill:  document.getElementById('timeline-fill'),
+      timelineStage: document.getElementById('timeline-stage'),
+      summary:       document.getElementById('demo-summary'),
+      btnPause:      document.getElementById('demo-pause'),
+      btnRestart:    document.getElementById('demo-restart'),
+      btnReplay:     document.getElementById('demo-replay'),
+    };
+
+    let paused = false;
+    let cancel = false;
+
+    // — Helpers —————————————————————————————————————————————————
+
+    const sleep = (ms) => new Promise((resolve) => {
+      const start = Date.now();
+      const tick = () => {
+        if (cancel) return resolve();
+        if (paused) return setTimeout(tick, 100);
+        const remaining = ms - (Date.now() - start);
+        if (remaining <= 0) return resolve();
+        setTimeout(tick, Math.min(remaining, 100));
+      };
+      tick();
+    });
+
+    function el(tag, opts = {}, ...children) {
+      const node = document.createElement(tag);
+      if (opts.class) node.className = opts.class;
+      if (opts.style) node.style.cssText = opts.style;
+      if (opts.html != null) node.innerHTML = opts.html;
+      children.forEach((c) => {
+        if (typeof c === 'string') node.appendChild(document.createTextNode(c));
+        else if (c) node.appendChild(c);
+      });
+      return node;
+    }
+
+    function appendTermLine(opts = {}) {
+      const line = el('div', { class: 'term-line' + (opts.empty ? ' empty' : '') });
+      if (opts.html) line.innerHTML = opts.html;
+      els.termBody.appendChild(line);
+      els.termBody.scrollTop = els.termBody.scrollHeight;
+      return line;
+    }
+
+    async function typeInto(line, text, perChar = 28) {
+      const span = el('span');
+      line.appendChild(span);
+      const cursor = el('span', { class: 'term-cursor' });
+      line.appendChild(cursor);
+      for (let i = 0; i < text.length; i++) {
+        if (cancel) return;
+        span.textContent += text[i];
+        await sleep(perChar);
+      }
+      cursor.remove();
+    }
+
+    function flashLink(text) {
+      els.stageLink.textContent = text;
+      els.stageLink.classList.add('show');
+      setTimeout(() => els.stageLink.classList.remove('show'), 1400);
+    }
+
+    function setTermTitle(t) { els.termTitle.textContent = t; }
+    function setUiTitle(t) { els.uiTitle.textContent = t; }
+    function setStage(label, pct) {
+      els.timelineStage.textContent = label;
+      els.timelineFill.style.width = pct + '%';
+    }
+
+    function clearTerm() {
+      els.termBody.innerHTML = '';
+    }
+
+    function emptyUi() {
+      els.uiBody.innerHTML = '';
+      const empty = els.uiEmpty.cloneNode(true);
+      els.uiBody.appendChild(empty);
+    }
+
+    // — Render task page in the UI pane ——————————————————————————
+
+    function renderTask({ ref, title, status, priority, type, actor, actorIsAi, created, description, plan, activity }) {
+      els.uiBody.innerHTML = '';
+      const body = els.uiBody;
+
+      body.appendChild(el('div', { class: 'ui-crumb' }, `api · Tasks · ${ref}`));
+      body.appendChild(el('h2',  { class: 'ui-h1' }, title));
+
+      const props = el('div', { class: 'ui-props' });
+      const statusBadge = `b-${status.toLowerCase()}`;
+      const priorityBadge = `b-${priority.toLowerCase()}`;
+      const typeBadge = `b-${type.toLowerCase()}`;
+
+      const propRows = [
+        ['Status',   `<span class="badge ${statusBadge}" id="ui-status">${status}</span>`],
+        ['Priority', `<span class="badge ${priorityBadge}">${priority}</span>`],
+        ['Type',     `<span class="badge ${typeBadge}">${type}</span>`],
+        ['Actor',    `<span class="ui-actor ${actorIsAi ? 'ui-actor-ai' : ''}">${actor}</span>`],
+        ['Created',  `<span style="font-family:var(--font-mono);font-size:12px;color:var(--fg-muted)">${created}</span>`],
+      ];
+      propRows.forEach(([k, v]) => {
+        props.appendChild(el('div', { class: 'ui-prop-k' }, k));
+        props.appendChild(el('div', { class: 'ui-prop-v', html: v }));
+      });
+      body.appendChild(props);
+
+      if (description) {
+        const sec = el('div', { class: 'ui-section' });
+        sec.appendChild(el('div', { class: 'ui-section-h' }, 'Description'));
+        sec.appendChild(el('p', { class: 'ui-desc' }, description));
+        body.appendChild(sec);
+      }
+
+      if (plan && plan.length) {
+        const sec = el('div', { class: 'ui-section' });
+        sec.appendChild(el('div', { class: 'ui-section-h' }, 'Plan v1'));
+        const list = el('ul', { class: 'ui-plan-list' });
+        plan.forEach(({ text, done }) => {
+          const li = el('li', { class: done ? 'done' : '' }, text);
+          list.appendChild(li);
+        });
+        sec.appendChild(list);
+        body.appendChild(sec);
+      }
+
+      if (activity && activity.length) {
+        const sec = el('div', { class: 'ui-section' });
+        sec.appendChild(el('div', { class: 'ui-section-h' }, 'Activity'));
+        const list = el('ul', { class: 'ui-activity' });
+        activity.forEach(({ time, actor, isAi, text }) => {
+          const li = el('li');
+          li.appendChild(el('span', { class: 'ui-activity-time' }, time));
+          li.appendChild(el('span', { class: 'ui-activity-actor ' + (isAi ? 'actor-ai' : 'actor-human') }, actor));
+          li.appendChild(el('span', {}, ' ' + text));
+          list.appendChild(li);
+        });
+        sec.appendChild(list);
+        body.appendChild(sec);
+      }
+    }
+
+    function setStatus(status) {
+      const node = document.getElementById('ui-status');
+      if (!node) return;
+      node.textContent = status;
+      node.className = 'badge b-' + status.toLowerCase();
+    }
+
+    function appendActivity({ time, actor, isAi, text }) {
+      const list = els.uiBody.querySelector('.ui-activity');
+      if (!list) return;
+      const li = el('li');
+      li.appendChild(el('span', { class: 'ui-activity-time' }, time));
+      li.appendChild(el('span', { class: 'ui-activity-actor ' + (isAi ? 'actor-ai' : 'actor-human') }, actor));
+      li.appendChild(el('span', {}, ' ' + text));
+      list.appendChild(li);
+    }
+
+    function markPlanDone(idx) {
+      const items = els.uiBody.querySelectorAll('.ui-plan-list li');
+      if (items[idx]) items[idx].classList.add('done');
+    }
+
+    // — Main timeline ————————————————————————————————————————————
+
+    async function runDemo() {
+      cancel = false;
+      paused = false;
+      els.summary.classList.remove('show');
+      clearTerm();
+      emptyUi();
+      setTermTitle('~/code/api');
+      setUiTitle('localhost:8080');
+      setStage('▶ booting', 0);
+      await sleep(400);
+
+      // ─── ACT 1: Human creates a task via CLI ─────────────────────────
+      setStage('Act 1 · human creates a task', 10);
+      setTermTitle('~/code/api · human:alice');
+
+      const l1 = appendTermLine({ html: '<span class="term-prompt">$</span>' });
+      await typeInto(l1, 'backlog task add -p api \\', 22);
+      await sleep(120);
+
+      const l2 = appendTermLine({ html: '&nbsp;&nbsp;' });
+      await typeInto(l2, '-t "Fix login timeout on /api/session" \\', 16);
+
+      const l3 = appendTermLine({ html: '&nbsp;&nbsp;' });
+      await typeInto(l3, '--type bug --priority P2 --as human:alice', 16);
+
+      await sleep(280);
+      flashLink('writing to Backlog DB');
+      await sleep(180);
+
+      appendTermLine({
+        html: '<span class="term-ok">✓ created</span> <span class="term-copper">TASK-42</span> <span class="term-dim">→ api/backlog.db</span>',
+      });
+      appendTermLine({
+        html: '<span class="term-dim">&nbsp;&nbsp;attributed to human:alice · activity logged</span>',
+      });
+
+      // Render TASK-42 in the UI pane
+      setUiTitle('localhost:8080 / tasks / TASK-42');
+      renderTask({
+        ref: 'TASK-42',
+        title: 'Fix login timeout on /api/session',
+        status: 'todo',
+        priority: 'P2',
+        type: 'bug',
+        actor: 'human:alice',
+        actorIsAi: false,
+        created: 'just now',
+        description: 'Sessions expire after ~5 minutes instead of the configured 24h. Reproduces on staging when refresh tokens arrive out of order.',
+        activity: [
+          { time: 'just now', actor: 'human:alice', isAi: false, text: 'created the task' },
+        ],
+      });
+
+      await sleep(2400);
+
+      // ─── ACT 2: Hand off to Claude Code via MCP ──────────────────────
+      setStage('Act 2 · hand off to claude-code via MCP', 30);
+      appendTermLine({ empty: true });
+      const l4 = appendTermLine({ html: '<span class="term-prompt">$</span>' });
+      await typeInto(l4, 'backlog mcp serve --as ai:claude-code', 22);
+      appendTermLine({ html: '<span class="term-dim">→ MCP server listening on stdio · 12 tools registered</span>' });
+      appendTermLine({ html: '<span class="term-dim">→ ready for Claude Code, Cursor, Codex, OpenCode</span>' });
+
+      await sleep(900);
+
+      // Switch terminal to "Claude Code session"
+      setTermTitle('Claude Code · backlog MCP');
+      appendTermLine({ empty: true });
+      appendTermLine({
+        html: '<span style="color:#A29B91">› user:</span> /backlog pick the next P2 bug and start working on it',
+      });
+      await sleep(400);
+      appendTermLine({
+        html: '<span class="term-copper">› claude:</span> calling <span class="term-dim">backlog.task.list({ priority: "P2", status: "todo", limit: 1 })</span>',
+      });
+      await sleep(500);
+      appendTermLine({
+        html: '<span class="term-dim">  ← TASK-42 · Fix login timeout on /api/session · bug · P2 · human:alice</span>',
+      });
+      await sleep(300);
+      appendTermLine({
+        html: '<span class="term-copper">› claude:</span> picking up TASK-42. Moving to <span class="term-copper">doing</span>.',
+      });
+
+      flashLink('claude-code → write');
+      await sleep(180);
+
+      // Update UI: status doing, actor switch context
+      setStatus('doing');
+      appendActivity({ time: 'just now', actor: 'ai:claude-code', isAi: true, text: 'moved to doing' });
+
+      await sleep(1600);
+
+      // ─── ACT 3: Claude attaches a plan and ships ─────────────────────
+      setStage('Act 3 · plan, ship, attribute', 55);
+
+      appendTermLine({ empty: true });
+      appendTermLine({
+        html: '<span class="term-copper">› claude:</span> attaching plan v1 — calling <span class="term-dim">backlog.plan.add({ task: "TASK-42", ... })</span>',
+      });
+      await sleep(400);
+
+      flashLink('plan v1 attached');
+
+      // Re-render with plan
+      renderTask({
+        ref: 'TASK-42',
+        title: 'Fix login timeout on /api/session',
+        status: 'doing',
+        priority: 'P2',
+        type: 'bug',
+        actor: 'ai:claude-code',
+        actorIsAi: true,
+        created: '2m ago',
+        description: 'Sessions expire after ~5 minutes instead of the configured 24h. Reproduces on staging when refresh tokens arrive out of order.',
+        plan: [
+          { text: 'Reproduce the timeout against staging', done: false },
+          { text: 'Inspect refresh token ordering in middleware', done: false },
+          { text: 'Patch + add regression test for out-of-order refresh', done: false },
+        ],
+        activity: [
+          { time: '2m',       actor: 'human:alice',    isAi: false, text: 'created the task' },
+          { time: 'just now', actor: 'ai:claude-code', isAi: true,  text: 'moved to doing' },
+          { time: 'just now', actor: 'ai:claude-code', isAi: true,  text: 'attached plan v1' },
+        ],
+      });
+
+      await sleep(1800);
+
+      // Step 1 done
+      markPlanDone(0);
+      appendTermLine({ html: '<span class="term-copper">› claude:</span> step 1 done — reproduced. Ordering issue confirmed.' });
+      flashLink('step 1 ✓');
+      await sleep(900);
+
+      // Step 2 done
+      markPlanDone(1);
+      appendTermLine({ html: '<span class="term-copper">› claude:</span> step 2 done — middleware sorts refresh tokens by issued_at, not nonce.' });
+      flashLink('step 2 ✓');
+      await sleep(900);
+
+      // Step 3 done + ship
+      markPlanDone(2);
+      appendTermLine({ html: '<span class="term-copper">› claude:</span> step 3 done — patch shipped, regression test green.' });
+      appendTermLine({
+        html: '<span class="term-copper">› claude:</span> calling <span class="term-dim">backlog.task.move({ ref: "TASK-42", status: "done" })</span>',
+      });
+      await sleep(400);
+
+      flashLink('TASK-42 → done');
+      setStatus('done');
+      appendActivity({ time: 'just now', actor: 'ai:claude-code', isAi: true, text: 'shipped — moved to done' });
+
+      appendTermLine({
+        html: '<span class="term-ok">✓</span> <span class="term-copper">TASK-42</span> <span class="term-dim">marked done · 3 plan steps · ai:claude-code · 4m elapsed</span>',
+      });
+
+      await sleep(1700);
+
+      // ─── ACT 4: Pick up the next one ─────────────────────────────────
+      setStage('Act 4 · pick up the next one', 80);
+
+      appendTermLine({ empty: true });
+      appendTermLine({
+        html: '<span style="color:#A29B91">› user:</span> /backlog grab the next one',
+      });
+      await sleep(300);
+      appendTermLine({
+        html: '<span class="term-copper">› claude:</span> calling <span class="term-dim">backlog.task.list({ status: "todo", limit: 1 })</span>',
+      });
+      await sleep(400);
+      appendTermLine({
+        html: '<span class="term-dim">  ← TASK-43 · SQL injection in /search · vulnerability · P1 · ai:semgrep</span>',
+      });
+      await sleep(300);
+      appendTermLine({
+        html: '<span class="term-copper">› claude:</span> picking up TASK-43. Same loop. Same Backlog DB.',
+      });
+
+      flashLink('next loop ↻');
+
+      // Switch UI to TASK-43
+      setUiTitle('localhost:8080 / tasks / TASK-43');
+      renderTask({
+        ref: 'TASK-43',
+        title: 'SQL injection in /search endpoint',
+        status: 'doing',
+        priority: 'P1',
+        type: 'vuln',
+        actor: 'ai:claude-code',
+        actorIsAi: true,
+        created: 'just now',
+        description: 'Detected by ai:semgrep. Use of string concatenation in /search query construction. Bulk-imported via backlog.import-findings.',
+        activity: [
+          { time: 'just now', actor: 'ai:semgrep',     isAi: true, text: 'imported the finding' },
+          { time: 'just now', actor: 'ai:claude-code', isAi: true, text: 'picked up · moved to doing' },
+        ],
+      });
+
+      await sleep(2200);
+
+      // ─── ACT 5: Summary ──────────────────────────────────────────────
+      setStage('▶ loop closed · summary', 100);
+      els.summary.classList.add('show');
+      els.summary.setAttribute('aria-hidden', 'false');
+
+      // Wait for user interaction with summary or auto-restart after a long pause
+      await sleep(7000);
+      if (cancel) return;
+
+      // Auto-restart loop
+      els.summary.classList.remove('show');
+      els.summary.setAttribute('aria-hidden', 'true');
+      await sleep(400);
+      if (!cancel) runDemo();
+    }
+
+    // — Controls ——————————————————————————————————————————————————
+
+    els.btnPause.addEventListener('click', () => {
+      paused = !paused;
+      els.btnPause.textContent = paused ? '▶ Play' : '⏸ Pause';
+    });
+
+    els.btnRestart.addEventListener('click', () => {
+      cancel = true;
+      setTimeout(() => runDemo(), 60);
+    });
+
+    els.btnReplay.addEventListener('click', () => {
+      cancel = true;
+      setTimeout(() => runDemo(), 60);
+    });
+
+    // Pause when tab is hidden, resume when visible
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        paused = true;
+        els.btnPause.textContent = '▶ Play';
+      }
+    });
+
+    // Kick it off
+    runDemo();
+  </script>
+</body>
+</html>
