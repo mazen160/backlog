@@ -208,7 +208,11 @@ func newVersionCmd() *cobra.Command {
 		Use:   "version",
 		Short: "Print version",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Printf("backlog %s\n", appVersion)
+			v := appVersion
+			if v != "dev" && !strings.HasPrefix(v, "v") {
+				v = "v" + v
+			}
+			fmt.Printf("backlog %s\n", v)
 			return nil
 		},
 	}

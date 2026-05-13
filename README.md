@@ -34,7 +34,9 @@ The result is the **agentic loop**: spawn a fresh subagent, let it pull a task, 
 Grab a [pre-built binary](https://github.com/mazen160/backlog/releases/latest) for macOS or Linux (arm64 + amd64):
 
 ```sh
-curl -L https://github.com/mazen160/backlog/releases/latest/download/backlog_$(uname -s)_$(uname -m).tar.gz | tar xz
+OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
+curl -L https://github.com/mazen160/backlog/releases/latest/download/backlog_${OS}_${ARCH}.tar.gz | tar xz
 sudo mv backlog /usr/local/bin/
 ```
 
