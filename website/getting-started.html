@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started · Backlog</title>
+  <meta name="description" content="Install Backlog in 60 seconds. Set up your first Backlog workspace, run the agentic loop with Claude Code or Cursor via MCP, and ship your first task.">
+  <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://mazen160.github.io/backlog/getting-started.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='3' y='4' width='16' height='3' rx='1.5' fill='%23B87333'/%3E%3Crect x='3' y='9.5' width='11' height='3' rx='1.5' fill='%23B87333' opacity='0.65'/%3E%3Crect x='3' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.4'/%3E%3C/svg%3E">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Getting Started · Backlog">
+  <meta property="og:description" content="Install Backlog in 60 seconds. Set up your first Backlog workspace and run the agentic loop with Claude Code or Cursor.">
+  <meta property="og:url" content="https://mazen160.github.io/backlog/getting-started.html">
+  <meta property="og:site_name" content="Backlog">
+  <meta property="og:image" content="https://mazen160.github.io/backlog/og-share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Backlog: getting started in 60 seconds.">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Getting Started · Backlog">
+  <meta name="twitter:description" content="Install Backlog in 60 seconds. Set up your first Backlog workspace.">
+  <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentation navigation">
+    <a href="index.html" class="sidebar-back">← backlog</a>
+    <a href="index.html" class="sidebar-logo">
+      <svg class="sidebar-logo-mark" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
+        <rect x="3" y="4"   width="16" height="3" rx="1.5"/>
+        <rect x="3" y="9.5" width="11" height="3" rx="1.5" opacity="0.65"/>
+        <rect x="3" y="15"  width="6"  height="3" rx="1.5" opacity="0.4"/>
+      </svg>
+      <span class="sidebar-logo-wordmark">Backlog</span>
+    </a>
+    <div class="sidebar-section">Docs</div>
+    <a href="index.html"           class="sidebar-item"><span class="icon">⌂</span>Home</a>
+    <a href="getting-started.html" class="sidebar-item active"><span class="icon">→</span>Getting Started</a>
+    <a href="working-across-sessions.html" class="sidebar-item"><span class="icon">∾</span>Across Sessions</a>
+    <a href="concepts.html"        class="sidebar-item"><span class="icon">◇</span>Core Concepts</a>
+    <a href="cli.html"             class="sidebar-item"><span class="icon">⌘</span>CLI Reference</a>
+    <a href="mcp.html"             class="sidebar-item"><span class="icon">∷</span>MCP</a>
+    <a href="skills.html"          class="sidebar-item"><span class="icon">⊕</span>Skills</a>
+    <a href="api.html"             class="sidebar-item"><span class="icon">≡</span>API</a>
+
+    <div class="sidebar-section">Project</div>
+    <a href="https://github.com/mazen160/backlog" rel="noopener" class="sidebar-item sidebar-stars" aria-label="Star Backlog on GitHub">
+      <span class="icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg></span>
+      Star on GitHub<span class="sidebar-stars-count" data-stars-target>—</span>
+    </a>
+  </nav>
+
+  <main class="main">
+    <div class="doc-page-header">
+      <div class="doc-section-label">Documentation</div>
+      <h1 class="doc-page-title">Getting Started</h1>
+      <p class="doc-page-subtitle">From install to a fully populated workspace in about 10 minutes. Every command is copy-pasteable and shows the expected output.</p>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">✦</span>
+      <span><strong>Backlog in 30 seconds:</strong> Free forever. One binary. Runs locally. Your AI agent reads and writes the same database from every session, so what Claude Code started yesterday, Cursor picks up today.</span>
+    </div>
+
+    <div class="toc">
+      <div class="toc-title">On this page</div>
+      <ol>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#init">Initialize a workspace</a></li>
+        <li><a href="#project">Create a project</a></li>
+        <li><a href="#tasks">Create tasks</a></li>
+        <li><a href="#lifecycle">Move through the lifecycle</a></li>
+        <li><a href="#plans">Attach a plan</a></li>
+        <li><a href="#comments">Add comments</a></li>
+        <li><a href="#labels">Organize with labels</a></li>
+        <li><a href="#import">Bulk import from a scanner</a></li>
+        <li><a href="#search">Search and filter</a></li>
+        <li><a href="#export">Export</a></li>
+        <li><a href="#web">Open the web UI</a></li>
+        <li><a href="#mcp">Connect an AI assistant</a></li>
+      </ol>
+    </div>
+
+    <div class="doc-body">
+
+      <h2 id="install">Install</h2>
+
+      <p>Requirements: Go 1.22+. No CGO. No external runtime dependencies.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">Go install (recommended)</div>
+        <pre><code class="language-bash">go install github.com/mazen160/backlog/cmd/backlog@latest</code></pre>
+      </div>
+
+      <p>Or download a pre-built binary from <a href="https://github.com/mazen160/backlog/releases/latest">GitHub Releases</a>:</p>
+
+      <div class="code-block">
+        <div class="code-block-header">macOS (Apple Silicon)</div>
+        <pre><code class="language-bash">curl -L https://github.com/mazen160/backlog/releases/latest/download/backlog_darwin_arm64.tar.gz | tar xz
+sudo mv backlog /usr/local/bin/</code></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header">Linux (amd64)</div>
+        <pre><code class="language-bash">curl -L https://github.com/mazen160/backlog/releases/latest/download/backlog_linux_amd64.tar.gz | tar xz
+sudo mv backlog /usr/local/bin/</code></pre>
+      </div>
+
+      <p>Confirm the install:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog version</code></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header">Output</div>
+        <pre><code>backlog v1.0.0</code></pre>
+      </div>
+
+      <h2 id="init">Initialize a workspace</h2>
+
+      <p>Create a directory for your project and run <code>backlog init</code> inside it:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">mkdir my-project && cd my-project
+backlog init</code></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header">Output</div>
+        <pre><code>✓ workspace initialized at /Users/alice/my-project</code></pre>
+      </div>
+
+      <p>Two files are created:</p>
+
+      <table>
+        <thead><tr><th>File</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><code>backlog.db</code></td><td>The local database. Tasks, projects, plans, comments, labels, memory, attachments, activity.</td></tr>
+          <tr><td><code>config.toml</code></td><td>Workspace settings: default actor, priority, status, type.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">✦</span>
+        <span>The DB is local-only by design. Add <code>backlog.db</code> to <code>.gitignore</code>. To share state across sessions or machines, point each agent at the same file via <code>$BACKLOG_DB</code> (see the <a href="working-across-sessions.html">cross-session walkthrough</a>).</span>
+      </div>
+
+      <p>To create a named workspace for use across directories, pass <code>--profile</code>:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog init --profile work          # creates ~/.backlog/work/backlog.db
+backlog init --path ~/projects/api   # custom path</code></pre>
+      </div>
+
+      <h2 id="project">Create a project</h2>
+
+      <p>A project groups tasks under a short <em>alias</em>. The alias is the identifier you type in every other command.</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog project add "API Service" --alias api --repo-path /code/api</code></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header">Output</div>
+        <pre><code>ID:          01KR4H1TMRW3QAZ7D274SYCRJ1
+Alias:       api
+Name:        API Service
+Repo:        /code/api
+Created:     2026-05-08 12:29</code></pre>
+      </div>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog project add "Web Frontend" --alias web
+backlog project list</code></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header">Output</div>
+        <pre><code> ALIAS │ NAME         │ REPO      │ CREATED
+───────┼──────────────┼───────────┼──────────────────
+ api   │ API Service  │ /code/api │ 2026-05-08 12:29
+ web   │ Web Frontend │           │ 2026-05-08 12:29</code></pre>
+      </div>
+
+      <p>Set a default project so you can omit <code>-p</code> from most commands:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog project set-default api</code></pre>
+      </div>
+
+      <h2 id="tasks">Create tasks</h2>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog task add --project api --title "Fix login timeout" --type bug --priority P2</code></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header">Output</div>
+        <pre><code>ID:          01KR4H1ZYWGC3BQK01YBMM94P0
+Project:     api
+Title:       Fix login timeout
+Type:        bug
+Status:      todo
+Priority:    P2
+Actor:       human:alice
+Created:     2026-05-08 12:29</code></pre>
+      </div>
+
+      <p>The actor defaults to <code>human:$USER</code>. Pass <code>--as</code> to override:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog task add \
+  --project api \
+  --title "Reject unsigned JWTs in auth middleware" \
+  --type vulnerability \
+  --priority P1 \
+  --source "security-review-2026-Q1" \
+  --as human:alice</code></pre>
+      </div>
+
+      <p>List open tasks:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog task list</code></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header">Output</div>
+        <pre><code> ID       │ P  │ TYPE          │ STATUS │ TITLE                               │ PROJECT │ LABELS │ ACTOR
+──────────┼────┼───────────────┼────────┼─────────────────────────────────────┼─────────┼────────┼───────
+ 01KR4H1Z │ P1 │ vulnerability │ todo   │ Reject unsigned JWTs in auth middl… │ api     │        │ alice
+ 01KR4H1Z │ P2 │ bug           │ todo   │ Fix login timeout                   │ api     │        │ alice</code></pre>
+      </div>
+
+      <p>The <code>ID</code> column shows the first 8 characters of the ULID. You can use the prefix, the full ULID, or <code>TASK-N</code> interchangeably.</p>
+
+      <h2 id="lifecycle">Move through the lifecycle</h2>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog task move TASK-1 --status doing
+backlog task move TASK-1 --status done</code></pre>
+      </div>
+
+      <p>All status transitions are valid in any direction:</p>
+
+      <div class="code-block">
+        <pre><code>todo  →  doing  →  done
+  ↑___________|</code></pre>
+      </div>
+
+      <h2 id="plans">Attach a plan</h2>
+
+      <p>Plans are versioned markdown documents. Every edit creates an immutable new version. Old versions are always readable.</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog plan add \
+  --task TASK-1 \
+  --title "Fix unsigned JWT rejection" \
+  --content "## Steps
+1. Extract JWT from Authorization header
+2. Verify RS256 signature with JWKS endpoint
+3. Return 401 on missing, malformed, or unsigned tokens
+4. Add unit tests with forged tokens" \
+  --as ai:claude-code</code></pre>
+      </div>
+
+      <p>A human reviews and revises:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">PLAN_ID="01KR4H25J062ANP3ZN6Z6GFDCM"
+
+backlog plan update "$PLAN_ID" \
+  --title "Fix unsigned JWT rejection (revised)" \
+  --content "## Steps
+1. Extract JWT from Authorization header
+2. Verify RS256 signature with JWKS endpoint
+3. Return 401 on missing, malformed, or unsigned tokens
+4. Add unit tests with forged tokens
+5. Rotate the signing key — current key may be compromised" \
+  --change-note "added key rotation after security review" \
+  --as human:alice</code></pre>
+      </div>
+
+      <p>View version history:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog plan history "$PLAN_ID"</code></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header">Output</div>
+        <pre><code> VER │ TITLE                                │ ACTOR          │ NOTE                                     │ CREATED
+─────┼──────────────────────────────────────┼────────────────┼──────────────────────────────────────────┼──────────────────
+ v1  │ Fix unsigned JWT rejection           │ ai:claude-code │                                          │ 2026-05-08 12:29
+ v2  │ Fix unsigned JWT rejection (revised) │ human:alice    │ added key rotation after security review │ 2026-05-08 12:29</code></pre>
+      </div>
+
+      <h2 id="comments">Add comments</h2>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog comment add --task TASK-1 \
+  "JWKS endpoint is at /auth/.well-known/jwks.json — tested, returns correct keys."
+
+backlog comment add --task TASK-1 \
+  "Got it. Should we cache the keys?" \
+  --as ai:claude-code
+
+backlog comment add --task TASK-1 \
+  "Yes — 1hr TTL, re-fetch on key-ID miss." \
+  --as human:alice</code></pre>
+      </div>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog task show TASK-1 --with-plans --with-comments</code></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header">Output</div>
+        <pre><code>--- Comments (3) ---
+2026-05-08 12:30 [human:alice]:    JWKS endpoint is at /auth/.well-known/jwks.json — tested.
+2026-05-08 12:30 [ai:claude-code]: Got it. Should we cache the keys?
+2026-05-08 12:30 [human:alice]:    Yes — 1hr TTL, re-fetch on key-ID miss.</code></pre>
+      </div>
+
+      <h2 id="labels">Organize with labels</h2>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog label create --project api "security" --color "#e03e3e"
+backlog label create --project api "auth"
+
+backlog label attach --task TASK-1 security
+backlog label attach --task TASK-1 auth
+
+backlog task list --label auth</code></pre>
+      </div>
+
+      <h2 id="import">Bulk import from a scanner</h2>
+
+      <p>Create a findings file. Suitable for output from security scanners, AI triage agents, or any structured source:</p>
+
+      <div class="code-block">
+        <div class="code-block-header">findings.json</div>
+        <pre><code class="language-json">{
+  "version": 1,
+  "project": "api",
+  "items": [
+    {
+      "title": "SQL injection in /users search endpoint",
+      "type": "vulnerability",
+      "priority": "P1",
+      "source": "semgrep",
+      "external_ref": "SEMGREP-001",
+      "plans": [
+        {
+          "title": "Remediation",
+          "body": "Replace string interpolation with parameterized queries."
+        }
+      ]
+    },
+    {
+      "title": "Hardcoded credentials in config sample",
+      "type": "vulnerability",
+      "priority": "P2",
+      "source": "semgrep",
+      "external_ref": "SEMGREP-002"
+    },
+    {
+      "title": "Outdated dependency: golang.org/x/net (CVE-2023-44487)",
+      "type": "vulnerability",
+      "priority": "P3",
+      "source": "dependency-scan"
+    }
+  ]
+}</code></pre>
+      </div>
+
+      <div class="code-block">
+        <pre><code class="language-bash"># Dry run to preview
+backlog import-findings findings.json --dry-run</code></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-block-header">Output</div>
+        <pre><code>[dry-run] imported 3 tasks · 1 plans · 0 errors</code></pre>
+      </div>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog import-findings findings.json --as ai:semgrep</code></pre>
+      </div>
+
+      <h2 id="search">Search and filter</h2>
+
+      <div class="code-block">
+        <pre><code class="language-bash"># Full-text search (FTS5)
+backlog task list --search "injection"
+backlog task list --search "sql*"            # prefix match
+backlog task list --search "jwt OR csrf"     # boolean OR
+
+# Combine filters
+backlog task list --project api --type vulnerability --priority P1
+backlog task list --actor-kind ai            # tasks created by AI agents
+backlog task list --source semgrep           # tasks from a specific tool
+backlog task list --status doing             # in-progress only</code></pre>
+      </div>
+
+      <h2 id="export">Export</h2>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog export --format json                     # machine-readable
+backlog export --format csv --out tasks.csv      # spreadsheets
+backlog export --format md                       # paste into PRs / reports</code></pre>
+      </div>
+
+      <h2 id="web">Open the web UI</h2>
+
+      <p>The embedded web UI runs entirely from the binary. No additional setup:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog web                           # opens http://localhost:8080 in browser
+backlog web --port 3000               # custom port
+backlog web --port 3000 --no-browser  # don't auto-open</code></pre>
+      </div>
+
+      <p>The web UI provides list, Kanban, and grid task views, versioned docs, memory entries, attachments, and an activity timeline. All API endpoints are usable directly. See the <a href="api.html">API reference</a>.</p>
+
+      <h2 id="mcp">Connect an AI assistant</h2>
+
+      <p>Start the MCP stdio server so an AI coding assistant can read and write your backlog directly, without CLI invocations:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog mcp serve --as ai:claude-code</code></pre>
+      </div>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">ℹ</span>
+        <span>For full configuration snippets for Claude Code, Cursor, Codex, and OpenCode (including how to set <code>BACKLOG_DB</code> so the server always finds the right workspace), see the <a href="mcp.html">MCP guide</a>.</span>
+      </div>
+
+    </div>
+
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="index.html" class="page-nav-link prev">
+        <span class="page-nav-hint">← Previous</span>
+        <span class="page-nav-title">Home</span>
+      </a>
+      <a href="working-across-sessions.html" class="page-nav-link next">
+        <span class="page-nav-hint">Next →</span>
+        <span class="page-nav-title">Working Across Sessions</span>
+      </a>
+    </nav>
+  </main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+<script>hljs.highlightAll();
+(function ghStars() {
+  const targets = document.querySelectorAll('[data-stars-target]');
+  if (!targets.length) return;
+  const cacheKey = 'bl_gh_stars_v1';
+  const cacheTTL = 60 * 60 * 1000;
+  function fmt(n) { return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'') + 'k' : String(n); }
+  function paint(n) { targets.forEach((el) => { el.textContent = fmt(n); }); }
+  try {
+    const c = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    if (c && Date.now() - c.t < cacheTTL && typeof c.n === 'number') { paint(c.n); return; }
+  } catch (_) {}
+  fetch('https://api.github.com/repos/mazen160/backlog', { headers: { Accept: 'application/vnd.github+json' } })
+    .then((r) => r.ok ? r.json() : null)
+    .then((d) => { if (d && typeof d.stargazers_count === 'number') { paint(d.stargazers_count); try { localStorage.setItem(cacheKey, JSON.stringify({ n: d.stargazers_count, t: Date.now() })); } catch (_) {} } })
+    .catch(() => {});
+})();
+</script>
+</body>
+</html>

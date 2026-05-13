@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCP · Backlog</title>
+  <meta name="description" content="Wire Backlog into Claude Code, Cursor, Codex, and OpenCode via MCP. Your AI agent reads and writes the same Backlog DB your shell uses.">
+  <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://mazen160.github.io/backlog/mcp.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='3' y='4' width='16' height='3' rx='1.5' fill='%23B87333'/%3E%3Crect x='3' y='9.5' width='11' height='3' rx='1.5' fill='%23B87333' opacity='0.65'/%3E%3Crect x='3' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.4'/%3E%3C/svg%3E">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="MCP · Backlog">
+  <meta property="og:description" content="Wire Backlog into Claude Code, Cursor, Codex, and OpenCode via MCP. Your AI agent reads and writes the same Backlog DB your shell uses.">
+  <meta property="og:url" content="https://mazen160.github.io/backlog/mcp.html">
+  <meta property="og:site_name" content="Backlog">
+  <meta property="og:image" content="https://mazen160.github.io/backlog/og-share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Backlog MCP \u2014 Claude Code, Cursor, Codex, OpenCode.">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MCP · Backlog">
+  <meta name="twitter:description" content="Wire Backlog into Claude Code, Cursor, Codex, and OpenCode via MCP.">
+  <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentation navigation">
+    <a href="index.html" class="sidebar-back">← backlog</a>
+    <a href="index.html" class="sidebar-logo">
+      <svg class="sidebar-logo-mark" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
+        <rect x="3" y="4"   width="16" height="3" rx="1.5"/>
+        <rect x="3" y="9.5" width="11" height="3" rx="1.5" opacity="0.65"/>
+        <rect x="3" y="15"  width="6"  height="3" rx="1.5" opacity="0.4"/>
+      </svg>
+      <span class="sidebar-logo-wordmark">Backlog</span>
+    </a>
+    <div class="sidebar-section">Docs</div>
+    <a href="index.html"           class="sidebar-item"><span class="icon">⌂</span>Home</a>
+    <a href="getting-started.html" class="sidebar-item"><span class="icon">→</span>Getting Started</a>
+    <a href="working-across-sessions.html" class="sidebar-item"><span class="icon">∾</span>Across Sessions</a>
+    <a href="concepts.html"        class="sidebar-item"><span class="icon">◇</span>Core Concepts</a>
+    <a href="cli.html"             class="sidebar-item"><span class="icon">⌘</span>CLI Reference</a>
+    <a href="mcp.html"             class="sidebar-item active"><span class="icon">∷</span>MCP</a>
+    <a href="skills.html"          class="sidebar-item"><span class="icon">⊕</span>Skills</a>
+    <a href="api.html"             class="sidebar-item"><span class="icon">≡</span>API</a>
+
+    <div class="sidebar-section">Project</div>
+    <a href="https://github.com/mazen160/backlog" rel="noopener" class="sidebar-item sidebar-stars" aria-label="Star Backlog on GitHub">
+      <span class="icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg></span>
+      Star on GitHub<span class="sidebar-stars-count" data-stars-target>—</span>
+    </a>
+  </nav>
+
+  <main class="main">
+    <div class="doc-page-header">
+      <div class="doc-section-label">Reference</div>
+      <h1 class="doc-page-title">MCP</h1>
+      <p class="doc-page-subtitle">Connect any MCP-compatible AI coding assistant directly to your backlog. Config snippets for Claude Code, Cursor, Codex, and OpenCode.</p>
+    </div>
+
+    <div class="toc">
+      <div class="toc-title">On this page</div>
+      <ol>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#resolution">Workspace resolution</a></li>
+        <li><a href="#claude-code">Claude Code</a></li>
+        <li><a href="#cursor">Cursor</a></li>
+        <li><a href="#codex">Codex (OpenAI)</a></li>
+        <li><a href="#opencode">OpenCode</a></li>
+        <li><a href="#tools">Available tools</a></li>
+        <li><a href="#verify">Verifying the connection</a></li>
+      </ol>
+    </div>
+
+    <div class="doc-body">
+
+      <h2 id="how-it-works">How it works</h2>
+
+      <p>Solo devs running AI agents hit one wall fastest: <strong>the agent forgets everything when the session ends.</strong> MCP turns Backlog into your AI's persistent memory. Every task, plan, and comment is available across Claude Code, Cursor, Codex, and OpenCode, all reading the same database.</p>
+
+      <p>The <a href="https://modelcontextprotocol.io">Model Context Protocol</a> (MCP) is an open standard for connecting AI assistants to external tools. Instead of constructing CLI invocations, an MCP server exposes named tools over JSON-RPC 2.0 on stdin/stdout. The AI calls tools by name with structured arguments.</p>
+
+      <p>Backlog's MCP server lets any compatible AI assistant read and write your backlog directly. Creating tasks, attaching plans, moving status, leaving comments. No prompt engineering around command syntax.</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog mcp serve --as ai:claude-code --db /path/to/backlog.db</code></pre>
+      </div>
+
+      <p>The process speaks newline-delimited JSON-RPC 2.0 over stdin/stdout. The AI tool spawns it and communicates over its stdio. The server stays alive until the parent closes the pipe.</p>
+
+      <p><strong><code>--as</code></strong> sets the actor for all write operations. Set this so writes are attributed correctly. Defaults to <code>human:$USER</code> if omitted.</p>
+
+      <h2 id="resolution">Workspace resolution</h2>
+
+      <p>The MCP server uses the same DB resolution chain as the CLI:</p>
+
+      <table>
+        <thead><tr><th>Priority</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><code>--db &lt;path&gt;</code> flag</td></tr>
+          <tr><td>2</td><td><code>--profile &lt;name&gt;</code> flag</td></tr>
+          <tr><td>3</td><td><code>BACKLOG_DB</code> environment variable</td></tr>
+          <tr><td>4</td><td>Walk up from cwd looking for <code>backlog.db</code></td></tr>
+          <tr><td>5</td><td>Default profile (<code>backlog profile set-default</code>)</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">ℹ</span>
+        <span>Using <code>BACKLOG_DB</code> in the MCP config is the most reliable approach. It bypasses cwd-walking entirely and makes the config portable regardless of where the AI tool spawns the process.</span>
+      </div>
+
+      <h2 id="claude-code">Claude Code</h2>
+
+      <h3>CLI method (recommended)</h3>
+
+      <div class="code-block">
+        <pre><code class="language-bash">claude mcp add backlog -- backlog mcp serve --as ai:claude-code --db /path/to/workspace/backlog.db</code></pre>
+      </div>
+
+      <h3>Global config (manual)</h3>
+
+      <div class="code-block">
+        <div class="code-block-header">~/.claude.json</div>
+        <pre><code class="language-json">{
+  "mcpServers": {
+    "backlog": {
+      "command": "backlog",
+      "args": ["mcp", "serve", "--as", "ai:claude-code"],
+      "env": {
+        "BACKLOG_DB": "/path/to/workspace/backlog.db"
+      }
+    }
+  }
+}</code></pre>
+      </div>
+
+      <h3>Project-scoped</h3>
+
+      <div class="code-block">
+        <div class="code-block-header">.claude/settings.json (repo root)</div>
+        <pre><code class="language-json">{
+  "mcpServers": {
+    "backlog": {
+      "command": "backlog",
+      "args": ["mcp", "serve", "--as", "ai:claude-code"],
+      "env": {
+        "BACKLOG_DB": "${workspaceFolder}/backlog.db"
+      }
+    }
+  }
+}</code></pre>
+      </div>
+
+      <h2 id="cursor">Cursor</h2>
+
+      <p>Place the config at <code>~/.cursor/mcp.json</code> for global access, or <code>.cursor/mcp.json</code> at the project root for per-project scope.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">~/.cursor/mcp.json</div>
+        <pre><code class="language-json">{
+  "mcpServers": {
+    "backlog": {
+      "command": "backlog",
+      "args": ["mcp", "serve", "--as", "ai:cursor"],
+      "env": {
+        "BACKLOG_DB": "/path/to/workspace/backlog.db"
+      }
+    }
+  }
+}</code></pre>
+      </div>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">✦</span>
+        <span>If <code>backlog</code> is not on your <code>PATH</code>, use the full binary path: <code>"/usr/local/bin/backlog"</code>.</span>
+      </div>
+
+      <h2 id="codex">Codex (OpenAI)</h2>
+
+      <p>Codex CLI reads MCP server configuration from <code>~/.codex/config.yaml</code>.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">~/.codex/config.yaml</div>
+        <pre><code class="language-yaml">mcp_servers:
+  backlog:
+    command: backlog
+    args:
+      - mcp
+      - serve
+      - "--as"
+      - "ai:codex"
+    env:
+      BACKLOG_DB: /path/to/workspace/backlog.db</code></pre>
+      </div>
+
+      <p>To scope to a single project, create <code>.codex/config.yaml</code> at the repo root with the same structure.</p>
+
+      <h2 id="opencode">OpenCode</h2>
+
+      <p>OpenCode reads MCP configuration from <code>opencode.json</code> at the project root, or from <code>~/.config/opencode/config.json</code> for global config.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">opencode.json</div>
+        <pre><code class="language-json">{
+  "mcp": {
+    "backlog": {
+      "type": "local",
+      "command": "backlog",
+      "args": ["mcp", "serve", "--as", "ai:opencode"],
+      "env": {
+        "BACKLOG_DB": "/path/to/workspace/backlog.db"
+      }
+    }
+  }
+}</code></pre>
+      </div>
+
+      <h2 id="tools">Available tools</h2>
+
+      <p>Once connected, the AI assistant has access to the following tools. Task IDs accept <code>TASK-N</code>, bare integer, or full ULID. Plan/doc/memory IDs are ULIDs only.</p>
+
+      <table>
+        <thead><tr><th>Tool</th><th>Description</th><th>Required args</th></tr></thead>
+        <tbody>
+          <tr><td><code>project_list</code></td><td>List all projects</td><td>—</td></tr>
+          <tr><td><code>task_create</code></td><td>Create a new task</td><td><code>project</code>, <code>title</code></td></tr>
+          <tr><td><code>task_list</code></td><td>List tasks with filters</td><td>—</td></tr>
+          <tr><td><code>task_show</code></td><td>Show full task detail including plans and comments</td><td><code>id</code></td></tr>
+          <tr><td><code>task_update</code></td><td>Update task fields</td><td><code>id</code></td></tr>
+          <tr><td><code>task_move</code></td><td>Transition task status</td><td><code>id</code>, <code>status</code></td></tr>
+          <tr><td><code>plan_add</code></td><td>Attach a plan to a task (creates v1)</td><td><code>task_id</code>, <code>title</code>, <code>body</code></td></tr>
+          <tr><td><code>plan_update</code></td><td>Revise a plan (creates new version)</td><td><code>plan_id</code>, <code>title</code>, <code>body</code></td></tr>
+          <tr><td><code>plan_history</code></td><td>Retrieve all versions of a plan</td><td><code>plan_id</code></td></tr>
+          <tr><td><code>comment_add</code></td><td>Add a comment to a task</td><td><code>task_id</code>, <code>body</code></td></tr>
+          <tr><td><code>memory_add</code></td><td>Add a memory entry to a project</td><td><code>project</code>, <code>body</code></td></tr>
+          <tr><td><code>memory_list</code></td><td>List memory entries for a project</td><td><code>project</code></td></tr>
+          <tr><td><code>doc_add</code></td><td>Create a versioned project doc</td><td><code>project</code>, <code>title</code>, <code>body</code></td></tr>
+          <tr><td><code>doc_list</code></td><td>List docs for a project</td><td><code>project</code></td></tr>
+          <tr><td><code>doc_show</code></td><td>Show a doc's current content</td><td><code>id</code></td></tr>
+          <tr><td><code>doc_update</code></td><td>Revise a doc (creates new version)</td><td><code>id</code>, <code>body</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>task_create: optional fields</h3>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Values</th></tr></thead>
+        <tbody>
+          <tr><td><code>description</code></td><td>string</td><td>Markdown body</td></tr>
+          <tr><td><code>type</code></td><td>string</td><td><code>task</code> · <code>bug</code> · <code>issue</code> · <code>improvement</code> · <code>feature</code> · <code>vulnerability</code> · <code>chore</code> · <code>spike</code></td></tr>
+          <tr><td><code>status</code></td><td>string</td><td><code>todo</code> · <code>doing</code> · <code>done</code></td></tr>
+          <tr><td><code>priority</code></td><td>integer</td><td><code>1</code> (critical) through <code>5</code> (backlog)</td></tr>
+          <tr><td><code>source</code></td><td>string</td><td>Origin system, e.g. <code>security-review</code></td></tr>
+          <tr><td><code>external_ref</code></td><td>string</td><td>URL or external ticket ID</td></tr>
+        </tbody>
+      </table>
+
+      <h3>task_list: filter fields</h3>
+      <table>
+        <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>project</code></td><td>string</td><td>Project alias</td></tr>
+          <tr><td><code>status</code></td><td>string</td><td><code>todo</code> · <code>doing</code> · <code>done</code></td></tr>
+          <tr><td><code>type</code></td><td>string</td><td>Task type filter</td></tr>
+          <tr><td><code>priority</code></td><td>integer</td><td>Exact priority match</td></tr>
+          <tr><td><code>search</code></td><td>string</td><td>FTS5 full-text search query</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="verify">Verifying the connection</h2>
+
+      <p>Send the MCP handshake manually to confirm the server starts correctly:</p>
+
+      <div class="code-block">
+        <div class="code-block-header">Command</div>
+        <pre><code class="language-bash">echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"test","version":"0"}}}' \
+  | backlog mcp serve --db /path/to/backlog.db</code></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header">Expected response</div>
+        <pre><code class="language-json">{"jsonrpc":"2.0","id":1,"result":{"capabilities":{"tools":{"listChanged":false}},"protocolVersion":"2024-11-05","serverInfo":{"name":"backlog","version":"1.0.0"}}}</code></pre>
+      </div>
+
+    </div>
+
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="cli.html" class="page-nav-link prev">
+        <span class="page-nav-hint">← Previous</span>
+        <span class="page-nav-title">CLI Reference</span>
+      </a>
+      <a href="skills.html" class="page-nav-link next">
+        <span class="page-nav-hint">Next →</span>
+        <span class="page-nav-title">Skills</span>
+      </a>
+    </nav>
+  </main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+<script>hljs.highlightAll();
+(function ghStars() {
+  const targets = document.querySelectorAll('[data-stars-target]');
+  if (!targets.length) return;
+  const cacheKey = 'bl_gh_stars_v1';
+  const cacheTTL = 60 * 60 * 1000;
+  function fmt(n) { return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'') + 'k' : String(n); }
+  function paint(n) { targets.forEach((el) => { el.textContent = fmt(n); }); }
+  try {
+    const c = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    if (c && Date.now() - c.t < cacheTTL && typeof c.n === 'number') { paint(c.n); return; }
+  } catch (_) {}
+  fetch('https://api.github.com/repos/mazen160/backlog', { headers: { Accept: 'application/vnd.github+json' } })
+    .then((r) => r.ok ? r.json() : null)
+    .then((d) => { if (d && typeof d.stargazers_count === 'number') { paint(d.stargazers_count); try { localStorage.setItem(cacheKey, JSON.stringify({ n: d.stargazers_count, t: Date.now() })); } catch (_) {} } })
+    .catch(() => {});
+})();
+</script>
+</body>
+</html>

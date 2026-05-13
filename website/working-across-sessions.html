@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Working Across Sessions · Backlog</title>
+  <meta name="description" content="A three-day walkthrough showing how Backlog keeps your work tracked across Claude Code, Cursor, and overnight agent runs. Cross-session continuity for solo developers.">
+  <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://mazen160.github.io/backlog/working-across-sessions.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='3' y='4' width='16' height='3' rx='1.5' fill='%23B87333'/%3E%3Crect x='3' y='9.5' width='11' height='3' rx='1.5' fill='%23B87333' opacity='0.65'/%3E%3Crect x='3' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.4'/%3E%3C/svg%3E">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Working Across Sessions · Backlog">
+  <meta property="og:description" content="Your AI agent forgets between sessions. Backlog remembers. A three-day walkthrough showing cross-session continuity in practice.">
+  <meta property="og:url" content="https://mazen160.github.io/backlog/working-across-sessions.html">
+  <meta property="og:site_name" content="Backlog">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Working Across Sessions · Backlog">
+  <meta name="twitter:description" content="Your AI agent forgets between sessions. Backlog remembers.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentation navigation">
+    <a href="index.html" class="sidebar-back">← backlog</a>
+    <a href="index.html" class="sidebar-logo">
+      <svg class="sidebar-logo-mark" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
+        <rect x="3" y="4"   width="16" height="3" rx="1.5"/>
+        <rect x="3" y="9.5" width="11" height="3" rx="1.5" opacity="0.65"/>
+        <rect x="3" y="15"  width="6"  height="3" rx="1.5" opacity="0.4"/>
+      </svg>
+      <span class="sidebar-logo-wordmark">Backlog</span>
+    </a>
+    <div class="sidebar-section">Docs</div>
+    <a href="index.html"           class="sidebar-item"><span class="icon">⌂</span>Home</a>
+    <a href="getting-started.html" class="sidebar-item"><span class="icon">→</span>Getting Started</a>
+    <a href="working-across-sessions.html" class="sidebar-item active"><span class="icon">∾</span>Across Sessions</a>
+    <a href="concepts.html"        class="sidebar-item"><span class="icon">◇</span>Core Concepts</a>
+    <a href="cli.html"             class="sidebar-item"><span class="icon">⌘</span>CLI Reference</a>
+    <a href="mcp.html"             class="sidebar-item"><span class="icon">∷</span>MCP</a>
+    <a href="skills.html"          class="sidebar-item"><span class="icon">⊕</span>Skills</a>
+    <a href="api.html"             class="sidebar-item"><span class="icon">≡</span>API</a>
+
+    <div class="sidebar-section">Project</div>
+    <a href="https://github.com/mazen160/backlog" rel="noopener" class="sidebar-item sidebar-stars" aria-label="Star Backlog on GitHub">
+      <span class="icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg></span>
+      Star on GitHub<span class="sidebar-stars-count" data-stars-target>—</span>
+    </a>
+  </nav>
+
+  <main class="main">
+    <div class="doc-page-header">
+      <div class="doc-section-label">Walkthrough</div>
+      <h1 class="doc-page-title">Working across sessions</h1>
+      <p class="doc-page-subtitle">Your AI agent forgets when the session ends. Backlog doesn't. Here's a three-day walkthrough: start a task in Claude Code, pick it up the next morning in Cursor, finish it overnight via an unattended agent, review the activity log in the morning.</p>
+    </div>
+
+    <div class="callout callout-tip">
+      <span class="callout-icon">✦</span>
+      <span>Before you start: install Backlog (<a href="getting-started.html#install">go install</a>) and add the MCP server to whichever clients you use (<a href="mcp.html">MCP guide</a>). Point every client at the same <code>BACKLOG_DB</code>. That's the shared brain.</span>
+    </div>
+
+    <div class="toc">
+      <div class="toc-title">On this page</div>
+      <ol>
+        <li><a href="#scenario">The scenario</a></li>
+        <li><a href="#day-1">Day 1, evening: start in Claude Code</a></li>
+        <li><a href="#day-2-morning">Day 2, morning: switch to Cursor</a></li>
+        <li><a href="#day-2-night">Day 2, night: unattended agent run</a></li>
+        <li><a href="#day-3">Day 3: review the trail in the web UI</a></li>
+        <li><a href="#whats-actually-happening">What's actually happening</a></li>
+      </ol>
+    </div>
+
+    <div class="doc-body">
+
+      <h2 id="scenario">The scenario</h2>
+
+      <p>You're a solo developer shipping a small SaaS. You use Claude Code at your desk, Cursor on your laptop, and you sometimes leave an agent running overnight on a remote machine. Without persistent state, every session starts cold: the AI re-reads the codebase, re-plans the work, and forgets what you decided yesterday.</p>
+
+      <p>With Backlog, the <em>state</em> moves with the work, not with the AI session. One database, every client reading and writing it, and a complete audit trail when you check in.</p>
+
+      <p>The example feature: <strong>"Fix unsigned JWT rejection in auth middleware"</strong>, a TASK-1 you'll spread across three days and three sessions.</p>
+
+      <h2 id="day-1">Day 1, evening: start in Claude Code</h2>
+
+      <p>You sit down at your desk, open Claude Code, and create the task. The agent drafts the initial plan based on its understanding of the codebase.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">Claude Code session, Tuesday 9:47pm</div>
+        <pre><code class="language-bash"># You create the task
+backlog task add -p api \
+  -t "Fix unsigned JWT rejection in auth middleware" \
+  --type vulnerability --priority P1 \
+  --as human:mazin
+
+# Claude drafts the plan
+backlog plan add --task TASK-1 \
+  --title "JWT verification implementation" \
+  --content "1. Extract Authorization header
+2. Verify RS256 signature against JWKS endpoint
+3. Return 401 on missing/malformed/unsigned tokens
+4. Add unit tests with forged tokens" \
+  --as ai:claude-code
+
+# You move it to doing (the agent is working)
+backlog task move TASK-1 --status doing --as ai:claude-code</code></pre>
+      </div>
+
+      <p>Before bed, Claude leaves a progress comment:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog comment add --task TASK-1 \
+  "Stubbed the JWKS fetcher. Tests pending, out of context window." \
+  --as ai:claude-code</code></pre>
+      </div>
+
+      <p>You close the laptop. Claude Code is gone. Its context, its plan, its reasoning. All of it would normally evaporate. But every write went into <code>backlog.db</code>.</p>
+
+      <h2 id="day-2-morning">Day 2, morning: switch to Cursor</h2>
+
+      <p>You're on the couch with your other laptop. Cursor is your editor here. You don't want to re-explain the JWT task. Cursor has never seen it.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">Cursor session, Wednesday 8:12am</div>
+        <pre><code class="language-bash"># What was I working on?
+backlog task list --status doing --as human:mazin</code></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header">Output</div>
+        <pre><code> REF    │ P  │ TYPE          │ STATUS │ TITLE                                       │ ACTOR
+────────┼────┼───────────────┼────────┼─────────────────────────────────────────────┼───────────────
+ TASK-1 │ P1 │ vulnerability │ doing  │ Fix unsigned JWT rejection in auth middl…   │ claude-code</code></pre>
+      </div>
+
+      <p>One command. The task is there. The plan is there. Claude's comment is there.</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog task show TASK-1 --with-plans --with-comments</code></pre>
+      </div>
+
+      <p>Now you tell Cursor "continue TASK-1." It reads the plan, sees Claude already stubbed the JWKS fetcher, sees the open work item ("Tests pending"), and picks up exactly there. No re-onboarding. No "what does this codebase do?" preamble. No rewriting the plan from scratch.</p>
+
+      <p>Cursor finishes the tests, leaves its own comment, and writes a memory entry so the next session doesn't repeat its work:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog comment add --task TASK-1 \
+  "Tests pass. JWKS keys cached with 1h TTL, re-fetched on key-ID miss." \
+  --as ai:cursor
+
+backlog memory add --project api \
+  --body "JWKS endpoint: /auth/.well-known/jwks.json. Cache TTL 1h." \
+  --tags "auth,decision" \
+  --as ai:cursor</code></pre>
+      </div>
+
+      <h2 id="day-2-night">Day 2, night: unattended agent run</h2>
+
+      <p>You want PR creation and a final security review done before you wake up. You SSH into a remote machine and start an agent that pulls tasks from the same Backlog (via <code>BACKLOG_DB=/path/to/backlog.db</code>) and finishes them autonomously.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">Remote machine, Wednesday 11:30pm</div>
+        <pre><code class="language-bash"># Set the env var so the agent reads your laptop's backlog
+export BACKLOG_DB=/Volumes/sync/backlog/backlog.db
+
+# Run an overnight loop: pick any P1 todo task, ship it, repeat
+backlog mcp serve --as ai:claude-code &amp;
+# (claude-code or your script picks up TASK-1, opens the PR,
+#  runs the security scan, posts the verdict comment, marks done)</code></pre>
+      </div>
+
+      <p>While you sleep, the agent reads the plan, the existing comments, and the memory entry. It uses all of that as context. No human-in-the-loop needed because the context is in the database, not in some chat history that disappeared at 9pm.</p>
+
+      <h2 id="day-3">Day 3: review the trail in the web UI</h2>
+
+      <p>Morning. Coffee. You open <code>backlog web</code> and check Activity.</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog web</code></pre>
+      </div>
+
+      <p>You see, in chronological order:</p>
+
+      <ul>
+        <li><code>human:mazin</code> created TASK-1 at 9:47pm Tuesday</li>
+        <li><code>ai:claude-code</code> attached plan v1 at 9:48pm Tuesday</li>
+        <li><code>ai:claude-code</code> commented "Stubbed JWKS fetcher" at 10:15pm Tuesday</li>
+        <li><code>ai:cursor</code> commented "Tests pass" at 8:34am Wednesday</li>
+        <li><code>ai:cursor</code> added memory entry on JWKS caching at 8:35am Wednesday</li>
+        <li><code>ai:claude-code</code> opened PR #1247 at 2:18am Thursday</li>
+        <li><code>ai:claude-code</code> commented "Security scan clean, ready for review" at 2:31am Thursday</li>
+        <li><code>ai:claude-code</code> moved TASK-1 to <strong>done</strong> at 2:32am Thursday</li>
+      </ul>
+
+      <p>The PR is up. The reasoning behind every decision is in the plan and the comments. The architectural choice (cached JWKS, 1h TTL) is in memory where the next task on this codebase will read it. You merge the PR and pick the next task.</p>
+
+      <p>You didn't onboard the AI three times. You didn't re-explain the codebase. You didn't lose Claude's stub work when you switched to Cursor. The state moved with the work.</p>
+
+      <h2 id="whats-actually-happening">What's actually happening</h2>
+
+      <p>The mechanics are unglamorous, which is the point:</p>
+
+      <ul>
+        <li><strong>One database file.</strong> Every MCP client and CLI invocation talks to the same <code>backlog.db</code>. Set <code>BACKLOG_DB</code> in each client's MCP config and they're pointing at the same brain.</li>
+        <li><strong>Typed actors on every row.</strong> <code>human:mazin</code>, <code>ai:claude-code</code>, <code>ai:cursor</code>: stored as columns on every task, plan version, comment, and memory entry. Auditable forever.</li>
+        <li><strong>Immutable plan versions.</strong> Claude's v1 plan stays readable even after Cursor writes v2. Nothing is overwritten silently.</li>
+        <li><strong>Memory is the AI's scratchpad.</strong> Tagged free-form notes that survive every session. Architectural decisions, gotchas, "we tried this and it didn't work" notes, all queryable.</li>
+        <li><strong>Activity log is the audit trail.</strong> Every write across the workspace lands in <code>activity_log</code>. Filter by project, entity, or actor. The morning standup writes itself.</li>
+      </ul>
+
+      <p>That's it. No clever protocol. The state lives in a file. The clients read and write it. Your work survives the session.</p>
+
+      <h2 id="next">Where to go from here</h2>
+
+      <ul>
+        <li><a href="getting-started.html">Getting Started</a>: install the binary, create your first task, in 10 minutes</li>
+        <li><a href="mcp.html">MCP Integration</a>: wire Claude Code, Cursor, Codex, and OpenCode to the same database</li>
+        <li><a href="concepts.html">Core Concepts</a>: the data model behind the agentic loop</li>
+        <li><a href="cli.html">CLI Reference</a>: every command, every flag</li>
+      </ul>
+
+    </div>
+
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="getting-started.html" class="page-nav-link prev">
+        <span class="page-nav-hint">← Previous</span>
+        <span class="page-nav-title">Getting Started</span>
+      </a>
+      <a href="concepts.html" class="page-nav-link next">
+        <span class="page-nav-hint">Next →</span>
+        <span class="page-nav-title">Core Concepts</span>
+      </a>
+    </nav>
+  </main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+<script>hljs.highlightAll();
+(function ghStars() {
+  const targets = document.querySelectorAll('[data-stars-target]');
+  if (!targets.length) return;
+  const cacheKey = 'bl_gh_stars_v1';
+  const cacheTTL = 60 * 60 * 1000;
+  function fmt(n) { if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k'; return String(n); }
+  function paint(n) { const label = fmt(n); targets.forEach((el) => { el.textContent = label; }); }
+  try {
+    const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    if (cached && Date.now() - cached.t < cacheTTL && typeof cached.n === 'number') { paint(cached.n); return; }
+  } catch (_) {}
+  fetch('https://api.github.com/repos/mazen160/backlog', { headers: { Accept: 'application/vnd.github+json' } })
+    .then((r) => r.ok ? r.json() : null)
+    .then((data) => {
+      if (!data || typeof data.stargazers_count !== 'number') return;
+      const n = data.stargazers_count;
+      paint(n);
+      try { localStorage.setItem(cacheKey, JSON.stringify({ n, t: Date.now() })); } catch (_) {}
+    })
+    .catch(() => {});
+})();
+</script>
+</body>
+</html>

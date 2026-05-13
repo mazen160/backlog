@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills · Backlog</title>
+  <meta name="description" content="Four agentic-loop skills (backlog, backlog-enhance-tasks, backlog-loop, backlog-goal) embedded in the binary and installable into Claude Code, Cursor, OpenCode, and Codex.">
+  <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://mazen160.github.io/backlog/skills.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='3' y='4' width='16' height='3' rx='1.5' fill='%23B87333'/%3E%3Crect x='3' y='9.5' width='11' height='3' rx='1.5' fill='%23B87333' opacity='0.65'/%3E%3Crect x='3' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.4'/%3E%3C/svg%3E">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Skills · Backlog">
+  <meta property="og:description" content="Four agentic-loop skills (backlog, backlog-enhance-tasks, backlog-loop, backlog-goal) embedded in the binary and installable into Claude Code, Cursor, OpenCode, and Codex.">
+  <meta property="og:url" content="https://mazen160.github.io/backlog/skills.html">
+  <meta property="og:site_name" content="Backlog">
+  <meta property="og:image" content="https://mazen160.github.io/backlog/og-share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Backlog Skills: backlog, enhance-tasks, loop, goal.">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Skills · Backlog">
+  <meta name="twitter:description" content="Four Claude Code / Cursor skills that turn Backlog into an agentic loop.">
+  <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentation navigation">
+    <a href="index.html" class="sidebar-back">← backlog</a>
+    <a href="index.html" class="sidebar-logo">
+      <svg class="sidebar-logo-mark" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
+        <rect x="3" y="4"   width="16" height="3" rx="1.5"/>
+        <rect x="3" y="9.5" width="11" height="3" rx="1.5" opacity="0.65"/>
+        <rect x="3" y="15"  width="6"  height="3" rx="1.5" opacity="0.4"/>
+      </svg>
+      <span class="sidebar-logo-wordmark">Backlog</span>
+    </a>
+    <div class="sidebar-section">Docs</div>
+    <a href="index.html"           class="sidebar-item"><span class="icon">⌂</span>Home</a>
+    <a href="getting-started.html" class="sidebar-item"><span class="icon">→</span>Getting Started</a>
+    <a href="working-across-sessions.html" class="sidebar-item"><span class="icon">∾</span>Across Sessions</a>
+    <a href="concepts.html"        class="sidebar-item"><span class="icon">◇</span>Core Concepts</a>
+    <a href="cli.html"             class="sidebar-item"><span class="icon">⌘</span>CLI Reference</a>
+    <a href="mcp.html"             class="sidebar-item"><span class="icon">∷</span>MCP</a>
+    <a href="skills.html"          class="sidebar-item active"><span class="icon">⊕</span>Skills</a>
+    <a href="api.html"             class="sidebar-item"><span class="icon">≡</span>API</a>
+
+    <div class="sidebar-section">Project</div>
+    <a href="https://github.com/mazen160/backlog" rel="noopener" class="sidebar-item sidebar-stars" aria-label="Star Backlog on GitHub">
+      <span class="icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg></span>
+      Star on GitHub<span class="sidebar-stars-count" data-stars-target>—</span>
+    </a>
+  </nav>
+
+  <main class="main">
+    <div class="doc-page-header">
+      <div class="doc-section-label">Reference</div>
+      <h1 class="doc-page-title">Skills</h1>
+      <p class="doc-page-subtitle">Four skills embedded in the binary, installable into Claude Code, Cursor, OpenCode, and Codex via <code>backlog install-skills</code>. Turn the CLI into an agentic loop, from a single enhanced task to a fully-judged multi-checkpoint goal.</p>
+    </div>
+
+    <div class="toc">
+      <div class="toc-title">On this page</div>
+      <ol>
+        <li><a href="#what-are-skills">What skills are</a></li>
+        <li><a href="#inventory">Skills inventory</a></li>
+        <li><a href="#install">Installation</a></li>
+        <li><a href="#backlog">backlog (base)</a></li>
+        <li><a href="#enhance-tasks">backlog-enhance-tasks</a></li>
+        <li><a href="#loop">backlog-loop</a></li>
+        <li><a href="#goal">backlog-goal</a></li>
+        <li><a href="#conventions">Common conventions</a></li>
+        <li><a href="#dependency-graph">Dependency graph</a></li>
+      </ol>
+    </div>
+
+    <div class="doc-body">
+
+      <h2 id="what-are-skills">What skills are</h2>
+
+      <p>Skills are markdown files, no code or binary, that become part of an AI coding assistant's context when invoked. They teach the assistant how to drive the <code>backlog</code> CLI and how to layer richer workflows on top of it.</p>
+
+      <p>The Backlog repo ships four skills. The base skill (<code>backlog</code>) is the canonical CLI reference. The other three are workflow skills that depend on it.</p>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">✦</span>
+        <span>All four skills are <strong>embedded in the <code>backlog</code> binary</strong>. <code>backlog install-skills</code> detects Claude Code, Cursor, OpenCode, and Codex on your machine and writes the right file in each tool's native format. No repo clone, no manual copy.</span>
+      </div>
+
+      <h2 id="inventory">Skills inventory</h2>
+
+      <table>
+        <thead><tr><th>Skill</th><th>Purpose</th><th>Invocation</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>backlog</code></td>
+            <td>Base skill. Full CLI reference: every command, flag, ID format, enum, JSON shape, common agent workflow.</td>
+            <td><code>/backlog &lt;request&gt;</code></td>
+          </tr>
+          <tr>
+            <td><code>backlog-enhance-tasks</code></td>
+            <td>Rewrites a task's title and description for clarity. Adds structured sections (Context / Acceptance criteria / Implementation hints). Optionally attaches an implementation plan.</td>
+            <td><code>/backlog-enhance-tasks TASK-N</code></td>
+          </tr>
+          <tr>
+            <td><code>backlog-loop</code></td>
+            <td>Picks up one task and iterates implementation → verification → Judge sub-agent up to 5 attempts until the Judge approves, then exits. Designed for headless <code>claude -p</code> execution.</td>
+            <td><code>/backlog-loop &lt;project&gt;</code></td>
+          </tr>
+          <tr>
+            <td><code>backlog-goal</code></td>
+            <td>End-to-end goal workflow. PREP mode does exhaustive intake and seeds a checkpoint-based board. RUN mode executes via Scout/Judge/Worker sub-agents with parallel safety and a mandatory final audit.</td>
+            <td><code>/backlog-goal &lt;goal&gt;</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Each workflow skill declares its dependency on the base <code>backlog</code> skill at the top of its file, so an agent loading <code>backlog-goal</code> (for example) is reminded to read <code>backlog/skill.md</code> first for CLI semantics.</p>
+
+      <h2 id="install">Installation</h2>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog install-skills</code></pre>
+      </div>
+
+      <p>Scans <code>$HOME</code> for supported AI coding tools and writes every embedded skill into each one in the format that tool expects. Re-running is safe: existing files are skipped unless you pass <code>--force</code>.</p>
+
+      <h3>What gets written where</h3>
+
+      <table>
+        <thead><tr><th>Tool</th><th>Detected by</th><th>Skill file</th></tr></thead>
+        <tbody>
+          <tr><td>Claude Code</td><td><code>~/.claude/</code></td><td><code>~/.claude/skills/&lt;name&gt;/skill.md</code></td></tr>
+          <tr><td>Cursor</td><td><code>~/.cursor/</code></td><td><code>~/.cursor/rules/&lt;name&gt;.mdc</code> (with frontmatter)</td></tr>
+          <tr><td>OpenCode</td><td><code>~/.config/opencode/</code></td><td><code>~/.config/opencode/skills/&lt;name&gt;/skill.md</code></td></tr>
+          <tr><td>Codex</td><td><code>~/.codex/</code></td><td><code>~/.codex/prompts/&lt;name&gt;.md</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Useful flags</h3>
+
+      <table>
+        <thead><tr><th>Flag</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td><code>--all</code></td><td>Install into every supported target even if its config dir does not exist yet.</td></tr>
+          <tr><td><code>--force</code></td><td>Overwrite existing skill files instead of skipping.</td></tr>
+          <tr><td><code>--dry-run</code></td><td>Print what would be written without touching the filesystem.</td></tr>
+          <tr><td><code>--skill &lt;name&gt;</code></td><td>Install only the named skill (repeatable; default: all four).</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">✦</span>
+        <span>You can also keep skills at the project level by leaving <code>skills/</code> in the repo. Claude Code auto-discovers project-scoped skills when invoked inside the repo.</span>
+      </div>
+
+      <p>The workflow-heavy skills (<code>backlog-loop</code>, <code>backlog-goal</code>) work best in Claude Code where sub-agent dispatch is available. They will work in Cursor, OpenCode, and Codex but will not get parallel sub-agent execution.</p>
+
+      <h2 id="backlog">backlog (base)</h2>
+
+      <p>The canonical reference for driving the CLI. Every other skill assumes the agent has loaded this one.</p>
+
+      <h3>What it covers</h3>
+
+      <ul>
+        <li>Workspace, profile, project, task, plan, comment, label, memory, doc, attachment commands</li>
+        <li>Global flags: <code>--profile</code>, <code>--db</code>, <code>--json</code>, <code>--as</code>, <code>--quiet</code></li>
+        <li>ID formats: <code>TASK-N</code>, bare integer, full ULID</li>
+        <li>DB resolution order: <code>--db</code> → <code>$BACKLOG_DB</code> → <code>--profile</code> → default profile</li>
+        <li>Enum values for <code>type</code>, <code>status</code>, <code>priority</code>, <code>actor.kind</code></li>
+        <li>JSON response shapes for every list/show command</li>
+        <li>Import-findings file format for bulk task creation</li>
+        <li>MCP tool surface (when <code>backlog mcp serve</code> is running)</li>
+        <li>Common agent workflows: triage findings, pick up a task, revise a plan, capture a decision as memory</li>
+      </ul>
+
+      <h3>Usage</h3>
+
+      <div class="code-block">
+        <pre><code class="language-bash">/backlog add a task to fix the login timeout in the auth service
+/backlog list all open P1 vulnerabilities in the api project
+/backlog show TASK-12 and its plan history
+/backlog import the findings from scan-2026-05.json into project api</code></pre>
+      </div>
+
+      <p>The skill instructs the assistant to translate the natural-language request into the matching CLI invocation, parse <code>--json</code> output, and present results in a readable form.</p>
+
+      <h2 id="enhance-tasks">backlog-enhance-tasks</h2>
+
+      <p>Improves a single task's title, description, and (optionally) attaches an implementation plan.</p>
+
+      <h3>Invocation</h3>
+
+      <div class="code-block">
+        <pre><code class="language-bash">/backlog-enhance-tasks TASK-N              # rewrite title and description
+/backlog-enhance-tasks TASK-N --build-plan  # plus attach a plan</code></pre>
+      </div>
+
+      <h3>What it does</h3>
+
+      <ol>
+        <li>Fetches the task with <code>backlog task show TASK-N --json</code>.</li>
+        <li>Rewrites the title to an imperative verb, specific subject, under 80 chars. Scope is unchanged.</li>
+        <li>Expands the description into structured markdown:
+          <div class="code-block">
+            <pre><code class="language-markdown">## Context
+&lt;1-2 sentences on why this matters&gt;
+
+## Acceptance criteria
+- [ ] &lt;specific, testable criterion&gt;
+
+## Implementation hints
+&lt;file paths, function names, only if clearly known&gt;</code></pre>
+          </div>
+        </li>
+        <li>Writes back with <code>backlog task update</code>.</li>
+        <li>If <code>--build-plan</code> is passed, generates an implementation plan with numbered steps + testing section and attaches it via <code>backlog plan add</code>.</li>
+      </ol>
+
+      <h3>When to use</h3>
+
+      <ul>
+        <li>Before running <code>/backlog-loop</code> on a task that's too vague to be judgeable.</li>
+        <li>Before handing a backlog item to a sub-agent or a human teammate.</li>
+        <li>As part of triage, to convert a rough one-liner into something actionable.</li>
+      </ul>
+
+      <h2 id="loop">backlog-loop</h2>
+
+      <p>Single-task primitive with a built-in Judge gate. Picks one task, iterates <strong>implement → verify → judge → fix → re-judge</strong> until the Judge approves or 5 attempts have failed, then exits. Never picks up a second task.</p>
+
+      <h3>Invocation</h3>
+
+      <div class="code-block">
+        <pre><code class="language-bash">/backlog-loop &lt;project&gt;          # next highest-priority todo task
+/backlog-loop &lt;project&gt; TASK-N   # a specific task
+/backlog-loop help               # print the headless-execution guide</code></pre>
+      </div>
+
+      <h3>Workflow</h3>
+
+      <ol>
+        <li><strong>Select</strong> the first task by <code>--status todo --sort priority</code>, or take the explicit ref.</li>
+        <li><strong>Judgeability check.</strong> If the description has no verifiable criteria, refuse to pick up and suggest <code>/backlog-enhance-tasks</code> first. A loop without a Judge gate is the failure mode this skill exists to prevent.</li>
+        <li><strong>Move to doing</strong>, comment "attempt 1 of max 5".</li>
+        <li><strong>Attach a plan</strong> if non-trivial (more than one file, more than one concern, non-obvious criteria).</li>
+        <li><strong>Iterate (max 5 attempts):</strong>
+          <ul>
+            <li>Implement (from scratch on attempt 1, from the prior Judge's <code>next_fix_hint</code> on attempts 2–5).</li>
+            <li>Run verification commands.</li>
+            <li>Dispatch the Judge sub-agent with a strict <code>[JUDGE RECEIPT]</code> schema. The Judge reads the task description, runs every verification command, and rejects proxy signals (tests pass ≠ feature works, files changed ≠ behavior changed, plan written ≠ implemented, build green ≠ correct output).</li>
+            <li>Post the receipt as a comment. PASS → break. FAIL → next attempt.</li>
+          </ul>
+        </li>
+        <li><strong>On PASS.</strong> Completion comment, <code>task move --status done</code>, exit.</li>
+        <li><strong>On 5 failures or hard blocker.</strong> Diagnostic comment (what kept failing, what was tried, what's needed to unblock), <code>task move --status todo</code>, exit.</li>
+      </ol>
+
+      <h3>Headless execution</h3>
+
+      <p><code>backlog-loop</code> is designed for <code>claude -p</code> (non-interactive print mode). All three terminal states (done, blocked, no-work) exit with code 0; non-zero means a harness error, not a task failure.</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">claude -p "/backlog-loop &lt;project&gt;" \
+  --permission-mode acceptEdits \
+  --output-format stream-json \
+  --max-turns 80</code></pre>
+      </div>
+
+      <p>Drain a whole project by wrapping the invocation in a shell loop:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">while [ "$(./backlog --profile default task list --project myproj --status todo --json | jq '.tasks | length')" -gt 0 ]; do
+  claude -p "/backlog-loop myproj" --permission-mode acceptEdits --max-turns 80
+done</code></pre>
+      </div>
+
+      <p>The skill's <code>help</code> invocation prints the full headless guide including the drain script, a cron entry, and a GitHub Actions example.</p>
+
+      <h3>When to use</h3>
+
+      <ul>
+        <li>Clearing one well-scoped item off the backlog with verification.</li>
+        <li>As the inner step of a drain script that empties a project task by task.</li>
+        <li>As a scheduled cron / CI job that keeps a long backlog moving.</li>
+      </ul>
+
+      <h2 id="goal">backlog-goal</h2>
+
+      <p>End-to-end goal pursuit. Maps a stated goal to a backlog project, decomposes it into checkpoints with verifiable acceptance criteria, executes via Scout/Judge/Worker sub-agents with a strict completion gate.</p>
+
+      <h3>Invocation</h3>
+
+      <div class="code-block">
+        <pre><code class="language-bash">/backlog-goal &lt;goal&gt;        # PREP mode (default)
+/backlog-goal prep &lt;goal&gt;   # explicit PREP mode
+/backlog-goal run &lt;slug&gt;    # execute the prepared board
+/backlog-goal status &lt;slug&gt; # read-only board summary
+/backlog-goal pause &lt;slug&gt;  # move all doing tasks back to todo, stop
+/backlog-goal clear &lt;slug&gt;  # archive all tasks; brief and plan preserved</code></pre>
+      </div>
+
+      <h3>Two strict modes</h3>
+
+      <p><strong>PREP</strong> asks, classifies, seeds, <em>stops</em>. It never starts work.</p>
+
+      <ol>
+        <li><strong>Intake compiler (private).</strong> Extracts <code>input_shape</code>, <code>domain</code>, <code>audience</code>, <code>authority</code>, <code>proof_type</code>, <code>completion_proof</code>, <code>likely_misfire</code>, <code>what_bad_looks_like</code>, <code>recurring_blind_spots</code>, <code>reference_patterns</code>, <code>anti_patterns</code>, <code>existing_plan_facts</code>.</li>
+        <li><strong>Diagnostic ladder (interactive).</strong> <code>AskUserQuestion</code> in batches across 13 categories. Vague input gets one question per batch with 2 to 4 options plus a recommended default; the agent reflects on each answer before asking the next.</li>
+        <li><strong>Agent-generated clarifiers.</strong> After the canned categories, the agent reads relevant code and asks 3 to 5 of its own questions.</li>
+        <li><strong>Brief.</strong> Written to disk <em>and</em> stored as a versioned backlog doc.</li>
+        <li><strong>Plan with 3 to 7 checkpoints.</strong> Each has quantified acceptance criteria plus runnable verification commands. Two PREP gates apply:
+          <ul>
+            <li><strong>Quantification gate.</strong> Every criterion reduces to a number, exit code, strict equality, counted artifact, or presence/absence.</li>
+            <li><strong>Verifiability gate.</strong> Every criterion has a runnable verifier, or is explicitly accepted as manual review.</li>
+          </ul>
+        </li>
+        <li><strong>Seed the board.</strong> Project, role labels (<code>checkpoint</code>, <code>scout</code>, <code>worker</code>, <code>judge</code>, <code>final-audit</code>), checkpoint tasks, per-checkpoint Scout/Worker/Judge tasks, and a mandatory final-audit Judge task.</li>
+      </ol>
+
+      <p><strong>RUN</strong> executes the board. The PM (main loop) is the only thing that selects tasks, dispatches sub-agents, and moves the board.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">ℹ</span>
+        <span>The <strong>Continuation invariant</strong> is restated at the top of every RUN iteration: <em>do not accept proxy signals as completion. Tests passing ≠ feature working. Files changed ≠ behavior changed. Plan written ≠ implemented.</em> The Judge is the only path to <code>done</code>.</span>
+      </div>
+
+      <h3>Sub-agent roles</h3>
+
+      <table>
+        <thead><tr><th>Role</th><th>Access</th><th>Effort</th><th>Returns</th></tr></thead>
+        <tbody>
+          <tr><td><code>Scout</code></td><td>read-only</td><td>low</td><td>Evidence map, candidates, contradictions</td></tr>
+          <tr><td><code>Worker</code></td><td>write inside <code>allowed_files</code></td><td>low–medium</td><td>Changed files, verify commands + exit codes</td></tr>
+          <tr><td><code>Judge</code></td><td>read-only</td><td>high</td><td>PASS/FAIL with file:line evidence per criterion</td></tr>
+          <tr><td><code>PM</code> (main loop)</td><td>board control</td><td>—</td><td>Only role that moves task status</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Parallel execution</h3>
+
+      <p>Default sequential. Parallel is opt-in per dispatch and PM-controlled:</p>
+
+      <ul>
+        <li><strong>Always safe:</strong> multiple Scouts; multiple Judges on disjoint inputs.</li>
+        <li><strong>Conditionally safe:</strong> multiple Workers when <code>allowed_files</code> are provably disjoint and <code>verify</code> commands don't collide.</li>
+        <li><strong>Never parallel:</strong> two checkpoint Judges on the same checkpoint; the final-audit Judge alongside anything.</li>
+      </ul>
+
+      <h3>Memory writes</h3>
+
+      <p>Every meaningful state transition writes a backlog memory entry. Memory is the inter-turn carrier. Receipts are per-task, the activity log is per-event, and memory is the only place cross-task and cross-session knowledge lives.</p>
+
+      <table>
+        <thead><tr><th>Tag</th><th>Written when</th></tr></thead>
+        <tbody>
+          <tr><td><code>goal,prep-complete</code></td><td>After PREP seeds the board</td></tr>
+          <tr><td><code>goal,learning</code></td><td>After any receipt that surfaces durable knowledge: patterns, gotchas, decisions</td></tr>
+          <tr><td><code>goal,checkpoint,checkpoint-pass</code></td><td>Every Judge approval of a checkpoint</td></tr>
+          <tr><td><code>goal,checkpoint,checkpoint-fail</code></td><td>Every Judge rejection</td></tr>
+          <tr><td><code>goal,blocker</code></td><td>Any task blocked needing user input</td></tr>
+          <tr><td><code>goal,decision</code></td><td>PM/Judge design call worth preserving</td></tr>
+          <tr><td><code>goal,completed</code></td><td>Final audit passes</td></tr>
+        </tbody>
+      </table>
+
+      <h3>When to use</h3>
+
+      <ul>
+        <li>Multi-hour or multi-day coding objectives.</li>
+        <li>Open-ended improvement goals where you don't yet know the exact slices.</li>
+        <li>Migrations and refactors that need staged verification.</li>
+        <li>Anything where the agent's own claim of "done" wouldn't be trustworthy.</li>
+      </ul>
+
+      <p>For one well-scoped item, use <code>/backlog-loop</code> instead.</p>
+
+      <h2 id="conventions">Common conventions</h2>
+
+      <h3>Actor attribution</h3>
+
+      <p>Every write must be attributed:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">--as ai:claude-opus-4-7
+--as ai:claude-sonnet-4-6
+--as ai:claude-code
+--as human:alice</code></pre>
+      </div>
+
+      <p>Defaults to <code>human:$USER</code> when <code>--as</code> is omitted, but agents must pass it explicitly. Filter by actor with <code>backlog task list --actor-kind ai</code> or <code>--actor-name claude-code</code>.</p>
+
+      <h3>Profile flag in the backlog repo</h3>
+
+      <p>Inside the backlog repo itself, always pass <code>--profile default</code> when running the CLI. The reason: <code>go test</code> can leave an <code>e2etest</code> profile registered, and if it becomes the default the agent will silently target the wrong workspace. Outside the repo, normal profile resolution applies.</p>
+
+      <h3>JSON output</h3>
+
+      <p>Always pass <code>--json</code> when piping to <code>jq</code> or otherwise programmatically parsing output.</p>
+
+      <h3>Completion protocol</h3>
+
+      <p>Across all four skills, the completion sequence for a task is:</p>
+
+      <ol>
+        <li>Do the work.</li>
+        <li>Post a comment summarizing what was done (Scout/Worker/Judge receipt for the loop/goal skills; plain summary for the base skill).</li>
+        <li>Move the task to <code>done</code>: <code>backlog task move TASK-N --status done --as "ai:&lt;model&gt;"</code>.</li>
+      </ol>
+
+      <p><code>backlog-loop</code> and <code>backlog-goal</code> additionally gate this behind a Judge sub-agent. The base <code>backlog</code> skill and <code>backlog-enhance-tasks</code> do not.</p>
+
+      <h2 id="dependency-graph">Dependency graph</h2>
+
+      <div class="code-block">
+        <pre><code>backlog-goal      backlog-loop      backlog-enhance-tasks
+    │                 │                       │
+    └─────────────────┴───────────────────────┘
+                      │
+                      ▼
+                  backlog  (canonical CLI reference)</code></pre>
+      </div>
+
+      <p>Every workflow skill depends on the base <code>backlog</code> skill for command surface, flag semantics, and JSON shapes. Each declares the dependency at the top of its skill file so an agent loading the workflow skill is reminded to read the base skill first.</p>
+
+    </div>
+
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="mcp.html" class="page-nav-link prev">
+        <span class="page-nav-hint">← Previous</span>
+        <span class="page-nav-title">MCP</span>
+      </a>
+      <a href="api.html" class="page-nav-link next">
+        <span class="page-nav-hint">Next →</span>
+        <span class="page-nav-title">API</span>
+      </a>
+    </nav>
+  </main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/markdown.min.js"></script>
+<script>hljs.highlightAll();
+(function ghStars() {
+  const targets = document.querySelectorAll('[data-stars-target]');
+  if (!targets.length) return;
+  const cacheKey = 'bl_gh_stars_v1';
+  const cacheTTL = 60 * 60 * 1000;
+  function fmt(n) { return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'') + 'k' : String(n); }
+  function paint(n) { targets.forEach((el) => { el.textContent = fmt(n); }); }
+  try {
+    const c = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    if (c && Date.now() - c.t < cacheTTL && typeof c.n === 'number') { paint(c.n); return; }
+  } catch (_) {}
+  fetch('https://api.github.com/repos/mazen160/backlog', { headers: { Accept: 'application/vnd.github+json' } })
+    .then((r) => r.ok ? r.json() : null)
+    .then((d) => { if (d && typeof d.stargazers_count === 'number') { paint(d.stargazers_count); try { localStorage.setItem(cacheKey, JSON.stringify({ n: d.stargazers_count, t: Date.now() })); } catch (_) {} } })
+    .catch(() => {});
+})();
+</script>
+</body>
+</html>

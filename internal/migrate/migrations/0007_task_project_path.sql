@@ -1,0 +1,1 @@
+ALTER TABLE tasks ADD COLUMN project_path TEXT NOT NULL DEFAULT '';

@@ -1,0 +1,36 @@
+# Binary
+/backlog
+/backlog.exe
+dist/
+
+# Workspace data (commit backlog.db only if you want to share the backlog)
+backlog.db
+*.backup.db
+
+# macOS
+.DS_Store
+
+# Test coverage
+coverage.out
+coverage.html
+
+# E2E test artifacts
+e2e/.test.db
+e2e/.test.db-shm
+e2e/.test.db-wal
+e2e/.server.pid
+e2e/node_modules/
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+.claude/
+
+# Internal design artifacts (not for public consumption)
+docs/CLAUDE/
+
+# Stray files
+tests/*.txt
+bin/backlog-test

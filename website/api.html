@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTTP API · Backlog</title>
+  <meta name="description" content="Backlog's embedded HTTP API. Read and write tasks, plans, docs, and memory from any language. Powers the web UI and your scripts.">
+  <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://mazen160.github.io/backlog/api.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='3' y='4' width='16' height='3' rx='1.5' fill='%23B87333'/%3E%3Crect x='3' y='9.5' width='11' height='3' rx='1.5' fill='%23B87333' opacity='0.65'/%3E%3Crect x='3' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.4'/%3E%3C/svg%3E">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="HTTP API · Backlog">
+  <meta property="og:description" content="Read and write tasks, plans, docs, and memory from any language. Powers the web UI and your scripts.">
+  <meta property="og:url" content="https://mazen160.github.io/backlog/api.html">
+  <meta property="og:site_name" content="Backlog">
+  <meta property="og:image" content="https://mazen160.github.io/backlog/og-share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Backlog HTTP API reference.">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HTTP API · Backlog">
+  <meta name="twitter:description" content="Read and write tasks, plans, docs, and memory from any language.">
+  <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentation navigation">
+    <a href="index.html" class="sidebar-back">← backlog</a>
+    <a href="index.html" class="sidebar-logo">
+      <svg class="sidebar-logo-mark" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
+        <rect x="3" y="4"   width="16" height="3" rx="1.5"/>
+        <rect x="3" y="9.5" width="11" height="3" rx="1.5" opacity="0.65"/>
+        <rect x="3" y="15"  width="6"  height="3" rx="1.5" opacity="0.4"/>
+      </svg>
+      <span class="sidebar-logo-wordmark">Backlog</span>
+    </a>
+    <div class="sidebar-section">Docs</div>
+    <a href="index.html"           class="sidebar-item"><span class="icon">⌂</span>Home</a>
+    <a href="getting-started.html" class="sidebar-item"><span class="icon">→</span>Getting Started</a>
+    <a href="working-across-sessions.html" class="sidebar-item"><span class="icon">∾</span>Across Sessions</a>
+    <a href="concepts.html"        class="sidebar-item"><span class="icon">◇</span>Core Concepts</a>
+    <a href="cli.html"             class="sidebar-item"><span class="icon">⌘</span>CLI Reference</a>
+    <a href="mcp.html"             class="sidebar-item"><span class="icon">∷</span>MCP</a>
+    <a href="skills.html"          class="sidebar-item"><span class="icon">⊕</span>Skills</a>
+    <a href="api.html"             class="sidebar-item active"><span class="icon">≡</span>API</a>
+
+    <div class="sidebar-section">Project</div>
+    <a href="https://github.com/mazen160/backlog" rel="noopener" class="sidebar-item sidebar-stars" aria-label="Star Backlog on GitHub">
+      <span class="icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg></span>
+      Star on GitHub<span class="sidebar-stars-count" data-stars-target>—</span>
+    </a>
+  </nav>
+
+  <main class="main">
+    <div class="doc-page-header">
+      <div class="doc-section-label">Reference</div>
+      <h1 class="doc-page-title">HTTP API</h1>
+      <p class="doc-page-subtitle">The embedded HTTP server that powers the web UI. All endpoints usable directly for scripts, integrations, and third-party clients.</p>
+    </div>
+
+    <div class="toc">
+      <div class="toc-title">On this page</div>
+      <ol>
+        <li><a href="#start">Starting the server</a></li>
+        <li><a href="#conventions">Conventions</a></li>
+        <li><a href="#enums">Enums</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#tasks">Tasks</a></li>
+        <li><a href="#labels">Labels</a></li>
+        <li><a href="#plans">Plans</a></li>
+        <li><a href="#docs">Docs</a></li>
+        <li><a href="#memory">Memory</a></li>
+        <li><a href="#attachments">Attachments</a></li>
+        <li><a href="#activity">Activity</a></li>
+        <li><a href="#gaps">Known gaps</a></li>
+      </ol>
+    </div>
+
+    <div class="doc-body">
+
+      <h2 id="start">Starting the server</h2>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog web                                    # http://localhost:8080, opens browser
+backlog web --port 3000                        # custom port
+backlog web --no-browser                       # don't auto-open
+backlog --as ai:claude-code --db /path/to/backlog.db web --port 8080</code></pre>
+      </div>
+
+      <p>All API routes live under <code>/api/</code>. The base URL is <code>http://localhost:8080/api/&lt;resource&gt;</code> by default.</p>
+
+      <p>The actor resolved at startup is attributed to every write through the API. There is no per-request actor override. To run as a different actor, restart with a different <code>--as</code> flag.</p>
+
+      <h2 id="conventions">Conventions</h2>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">ℹ</span>
+        <span><strong>Identifiers:</strong> All entities use 26-character Crockford Base32 ULIDs. Tasks are also addressable as <code>TASK-N</code>, bare integer <code>N</code>, or an 8-char ULID prefix.</span>
+      </div>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠</span>
+        <span><strong>Timestamps:</strong> All <code>*_at</code> fields are Unix <strong>nanoseconds</strong> (<code>int64</code>), not milliseconds. Convert with <code>new Date(ns / 1_000_000)</code> in JavaScript or <code>time.Unix(0, ns)</code> in Go.</span>
+      </div>
+
+      <div class="callout callout-warn">
+        <span class="callout-icon">⚠</span>
+        <span><strong>No authentication.</strong> The server is intended for localhost use only. Do not expose <code>backlog web</code> to the public internet.</span>
+      </div>
+
+      <h3>Response shape</h3>
+
+      <p>All success responses are JSON. Errors return <code>{"error": "human-readable message"}</code> with a <code>4xx</code> or <code>5xx</code> status.</p>
+
+      <table>
+        <thead><tr><th>Code</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>200</code></td><td>Success with body</td></tr>
+          <tr><td><code>204</code></td><td>Success, no body (DELETE operations)</td></tr>
+          <tr><td><code>400</code></td><td>Invalid request, validation failure, or business-rule violation</td></tr>
+          <tr><td><code>404</code></td><td>Resource not found</td></tr>
+          <tr><td><code>405</code></td><td>Wrong HTTP method</td></tr>
+          <tr><td><code>500</code></td><td>DB error or internal failure</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Pagination</h3>
+
+      <p>Endpoints that return long lists accept <code>limit</code> and <code>offset</code> query params. <code>GET /api/tasks</code> defaults to <code>limit=50, offset=0</code> and returns <code>page.total</code>. Other collection endpoints return the full result set with no pagination.</p>
+
+      <h2 id="enums">Enums</h2>
+
+      <table>
+        <thead><tr><th>Enum</th><th>Values</th></tr></thead>
+        <tbody>
+          <tr><td>Task type</td><td><code>task</code> · <code>bug</code> · <code>issue</code> · <code>improvement</code> · <code>feature</code> · <code>vulnerability</code> · <code>chore</code> · <code>spike</code> · <code>bucket-list</code></td></tr>
+          <tr><td>Task status</td><td><code>todo</code> · <code>doing</code> · <code>done</code></td></tr>
+          <tr><td>Priority</td><td>Integer <code>1</code>–<code>5</code>. <code>1</code> = critical, <code>5</code> = backlog. Default <code>3</code>.</td></tr>
+          <tr><td>Actor kind</td><td><code>human</code> · <code>ai</code></td></tr>
+        </tbody>
+      </table>
+
+      <!-- ─── Projects ─── -->
+      <h2 id="projects">Projects</h2>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/projects</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">List projects. Pass <code>include_archived=true</code> to include archived projects.</p>
+          <div class="code-block">
+            <pre><code class="language-bash">curl 'http://localhost:8080/api/projects'
+curl 'http://localhost:8080/api/projects?include_archived=true'</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-post">POST</span>
+          <span class="endpoint-path">/api/projects</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Create a project. Required: <code>alias</code> (lowercase alphanumeric + hyphens, 1–64 chars), <code>name</code> (1–255 chars).</p>
+          <div class="code-block">
+            <pre><code class="language-bash">curl -X POST http://localhost:8080/api/projects \
+  -H 'Content-Type: application/json' \
+  -d '{"alias":"app","name":"My App","repo_path":"/code/app"}'</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-patch">PATCH</span>
+          <span class="endpoint-path">/api/projects/{alias}/archive</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Archive a project. Body: <code>{}</code>.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-patch">PATCH</span>
+          <span class="endpoint-path">/api/projects/{alias}/unarchive</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Restore an archived project.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-delete">DELETE</span>
+          <span class="endpoint-path">/api/projects/{alias}</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Permanently delete an archived project. Active projects return <code>400</code>. Response: <code>204 No Content</code>.</p>
+        </div>
+      </div>
+
+      <!-- ─── Tasks ─── -->
+      <h2 id="tasks">Tasks</h2>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/tasks</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">List tasks with optional filters. Returns <code>{"tasks": [...], "page": {"total": N}}</code>.</p>
+          <table>
+            <thead><tr><th>Param</th><th>Type</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td><code>project</code></td><td>string</td><td>Project alias</td></tr>
+              <tr><td><code>status</code></td><td>enum</td><td><code>todo</code> · <code>doing</code> · <code>done</code></td></tr>
+              <tr><td><code>type</code></td><td>enum</td><td>Task type</td></tr>
+              <tr><td><code>priority</code></td><td>int</td><td>Exact match, 1–5</td></tr>
+              <tr><td><code>label</code></td><td>string (repeated)</td><td>Multiple <code>label=</code> params are ANDed</td></tr>
+              <tr><td><code>search</code></td><td>string</td><td>FTS5: supports prefix (<code>sql*</code>) and boolean (<code>jwt OR csrf</code>)</td></tr>
+              <tr><td><code>sort</code></td><td>string</td><td><code>priority</code> (default) · <code>created</code> · <code>updated</code> · <code>seq</code></td></tr>
+              <tr><td><code>include_archived</code></td><td>bool</td><td>Default <code>false</code></td></tr>
+              <tr><td><code>limit</code></td><td>int</td><td>Default 50</td></tr>
+              <tr><td><code>offset</code></td><td>int</td><td>Default 0</td></tr>
+            </tbody>
+          </table>
+          <div class="code-block">
+            <pre><code class="language-bash">curl 'http://localhost:8080/api/tasks?project=app&type=bug&priority=2'
+curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-post">POST</span>
+          <span class="endpoint-path">/api/tasks</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Create a task. Required: <code>project</code> (alias), <code>title</code>. Optional: <code>description</code>, <code>type</code>, <code>status</code>, <code>priority</code>, <code>assignee</code>, <code>due_date</code> (YYYY-MM-DD or RFC3339), <code>source</code>, <code>external_ref</code>, <code>project_path</code>, <code>labels</code> (string array, auto-created if missing).</p>
+          <div class="code-block">
+            <pre><code class="language-bash">curl -X POST http://localhost:8080/api/tasks \
+  -H 'Content-Type: application/json' \
+  -d '{"project":"app","title":"Fix login timeout","type":"bug","priority":2,"labels":["auth"]}'</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/tasks/{id}</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Get a single task. <code>{id}</code> accepts ULID, <code>TASK-N</code>, bare integer, or 8-char prefix. Always returns <code>project</code>, <code>labels</code>, <code>plans</code>, and <code>comments</code> populated.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-patch">PATCH</span>
+          <span class="endpoint-path">/api/tasks/{id}</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Partial update. Omitted fields are left unchanged. Accepted: <code>title</code>, <code>description</code>, <code>type</code>, <code>priority</code>, <code>assignee</code>, <code>due_at</code>, <code>due_date</code>, <code>clear_due_at</code> (bool), <code>source</code>, <code>external_ref</code>, <code>project_path</code>. Note: <code>status</code> is not accepted here. Use <code>PATCH /api/tasks/{id}/status</code> instead.</p>
+          <div class="code-block">
+            <pre><code class="language-bash">curl -X PATCH http://localhost:8080/api/tasks/TASK-35 \
+  -H 'Content-Type: application/json' \
+  -d '{"assignee":"human:bob","priority":1}'</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-patch">PATCH</span>
+          <span class="endpoint-path">/api/tasks/{id}/status</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Transition status. Body: <code>{"status": "doing"}</code>. Setting <code>done</code> also sets <code>completed_at</code>.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-patch">PATCH</span>
+          <span class="endpoint-path">/api/tasks/{id}/archive</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Soft-archive a task. Sets <code>archived_at</code>. Body: none required.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-patch">PATCH</span>
+          <span class="endpoint-path">/api/tasks/{id}/unarchive</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Restore an archived task.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-post">POST</span>
+          <span class="endpoint-path">/api/tasks/{id}/comments</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Add a comment. Body: <code>{"body": "..."}</code>.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-post">POST</span>
+          <span class="endpoint-path">/api/tasks/{id}/plans</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Add a plan (v1). Body: <code>{"title": "...", "body": "..."}</code>.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-post">POST</span>
+          <span class="endpoint-path">/api/tasks/{id}/labels</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Attach a label by name. Body: <code>{"name": "security"}</code>. Auto-creates the label if it doesn't exist.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-delete">DELETE</span>
+          <span class="endpoint-path">/api/tasks/{id}/labels/{name}</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Detach a label from a task. Does not delete the label from the project.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-delete">DELETE</span>
+          <span class="endpoint-path">/api/tasks/{id}</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Hard delete a task and all its plans, comments, and label associations. Response: <code>204</code>.</p>
+        </div>
+      </div>
+
+      <!-- ─── Labels ─── -->
+      <h2 id="labels">Labels</h2>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/labels</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">List all labels. Pass <code>project=&lt;alias&gt;</code> to filter by project.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-post">POST</span>
+          <span class="endpoint-path">/api/labels</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Create a label. Body: <code>{"project": "&lt;alias&gt;", "name": "security", "color": "#e03e3e"}</code>. Idempotent: returns the existing label if name already exists in that project.</p>
+        </div>
+      </div>
+
+      <!-- ─── Plans ─── -->
+      <h2 id="plans">Plans</h2>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/plans</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">List plans. Required: <code>task=&lt;id&gt;</code> query param. Returns current version of each plan on the task.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/plans/{id}</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Get the current version of a plan by ULID.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-patch">PATCH</span>
+          <span class="endpoint-path">/api/plans/{id}</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Update a plan (creates new version). Body: <code>{"title": "...", "body": "...", "change_note": "optional note"}</code>.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/plans/{id}/history</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">All versions of a plan in ascending version order. Each entry includes version number, title, body, actor, change note, and timestamp.</p>
+        </div>
+      </div>
+
+      <!-- ─── Docs ─── -->
+      <h2 id="docs">Docs</h2>
+
+      <p>Versioned markdown documents scoped to a project (not a task). Same versioning model as plans.</p>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/docs</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">List docs. Pass <code>project=&lt;alias&gt;</code> to filter by project. Omit for all non-archived projects.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-post">POST</span>
+          <span class="endpoint-path">/api/docs</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Create a doc. Body: <code>{"project": "&lt;alias&gt;", "title": "...", "body": "..."}</code>.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/docs/{id}</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Get current version of a doc by ULID.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-patch">PATCH</span>
+          <span class="endpoint-path">/api/docs/{id}</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Update a doc (creates new version). Body: <code>{"title": "...", "body": "...", "change_note": "optional"}</code>.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-delete">DELETE</span>
+          <span class="endpoint-path">/api/docs/{id}</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Delete a doc and all its versions. Response: <code>204 No Content</code>.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/docs/{id}/history</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">All versions of a doc in ascending version order.</p>
+        </div>
+      </div>
+
+      <!-- ─── Memory ─── -->
+      <h2 id="memory">Memory</h2>
+
+      <p>Free-form tagged notes scoped to a project. Mutable (not versioned). The agent's cross-session scratchpad: decisions, design rationale, and anything the next session needs to know on pickup.</p>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/memory</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">List memory entries. Pass <code>project=&lt;alias&gt;</code> to filter. Pass <code>tag=&lt;name&gt;</code> to filter by tag.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-post">POST</span>
+          <span class="endpoint-path">/api/memory</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Create a memory entry. Body: <code>{"project": "&lt;alias&gt;", "body": "...", "tags": "decision,auth"}</code>.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-patch">PATCH</span>
+          <span class="endpoint-path">/api/memory/{id}</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Update a memory entry in-place (no version history). Body: <code>{"body": "...", "tags": "..."}</code>.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-patch">PATCH</span>
+          <span class="endpoint-path">/api/memory/{id}/append</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Append content to an existing memory entry. Creates a new version with the old body + newline + new content. Body: <code>{"body": "additional content"}</code>.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-delete">DELETE</span>
+          <span class="endpoint-path">/api/memory/{id}</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Delete a memory entry. Response: <code>204 No Content</code>.</p>
+        </div>
+      </div>
+
+      <!-- ─── Attachments ─── -->
+      <h2 id="attachments">Attachments</h2>
+
+      <p>Binary file attachments linked to tasks or docs. Max 10 MiB per file. Stored as blobs in <code>backlog.db</code>.</p>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/attachments</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">List attachment metadata. Pass <code>project=&lt;alias&gt;</code> to filter. Omit for all projects. Does not return the blob data.</p>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-post">POST</span>
+          <span class="endpoint-path">/api/attachments</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Upload an attachment. Multipart form with fields: <code>file</code> (the binary), <code>linked_type</code> (<code>task</code> or <code>doc</code>), <code>linked_id</code> (ULID), <code>name</code> (optional, defaults to filename).</p>
+          <div class="code-block">
+            <pre><code class="language-bash">curl -X POST http://localhost:8080/api/attachments \
+  -F 'file=@screenshot.png' \
+  -F 'linked_type=task' \
+  -F 'linked_id=01KR8KXJHFGX4CS9MTX2J4B5XV'</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/attachments/{id}</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Download the attachment blob. Returns the binary with <code>Content-Type</code> and <code>Content-Disposition</code> headers set.</p>
+        </div>
+      </div>
+
+      <!-- ─── Activity ─── -->
+      <h2 id="activity">Activity</h2>
+
+      <div class="endpoint">
+        <div class="endpoint-header">
+          <span class="method method-get">GET</span>
+          <span class="endpoint-path">/api/activity</span>
+        </div>
+        <div class="endpoint-body">
+          <p class="endpoint-desc">Append-only event log of all write operations. Newest first. Returns <code>{"events": [...], "total": N}</code>.</p>
+          <table>
+            <thead><tr><th>Param</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td><code>project</code></td><td>Project alias (resolved to ID server-side)</td></tr>
+              <tr><td><code>kind</code></td><td>Entity kind: <code>task</code>, <code>plan</code>, <code>doc</code>, <code>comment</code>, etc.</td></tr>
+              <tr><td><code>actor</code></td><td><code>kind:name</code> (parsed as <code>actor_kind</code> + <code>actor_name</code>)</td></tr>
+              <tr><td><code>limit</code></td><td>Default 50, max 10000</td></tr>
+              <tr><td><code>offset</code></td><td>Default 0</td></tr>
+            </tbody>
+          </table>
+          <div class="code-block">
+            <pre><code class="language-bash">curl 'http://localhost:8080/api/activity?project=app&actor=ai:claude-code'</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── Known gaps ─── -->
+      <h2 id="gaps">Known gaps</h2>
+
+      <p>These operations are only available via the CLI:</p>
+
+      <ul>
+        <li><code>backlog project update</code>: project field updates</li>
+        <li><code>backlog import</code> and <code>backlog import-findings</code>: workspace and findings import</li>
+        <li><code>backlog export</code>: CSV/Markdown/JSON export</li>
+        <li><code>backlog sync</code>: manifest reconciliation</li>
+        <li><code>backlog doctor</code>: integrity check and backup</li>
+        <li><code>backlog profile</code>: workspace profile management</li>
+        <li>Comment delete: comments can be listed and created via API but not deleted</li>
+      </ul>
+
+    </div>
+
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="skills.html" class="page-nav-link prev">
+        <span class="page-nav-hint">← Previous</span>
+        <span class="page-nav-title">Skills</span>
+      </a>
+      <span></span>
+    </nav>
+  </main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
+<script>hljs.highlightAll();
+(function ghStars() {
+  const targets = document.querySelectorAll('[data-stars-target]');
+  if (!targets.length) return;
+  const cacheKey = 'bl_gh_stars_v1';
+  const cacheTTL = 60 * 60 * 1000;
+  function fmt(n) { return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'') + 'k' : String(n); }
+  function paint(n) { targets.forEach((el) => { el.textContent = fmt(n); }); }
+  try {
+    const c = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    if (c && Date.now() - c.t < cacheTTL && typeof c.n === 'number') { paint(c.n); return; }
+  } catch (_) {}
+  fetch('https://api.github.com/repos/mazen160/backlog', { headers: { Accept: 'application/vnd.github+json' } })
+    .then((r) => r.ok ? r.json() : null)
+    .then((d) => { if (d && typeof d.stargazers_count === 'number') { paint(d.stargazers_count); try { localStorage.setItem(cacheKey, JSON.stringify({ n: d.stargazers_count, t: Date.now() })); } catch (_) {} } })
+    .catch(() => {});
+})();
+</script>
+</body>
+</html>

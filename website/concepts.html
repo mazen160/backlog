@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Core Concepts · Backlog</title>
+  <meta name="description" content="The mental model behind Backlog: tasks, plans, actors, attribution, the agentic loop, and why one Backlog DB beats a SaaS PM tool for AI agents.">
+  <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://mazen160.github.io/backlog/concepts.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='3' y='4' width='16' height='3' rx='1.5' fill='%23B87333'/%3E%3Crect x='3' y='9.5' width='11' height='3' rx='1.5' fill='%23B87333' opacity='0.65'/%3E%3Crect x='3' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.4'/%3E%3C/svg%3E">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Core Concepts · Backlog">
+  <meta property="og:description" content="The mental model behind Backlog: tasks, plans, actors, attribution, the agentic loop, and why one Backlog DB beats a SaaS PM tool for AI agents.">
+  <meta property="og:url" content="https://mazen160.github.io/backlog/concepts.html">
+  <meta property="og:site_name" content="Backlog">
+  <meta property="og:image" content="https://mazen160.github.io/backlog/og-share.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Backlog core concepts: the agentic loop, actors, attribution.">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Core Concepts · Backlog">
+  <meta name="twitter:description" content="The mental model behind Backlog: tasks, plans, actors, attribution, and the agentic loop.">
+  <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentation navigation">
+    <a href="index.html" class="sidebar-back">← backlog</a>
+    <a href="index.html" class="sidebar-logo">
+      <svg class="sidebar-logo-mark" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
+        <rect x="3" y="4"   width="16" height="3" rx="1.5"/>
+        <rect x="3" y="9.5" width="11" height="3" rx="1.5" opacity="0.65"/>
+        <rect x="3" y="15"  width="6"  height="3" rx="1.5" opacity="0.4"/>
+      </svg>
+      <span class="sidebar-logo-wordmark">Backlog</span>
+    </a>
+    <div class="sidebar-section">Docs</div>
+    <a href="index.html"           class="sidebar-item"><span class="icon">⌂</span>Home</a>
+    <a href="getting-started.html" class="sidebar-item"><span class="icon">→</span>Getting Started</a>
+    <a href="working-across-sessions.html" class="sidebar-item"><span class="icon">∾</span>Across Sessions</a>
+    <a href="concepts.html"        class="sidebar-item active"><span class="icon">◇</span>Core Concepts</a>
+    <a href="cli.html"             class="sidebar-item"><span class="icon">⌘</span>CLI Reference</a>
+    <a href="mcp.html"             class="sidebar-item"><span class="icon">∷</span>MCP</a>
+    <a href="skills.html"          class="sidebar-item"><span class="icon">⊕</span>Skills</a>
+    <a href="api.html"             class="sidebar-item"><span class="icon">≡</span>API</a>
+
+    <div class="sidebar-section">Project</div>
+    <a href="https://github.com/mazen160/backlog" rel="noopener" class="sidebar-item sidebar-stars" aria-label="Star Backlog on GitHub">
+      <span class="icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg></span>
+      Star on GitHub<span class="sidebar-stars-count" data-stars-target>—</span>
+    </a>
+  </nav>
+
+  <main class="main">
+    <div class="doc-page-header">
+      <div class="doc-section-label">Documentation</div>
+      <h1 class="doc-page-title">Core Concepts</h1>
+      <p class="doc-page-subtitle">The vocabulary and data model behind every backlog command.</p>
+    </div>
+
+    <div class="toc">
+      <div class="toc-title">On this page</div>
+      <ol>
+        <li><a href="#workspace">Workspace</a></li>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#project">Project</a></li>
+        <li><a href="#task">Task</a></li>
+        <li><a href="#plan">Plan</a></li>
+        <li><a href="#actor">Actor</a></li>
+        <li><a href="#label">Label</a></li>
+        <li><a href="#doc">Doc</a></li>
+        <li><a href="#memory">Memory</a></li>
+        <li><a href="#ulid">ULID vs TASK-N</a></li>
+        <li><a href="#activity">Activity log</a></li>
+      </ol>
+    </div>
+
+    <div class="doc-body">
+
+      <table>
+        <thead><tr><th>Concept</th><th>What it is</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Workspace</strong></td><td>A directory containing <code>backlog.db</code> and <code>config.toml</code>. Created by <code>backlog init</code>.</td></tr>
+          <tr><td><strong>Project</strong></td><td>A named grouping of tasks, identified by a short alias. Optionally linked to a <code>repo_path</code>.</td></tr>
+          <tr><td><strong>Task</strong></td><td>The unit of work. Has a type, status, priority, and actor.</td></tr>
+          <tr><td><strong>Plan</strong></td><td>A versioned markdown document on a task. Every edit creates an immutable version.</td></tr>
+          <tr><td><strong>Comment</strong></td><td>A timestamped, actor-attributed note on a task. Append-only.</td></tr>
+          <tr><td><strong>Label</strong></td><td>A per-project tag that can be attached to tasks for filtering.</td></tr>
+          <tr><td><strong>Actor</strong></td><td>Who performed an action. Format: <code>kind:name</code> where kind is <code>human</code> or <code>ai</code>.</td></tr>
+          <tr><td><strong>Profile</strong></td><td>A named pointer to a workspace directory, stored in <code>~/.config/backlog/config.toml</code>.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="workspace">Workspace</h2>
+
+      <p>A workspace is a directory that contains a <code>backlog.db</code> SQLite file. All data for all projects in that workspace (tasks, plans, docs, comments, memory, labels, attachments, activity) lives in that single file.</p>
+
+      <p>Created with <code>backlog init</code>. Two files are created:</p>
+
+      <table>
+        <thead><tr><th>File</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><code>backlog.db</code></td><td>The local database. Tasks, projects, plans, comments, memory, labels, attachments, activity. Keep this local; add it to <code>.gitignore</code>.</td></tr>
+          <tr><td><code>config.toml</code></td><td>Workspace settings: default actor, priority, status, type.</td></tr>
+        </tbody>
+      </table>
+
+      <p>An optional <code>backlog.json</code> manifest can be hand-authored to declare projects; <code>backlog sync</code> reconciles it against the database. It is not created by <code>init</code>.</p>
+
+      <div class="callout callout-tip">
+        <span class="callout-icon">✦</span>
+        <span>To share a backlog across machines or AI clients, point each at the same file via <code>$BACKLOG_DB</code> rather than committing the database to git. See the <a href="working-across-sessions.html">cross-session walkthrough</a>.</span>
+      </div>
+
+      <h3>DB resolution order</h3>
+
+      <p>When you run a command, the database is located by the first match in this chain:</p>
+      <ol>
+        <li><code>--db &lt;path&gt;</code> flag</li>
+        <li><code>--profile &lt;name&gt;</code> flag</li>
+        <li><code>$BACKLOG_DB</code> environment variable</li>
+        <li>Walk up from the current directory looking for <code>backlog.db</code></li>
+        <li>Default profile from <code>~/.config/backlog/config.toml</code></li>
+      </ol>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">ℹ</span>
+        <span>For MCP server configs and CI environments, prefer <code>$BACKLOG_DB</code>. It bypasses directory walking and makes the path explicit regardless of where the process starts.</span>
+      </div>
+
+      <h2 id="profile">Profile</h2>
+
+      <p>A profile is a named pointer to a workspace directory, registered in <code>~/.config/backlog/config.toml</code>. Profiles let you switch between workspaces without typing paths.</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog profile add work --path ~/projects/work/.backlog
+backlog profile set-default work      # use this workspace by default
+backlog task list --profile personal  # use a different workspace for one command
+backlog profile clear-default         # remove the active default</code></pre>
+      </div>
+
+      <p>Default workspaces (created by <code>backlog init</code> without <code>--path</code>) are placed at <code>~/.backlog/&lt;profile-name&gt;/</code>. The default profile name is <code>default</code>.</p>
+
+      <h2 id="project">Project</h2>
+
+      <p>A project groups tasks within a workspace. It has a human-readable name and a short <strong>alias</strong>. The alias is what you type in every <code>-p</code> / <code>--project</code> flag.</p>
+
+      <ul>
+        <li>Alias constraints: lowercase alphanumeric with optional hyphens, 1–64 characters. E.g. <code>api</code>, <code>web-frontend</code>, <code>security-2026</code>.</li>
+        <li>Optional <code>repo_path</code>: filesystem path to the source repository.</li>
+        <li>Projects can be archived (hidden from lists) without deleting their tasks.</li>
+      </ul>
+
+      <p>Set a default project so <code>-p</code> can be omitted:</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog project set-default api
+backlog task list          # implicitly uses api
+backlog project current    # shows the active default
+backlog project clear-default</code></pre>
+      </div>
+
+      <h2 id="task">Task</h2>
+
+      <p>The primary unit of work. Every task belongs to a project and carries:</p>
+
+      <table>
+        <thead><tr><th>Field</th><th>Values</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Ref</strong></td><td><code>TASK-N</code>: per-workspace sequential integer. Also addressable by bare integer or full ULID.</td></tr>
+          <tr><td><strong>Type</strong></td><td><code>task</code> · <code>bug</code> · <code>issue</code> · <code>improvement</code> · <code>feature</code> · <code>vulnerability</code> · <code>chore</code> · <code>spike</code></td></tr>
+          <tr><td><strong>Status</strong></td><td><code>todo</code> (default) · <code>doing</code> · <code>done</code></td></tr>
+          <tr><td><strong>Priority</strong></td><td>P1–P5. P1 is critical/highest. P3 is default.</td></tr>
+          <tr><td><strong>Actor</strong></td><td><code>kind:name</code> of the creator, attributed at the DB level.</td></tr>
+          <tr><td><strong>Assignee</strong></td><td>Optional free-text name of who is responsible.</td></tr>
+          <tr><td><strong>Source</strong></td><td>Origin system, e.g. <code>semgrep</code>, <code>pentest-2026</code>.</td></tr>
+          <tr><td><strong>External ref</strong></td><td>URL or external ticket ID for cross-referencing.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Status lifecycle</h3>
+
+      <div class="code-block">
+        <pre><code>todo  →  doing  →  done
+  ↑___________|</code></pre>
+      </div>
+
+      <p>All transitions are valid in any direction. Use <code>backlog task move &lt;id&gt; --status &lt;status&gt;</code>.</p>
+
+      <h3>Priority scale</h3>
+
+      <table>
+        <thead><tr><th>Value</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-p1">P1</span></td><td>Critical, drop everything</td></tr>
+          <tr><td><span class="badge badge-p2">P2</span></td><td>High, next sprint</td></tr>
+          <tr><td><span class="badge badge-p3">P3</span></td><td>Normal, default</td></tr>
+          <tr><td><span class="badge badge-p4">P4</span></td><td>Low, when time permits</td></tr>
+          <tr><td><span class="badge badge-p5">P5</span></td><td>Backlog, nice to have</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="plan">Plan</h2>
+
+      <p>A versioned markdown document attached to a task. Plans capture implementation plans, remediation steps, or any structured text that may evolve over time.</p>
+
+      <p>The versioning model: every call to <code>backlog plan update</code> creates a new immutable <code>plan_versions</code> row. The plan record tracks the current version number. Old versions are never modified or deleted. <code>backlog plan history &lt;plan-id&gt;</code> returns the full list.</p>
+
+      <table>
+        <thead><tr><th>Ver</th><th>Title</th><th>Actor</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>v1</td><td>Initial remediation plan</td><td><code>ai:claude-code</code></td><td>—</td></tr>
+          <tr><td>v2</td><td>Remediation plan (revised)</td><td><code>human:alice</code></td><td>added key rotation step</td></tr>
+          <tr><td>v3</td><td>Remediation plan (final)</td><td><code>human:alice</code></td><td>simplified step 3 per review</td></tr>
+        </tbody>
+      </table>
+
+      <p>Read a specific version: <code>backlog plan show &lt;plan-id&gt; --version 1</code>.</p>
+
+      <h2 id="actor">Actor</h2>
+
+      <p>An actor is a <code>kind:name</code> pair that attributes every write operation. Kind is either <code>human</code> or <code>ai</code>.</p>
+
+      <table>
+        <thead><tr><th>Example</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>human:alice</code></td><td>Alice the engineer</td></tr>
+          <tr><td><code>ai:claude-code</code></td><td>Claude Code agent</td></tr>
+          <tr><td><code>ai:semgrep</code></td><td>Semgrep scanner (automated import)</td></tr>
+          <tr><td><code>human:ci</code></td><td>CI system acting on behalf of a human workflow</td></tr>
+        </tbody>
+      </table>
+
+      <p>Every task, plan version, doc version, comment, memory entry, and activity log event records the actor. This allows filtering: <code>backlog task list --actor-kind ai</code> or <code>backlog task list --actor-name semgrep</code>.</p>
+
+      <p>The actor is resolved at runtime from the <code>--as</code> flag, workspace config, global config, or <code>$USER</code> env var, in that order. If none are set it defaults to <code>human:$USER</code>.</p>
+
+      <h2 id="label">Label</h2>
+
+      <p>A per-project tag that can be attached to tasks. Labels have a name and an optional hex color. They are scoped to a project. A label named <code>security</code> in project <code>api</code> is distinct from one in project <code>web</code>.</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog label create --project api "security" --color "#e03e3e"
+backlog label attach --task TASK-1 security
+backlog task list --label security</code></pre>
+      </div>
+
+      <h2 id="doc">Doc</h2>
+
+      <p>A versioned markdown document attached to a <em>project</em> (not a task). Docs are used for longer-form project-level content: architecture overviews, runbooks, design documents, ADRs.</p>
+
+      <p>The versioning model is identical to plans: each update creates a new immutable version row. Docs also support an append operation that creates a new version concatenating old content with new content.</p>
+
+      <div class="callout callout-note">
+        <span class="callout-icon">ℹ</span>
+        <span>Docs are accessible via the web UI's Docs page and via the HTTP API. The CLI does not currently expose doc commands. Use <code>backlog web</code> or the API directly.</span>
+      </div>
+
+      <h2 id="memory">Memory</h2>
+
+      <p>Memory is how your AI agent remembers decisions across sessions. Where docs are formal artifacts (architecture overviews, runbooks), memory is the agent's working scratchpad: tagged free-form notes it reads on pickup and writes on completion. Mutable, queryable by tag, persistent across every session.</p>
+
+      <p>AI agents working on a project read and write memory entries via the MCP <code>memory_add</code> and <code>memory_list</code> tools.</p>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog memory add --project api --body "Auth team decision: JWT TTL = 15min" --tags "decision,auth"
+backlog memory list --project api --tag decision</code></pre>
+      </div>
+
+      <h2 id="ulid">ULID vs TASK-N</h2>
+
+      <p>Every entity (task, plan, doc, comment, memory, label, attachment) uses a <strong>ULID</strong> as its primary key. A ULID is a 26-character lexicographically sortable identifier. Tasks <em>additionally</em> have a human-readable <strong>sequential reference</strong>.</p>
+
+      <p>All three formats are accepted wherever a task ID is expected:</p>
+
+      <table>
+        <thead><tr><th>Format</th><th>Example</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Sequential ref</td><td><code>TASK-5</code></td><td>Canonical. Use in messages, comments, PRs.</td></tr>
+          <tr><td>Bare integer</td><td><code>5</code></td><td>Shorthand. Resolves to the same task.</td></tr>
+          <tr><td>Full ULID</td><td><code>01KR4JA4754H...</code></td><td>Useful when chaining JSON output between commands.</td></tr>
+          <tr><td>ULID prefix</td><td><code>01KR4JA4</code></td><td>The 8-char prefix shown in table output.</td></tr>
+        </tbody>
+      </table>
+
+      <p>Plan IDs, doc IDs, memory IDs, and attachment IDs are always ULIDs. There is no sequential <code>N</code> form for those entities.</p>
+
+      <h2 id="activity">Activity log</h2>
+
+      <p>An append-only event log that records every write operation across the workspace. Each event stores:</p>
+
+      <ul>
+        <li><strong>entity:</strong> the kind of entity affected (<code>task</code>, <code>plan</code>, <code>doc</code>, <code>comment</code>, <code>memory</code>, <code>project</code>, <code>label</code>, <code>attachment</code>)</li>
+        <li><strong>entity_id:</strong> the ULID of the affected entity</li>
+        <li><strong>action:</strong> the operation performed (<code>created</code>, <code>updated</code>, <code>status_changed</code>, <code>archived</code>, <code>deleted</code>, etc.)</li>
+        <li><strong>actor:</strong> <code>kind:name</code> of who performed the operation</li>
+        <li><strong>summary:</strong> a human-readable description of the change</li>
+        <li><strong>project_id:</strong> the project the event belongs to</li>
+      </ul>
+
+      <p>The activity log is never pruned. Query it with <code>backlog activity</code> or view the Activity page in the web UI.</p>
+
+    </div>
+
+    <nav class="page-nav" aria-label="Page navigation">
+      <a href="getting-started.html" class="page-nav-link prev">
+        <span class="page-nav-hint">← Previous</span>
+        <span class="page-nav-title">Getting Started</span>
+      </a>
+      <a href="cli.html" class="page-nav-link next">
+        <span class="page-nav-hint">Next →</span>
+        <span class="page-nav-title">CLI Reference</span>
+      </a>
+    </nav>
+  </main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+<script>hljs.highlightAll();
+(function ghStars() {
+  const targets = document.querySelectorAll('[data-stars-target]');
+  if (!targets.length) return;
+  const cacheKey = 'bl_gh_stars_v1';
+  const cacheTTL = 60 * 60 * 1000;
+  function fmt(n) { return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'') + 'k' : String(n); }
+  function paint(n) { targets.forEach((el) => { el.textContent = fmt(n); }); }
+  try {
+    const c = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    if (c && Date.now() - c.t < cacheTTL && typeof c.n === 'number') { paint(c.n); return; }
+  } catch (_) {}
+  fetch('https://api.github.com/repos/mazen160/backlog', { headers: { Accept: 'application/vnd.github+json' } })
+    .then((r) => r.ok ? r.json() : null)
+    .then((d) => { if (d && typeof d.stargazers_count === 'number') { paint(d.stargazers_count); try { localStorage.setItem(cacheKey, JSON.stringify({ n: d.stargazers_count, t: Date.now() })); } catch (_) {} } })
+    .catch(() => {});
+})();
+</script>
+</body>
+</html>
