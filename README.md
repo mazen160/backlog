@@ -1,5 +1,12 @@
 <div align="center">
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/logo-lockup-dark.png">
+  <img src="assets/logo-lockup-light.png" alt="Backlog" width="280">
+</picture>
+
+<br><br>
+
 <img src="assets/banner.png" alt="Backlog — your AI agent shouldn't ask 'what's next?' It should just check $ backlog" width="100%">
 
 <br>

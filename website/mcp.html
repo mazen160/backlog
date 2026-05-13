@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MCP · Backlog</title>
+  <title>MCP — Backlog</title>
   <meta name="description" content="Wire Backlog into Claude Code, Cursor, Codex, and OpenCode via MCP. Your AI agent reads and writes the same Backlog DB your shell uses.">
   <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://mazen160.github.io/backlog/mcp.html">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='3' y='4' width='16' height='3' rx='1.5' fill='%23B87333'/%3E%3Crect x='3' y='9.5' width='11' height='3' rx='1.5' fill='%23B87333' opacity='0.65'/%3E%3Crect x='3' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.4'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Ccircle cx='3' cy='5.5' r='1.5' fill='%23B87333'/%3E%3Crect x='7' y='4' width='12' height='3' rx='1.5' fill='%23B87333'/%3E%3Ccircle cx='3' cy='11' r='1.5' fill='%23B87333' opacity='0.6'/%3E%3Crect x='7' y='9.5' width='9' height='3' rx='1.5' fill='%23B87333' opacity='0.6'/%3E%3Ccircle cx='3' cy='16.5' r='1.5' fill='%23B87333' opacity='0.35'/%3E%3Crect x='7' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.35'/%3E%3C/svg%3E">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="MCP · Backlog">
+  <meta property="og:title" content="MCP — Backlog">
   <meta property="og:description" content="Wire Backlog into Claude Code, Cursor, Codex, and OpenCode via MCP. Your AI agent reads and writes the same Backlog DB your shell uses.">
   <meta property="og:url" content="https://mazen160.github.io/backlog/mcp.html">
   <meta property="og:site_name" content="Backlog">
@@ -23,7 +23,7 @@
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MCP · Backlog">
+  <meta name="twitter:title" content="MCP — Backlog">
   <meta name="twitter:description" content="Wire Backlog into Claude Code, Cursor, Codex, and OpenCode via MCP.">
   <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
 
@@ -40,20 +40,21 @@
     <a href="index.html" class="sidebar-back">← backlog</a>
     <a href="index.html" class="sidebar-logo">
       <svg class="sidebar-logo-mark" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
-        <rect x="3" y="4"   width="16" height="3" rx="1.5"/>
-        <rect x="3" y="9.5" width="11" height="3" rx="1.5" opacity="0.65"/>
-        <rect x="3" y="15"  width="6"  height="3" rx="1.5" opacity="0.4"/>
+        <circle cx="3"  cy="5.5"  r="1.5"/>
+        <rect   x="7"  y="4"    width="12" height="3" rx="1.5"/>
+        <circle cx="3"  cy="11"   r="1.5" opacity="0.6"/>
+        <rect   x="7"  y="9.5"  width="9"  height="3" rx="1.5" opacity="0.6"/>
+        <circle cx="3"  cy="16.5" r="1.5" opacity="0.35"/>
+        <rect   x="7"  y="15"   width="6"  height="3" rx="1.5" opacity="0.35"/>
       </svg>
       <span class="sidebar-logo-wordmark">Backlog</span>
     </a>
     <div class="sidebar-section">Docs</div>
     <a href="index.html"           class="sidebar-item"><span class="icon">⌂</span>Home</a>
     <a href="getting-started.html" class="sidebar-item"><span class="icon">→</span>Getting Started</a>
-    <a href="working-across-sessions.html" class="sidebar-item"><span class="icon">∾</span>Across Sessions</a>
     <a href="concepts.html"        class="sidebar-item"><span class="icon">◇</span>Core Concepts</a>
     <a href="cli.html"             class="sidebar-item"><span class="icon">⌘</span>CLI Reference</a>
     <a href="mcp.html"             class="sidebar-item active"><span class="icon">∷</span>MCP</a>
-    <a href="skills.html"          class="sidebar-item"><span class="icon">⊕</span>Skills</a>
     <a href="api.html"             class="sidebar-item"><span class="icon">≡</span>API</a>
 
     <div class="sidebar-section">Project</div>
@@ -88,11 +89,9 @@
 
       <h2 id="how-it-works">How it works</h2>
 
-      <p>Solo devs running AI agents hit one wall fastest: <strong>the agent forgets everything when the session ends.</strong> MCP turns Backlog into your AI's persistent memory. Every task, plan, and comment is available across Claude Code, Cursor, Codex, and OpenCode, all reading the same database.</p>
-
       <p>The <a href="https://modelcontextprotocol.io">Model Context Protocol</a> (MCP) is an open standard for connecting AI assistants to external tools. Instead of constructing CLI invocations, an MCP server exposes named tools over JSON-RPC 2.0 on stdin/stdout. The AI calls tools by name with structured arguments.</p>
 
-      <p>Backlog's MCP server lets any compatible AI assistant read and write your backlog directly. Creating tasks, attaching plans, moving status, leaving comments. No prompt engineering around command syntax.</p>
+      <p>Backlog's MCP server lets any compatible AI assistant read and write your backlog directly — creating tasks, attaching plans, moving status, leaving comments — without any prompt engineering around command syntax.</p>
 
       <div class="code-block">
         <pre><code class="language-bash">backlog mcp serve --as ai:claude-code --db /path/to/backlog.db</code></pre>
@@ -119,7 +118,7 @@
 
       <div class="callout callout-note">
         <span class="callout-icon">ℹ</span>
-        <span>Using <code>BACKLOG_DB</code> in the MCP config is the most reliable approach. It bypasses cwd-walking entirely and makes the config portable regardless of where the AI tool spawns the process.</span>
+        <span>Using <code>BACKLOG_DB</code> in the MCP config is the most reliable approach — it bypasses cwd-walking entirely and makes the config portable regardless of where the AI tool spawns the process.</span>
       </div>
 
       <h2 id="claude-code">Claude Code</h2>
@@ -254,7 +253,7 @@
         </tbody>
       </table>
 
-      <h3>task_create: optional fields</h3>
+      <h3>task_create — optional fields</h3>
       <table>
         <thead><tr><th>Field</th><th>Type</th><th>Values</th></tr></thead>
         <tbody>
@@ -267,7 +266,7 @@
         </tbody>
       </table>
 
-      <h3>task_list: filter fields</h3>
+      <h3>task_list — filter fields</h3>
       <table>
         <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
         <tbody>
@@ -301,9 +300,9 @@
         <span class="page-nav-hint">← Previous</span>
         <span class="page-nav-title">CLI Reference</span>
       </a>
-      <a href="skills.html" class="page-nav-link next">
+      <a href="api.html" class="page-nav-link next">
         <span class="page-nav-hint">Next →</span>
-        <span class="page-nav-title">Skills</span>
+        <span class="page-nav-title">API</span>
       </a>
     </nav>
   </main>

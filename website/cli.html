@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CLI Reference · Backlog</title>
-  <meta name="description" content="Complete Backlog CLI reference. Add, query, and ship tasks from your shell, with full attribution to the human or AI agent that made each write.">
+  <title>CLI Reference — Backlog</title>
+  <meta name="description" content="Complete Backlog CLI reference. Add, query, and ship tasks from your shell — with full attribution to the human or AI agent that made each write.">
   <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://mazen160.github.io/backlog/cli.html">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='3' y='4' width='16' height='3' rx='1.5' fill='%23B87333'/%3E%3Crect x='3' y='9.5' width='11' height='3' rx='1.5' fill='%23B87333' opacity='0.65'/%3E%3Crect x='3' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.4'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Ccircle cx='3' cy='5.5' r='1.5' fill='%23B87333'/%3E%3Crect x='7' y='4' width='12' height='3' rx='1.5' fill='%23B87333'/%3E%3Ccircle cx='3' cy='11' r='1.5' fill='%23B87333' opacity='0.6'/%3E%3Crect x='7' y='9.5' width='9' height='3' rx='1.5' fill='%23B87333' opacity='0.6'/%3E%3Ccircle cx='3' cy='16.5' r='1.5' fill='%23B87333' opacity='0.35'/%3E%3Crect x='7' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.35'/%3E%3C/svg%3E">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="CLI Reference · Backlog">
+  <meta property="og:title" content="CLI Reference — Backlog">
   <meta property="og:description" content="Add, query, and ship tasks from your shell \u2014 with full attribution to the human or AI agent that made each write.">
   <meta property="og:url" content="https://mazen160.github.io/backlog/cli.html">
   <meta property="og:site_name" content="Backlog">
@@ -23,7 +23,7 @@
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="CLI Reference · Backlog">
+  <meta name="twitter:title" content="CLI Reference — Backlog">
   <meta name="twitter:description" content="Add, query, and ship tasks from your shell. Full attribution per write.">
   <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
 
@@ -40,20 +40,21 @@
     <a href="index.html" class="sidebar-back">← backlog</a>
     <a href="index.html" class="sidebar-logo">
       <svg class="sidebar-logo-mark" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
-        <rect x="3" y="4"   width="16" height="3" rx="1.5"/>
-        <rect x="3" y="9.5" width="11" height="3" rx="1.5" opacity="0.65"/>
-        <rect x="3" y="15"  width="6"  height="3" rx="1.5" opacity="0.4"/>
+        <circle cx="3"  cy="5.5"  r="1.5"/>
+        <rect   x="7"  y="4"    width="12" height="3" rx="1.5"/>
+        <circle cx="3"  cy="11"   r="1.5" opacity="0.6"/>
+        <rect   x="7"  y="9.5"  width="9"  height="3" rx="1.5" opacity="0.6"/>
+        <circle cx="3"  cy="16.5" r="1.5" opacity="0.35"/>
+        <rect   x="7"  y="15"   width="6"  height="3" rx="1.5" opacity="0.35"/>
       </svg>
       <span class="sidebar-logo-wordmark">Backlog</span>
     </a>
     <div class="sidebar-section">Docs</div>
     <a href="index.html"           class="sidebar-item"><span class="icon">⌂</span>Home</a>
     <a href="getting-started.html" class="sidebar-item"><span class="icon">→</span>Getting Started</a>
-    <a href="working-across-sessions.html" class="sidebar-item"><span class="icon">∾</span>Across Sessions</a>
     <a href="concepts.html"        class="sidebar-item"><span class="icon">◇</span>Core Concepts</a>
     <a href="cli.html"             class="sidebar-item active"><span class="icon">⌘</span>CLI Reference</a>
     <a href="mcp.html"             class="sidebar-item"><span class="icon">∷</span>MCP</a>
-    <a href="skills.html"          class="sidebar-item"><span class="icon">⊕</span>Skills</a>
     <a href="api.html"             class="sidebar-item"><span class="icon">≡</span>API</a>
 
     <div class="sidebar-section">Project</div>
@@ -80,14 +81,14 @@
         <li><a href="#plan">plan</a></li>
         <li><a href="#comment">comment</a></li>
         <li><a href="#label">label</a></li>
-        <li><a href="#web">web</a></li>
-        <li><a href="#mcp">mcp serve</a></li>
         <li><a href="#profile">profile</a></li>
         <li><a href="#import-findings">import-findings</a></li>
         <li><a href="#import">import</a></li>
         <li><a href="#export">export</a></li>
         <li><a href="#sync">sync</a></li>
         <li><a href="#doctor">doctor</a></li>
+        <li><a href="#mcp">mcp serve</a></li>
+        <li><a href="#web">web</a></li>
         <li><a href="#version">version / completion</a></li>
         <li><a href="#workflows">Workflows</a></li>
       </ol>
@@ -114,8 +115,9 @@
       <p>First match wins:</p>
       <ol>
         <li><code>--db</code> flag</li>
-        <li><code>$BACKLOG_DB</code> environment variable</li>
         <li><code>--profile</code> flag</li>
+        <li><code>$BACKLOG_DB</code> environment variable</li>
+        <li>Walk up from current directory looking for <code>backlog.db</code></li>
         <li>Default profile from <code>~/.config/backlog/config.toml</code></li>
       </ol>
 
@@ -127,7 +129,7 @@
           <span class="cmd-verb">backlog init</span>
           <span class="cmd-flag">[--profile &lt;name&gt;] [--path &lt;dir&gt;]</span>
         </div>
-        <div class="cmd-block-desc">Create a workspace. Produces <code>backlog.db</code> (the database) and <code>config.toml</code> (workspace settings).</div>
+        <div class="cmd-block-desc">Create a workspace. Produces <code>backlog.db</code>, <code>backlog.json</code>, and <code>backlog.config</code>.</div>
         <table class="cmd-flags-table">
           <tr><td>--profile &lt;name&gt;</td><td>Register a named profile pointing to the new workspace (default: <code>default</code>)</td></tr>
           <tr><td>--path &lt;dir&gt;</td><td>Place the workspace at this directory instead of <code>~/.backlog/&lt;profile&gt;</code></td></tr>
@@ -151,7 +153,7 @@ backlog init --path ~/projects/app   # custom path</code></pre>
         </div>
         <div class="cmd-block-desc">Create a project. The alias is used in all other commands.</div>
         <table class="cmd-flags-table">
-          <tr><td>--alias &lt;alias&gt;</td><td>Short identifier, lowercase alphanumeric with optional hyphens (required)</td></tr>
+          <tr><td>--alias &lt;alias&gt;</td><td>Short identifier — lowercase alphanumeric with optional hyphens (required)</td></tr>
           <tr><td>--description &lt;text&gt;</td><td>Human-readable description</td></tr>
           <tr><td>--repo-path &lt;path&gt;</td><td>Filesystem path to the source repository</td></tr>
         </table>
@@ -242,7 +244,7 @@ backlog init --path ~/projects/app   # custom path</code></pre>
           <tr><td>-p, --project &lt;alias&gt;</td><td>Project alias (required, or use <code>project set-default</code>)</td></tr>
           <tr><td>-t, --title &lt;text&gt;</td><td>Task title (required)</td></tr>
           <tr><td>--description &lt;text&gt;</td><td>Longer description (supports markdown)</td></tr>
-          <tr><td>--type &lt;type&gt;</td><td><code>task</code> · <code>bug</code> · <code>issue</code> · <code>improvement</code> · <code>feature</code> · <code>vulnerability</code> · <code>chore</code> · <code>spike</code> · <code>bucket-list</code></td></tr>
+          <tr><td>--type &lt;type&gt;</td><td><code>task</code> · <code>bug</code> · <code>issue</code> · <code>improvement</code> · <code>feature</code> · <code>vulnerability</code> · <code>chore</code> · <code>spike</code></td></tr>
           <tr><td>--priority &lt;P1-P5&gt;</td><td>P1 (highest) through P5 (lowest). Default: P3.</td></tr>
           <tr><td>--assignee &lt;name&gt;</td><td>Free-text, e.g. <code>alice</code></td></tr>
           <tr><td>--source &lt;text&gt;</td><td>Origin system, e.g. <code>semgrep</code></td></tr>
@@ -276,13 +278,13 @@ backlog task add \
           <span class="cmd-verb">backlog task list</span>
           <span class="cmd-flag">[filters] [--limit N] [--offset N] [--json]</span>
         </div>
-        <div class="cmd-block-desc">List tasks. Multiple filters can be combined: all must match (AND logic).</div>
+        <div class="cmd-block-desc">List tasks. Multiple filters can be combined — all must match (AND logic).</div>
         <table class="cmd-flags-table">
           <tr><td>--project &lt;alias&gt;</td><td>Filter by project</td></tr>
           <tr><td>--status &lt;status&gt;</td><td><code>todo</code> · <code>doing</code> · <code>done</code></td></tr>
           <tr><td>--type &lt;type&gt;</td><td>Task type filter</td></tr>
           <tr><td>--priority &lt;P1-P5&gt;</td><td>Exact priority match</td></tr>
-          <tr><td>--label &lt;name&gt;</td><td>Filter by label (repeatable, OR logic)</td></tr>
+          <tr><td>--label &lt;name&gt;</td><td>Filter by label (repeatable — OR logic)</td></tr>
           <tr><td>--actor-kind &lt;human|ai&gt;</td><td>Filter by actor kind</td></tr>
           <tr><td>--actor-name &lt;name&gt;</td><td>Filter by actor name</td></tr>
           <tr><td>--source &lt;text&gt;</td><td>Filter by source system</td></tr>
@@ -446,7 +448,7 @@ backlog plan history $PLAN_ID</code></pre>
           <span class="cmd-verb">backlog label create</span>
           <span class="cmd-flag">--project &lt;alias&gt; &lt;name&gt; [--color #rrggbb]</span>
         </div>
-        <div class="cmd-block-desc">Create a per-project label. Labels are scoped to a project: the same name in two projects is independent.</div>
+        <div class="cmd-block-desc">Create a per-project label. Labels are scoped to a project — the same name in two projects is independent.</div>
       </div>
 
       <div class="cmd-block">
@@ -472,34 +474,6 @@ backlog plan history $PLAN_ID</code></pre>
         </div>
         <div class="cmd-block-desc">Remove a label from a task. Does not delete the label from the project.</div>
       </div>
-
-      <!-- ─── web ─── -->
-      <h2 id="web">web</h2>
-
-      <div class="cmd-block">
-        <div class="cmd-block-signature">
-          <span class="cmd-verb">backlog web</span>
-          <span class="cmd-flag">[--port &lt;n&gt;] [--no-browser]</span>
-        </div>
-        <div class="cmd-block-desc">Start the embedded HTTP server and open the browser UI. Default port: 8080. All API endpoints are also available. See the <a href="api.html">API reference</a>.</div>
-        <table class="cmd-flags-table">
-          <tr><td>--port &lt;n&gt;</td><td>Port to listen on (default 8080)</td></tr>
-          <tr><td>--no-browser</td><td>Don't open the browser automatically</td></tr>
-        </table>
-      </div>
-
-      <!-- ─── mcp ─── -->
-      <h2 id="mcp">mcp serve</h2>
-
-      <div class="cmd-block">
-        <div class="cmd-block-signature">
-          <span class="cmd-verb">backlog mcp serve</span>
-          <span class="cmd-flag">[--as &lt;actor&gt;] [--db &lt;path&gt;]</span>
-        </div>
-        <div class="cmd-block-desc">Start the MCP stdio server. Speaks JSON-RPC 2.0 over stdin/stdout. AI tools (Claude Code, Cursor, Codex, OpenCode) spawn this process to access the backlog directly.</div>
-      </div>
-
-      <p>See the <a href="mcp.html">MCP guide</a> for full configuration snippets per client.</p>
 
       <!-- ─── profile ─── -->
       <h2 id="profile">profile</h2>
@@ -615,7 +589,7 @@ backlog plan history $PLAN_ID</code></pre>
         <div class="cmd-block-signature">
           <span class="cmd-verb">backlog sync</span>
         </div>
-        <div class="cmd-block-desc">Read <code>backlog.json</code> and create any project declared there that doesn't already exist in the database. Existing projects are untouched (idempotent). Useful after checkout or in CI.</div>
+        <div class="cmd-block-desc">Read <code>backlog.json</code> and ensure every project declared there exists in the database. Existing projects are untouched (idempotent). Useful after checkout or in CI.</div>
       </div>
 
       <div class="code-block">
@@ -651,6 +625,34 @@ backlog plan history $PLAN_ID</code></pre>
       <div class="code-block">
         <pre><code class="language-bash">backlog doctor check
 backlog doctor backup --to ~/backups/backlog-$(date +%Y%m%d).db</code></pre>
+      </div>
+
+      <!-- ─── mcp ─── -->
+      <h2 id="mcp">mcp serve</h2>
+
+      <div class="cmd-block">
+        <div class="cmd-block-signature">
+          <span class="cmd-verb">backlog mcp serve</span>
+          <span class="cmd-flag">[--as &lt;actor&gt;] [--db &lt;path&gt;]</span>
+        </div>
+        <div class="cmd-block-desc">Start the MCP stdio server. Speaks JSON-RPC 2.0 over stdin/stdout. AI tools (Claude Code, Cursor, Codex, OpenCode) spawn this process to access the backlog directly.</div>
+      </div>
+
+      <p>See the <a href="mcp.html">MCP guide</a> for full configuration snippets per client.</p>
+
+      <!-- ─── web ─── -->
+      <h2 id="web">web</h2>
+
+      <div class="cmd-block">
+        <div class="cmd-block-signature">
+          <span class="cmd-verb">backlog web</span>
+          <span class="cmd-flag">[--port &lt;n&gt;] [--no-browser]</span>
+        </div>
+        <div class="cmd-block-desc">Start the embedded HTTP server and open the browser UI. Default port: 8080. All API endpoints are also available. See the <a href="api.html">API reference</a>.</div>
+        <table class="cmd-flags-table">
+          <tr><td>--port &lt;n&gt;</td><td>Port to listen on (default 8080)</td></tr>
+          <tr><td>--no-browser</td><td>Don't open the browser automatically</td></tr>
+        </table>
       </div>
 
       <!-- ─── version / completion ─── -->

@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTTP API · Backlog</title>
+  <title>HTTP API — Backlog</title>
   <meta name="description" content="Backlog's embedded HTTP API. Read and write tasks, plans, docs, and memory from any language. Powers the web UI and your scripts.">
   <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://mazen160.github.io/backlog/api.html">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='3' y='4' width='16' height='3' rx='1.5' fill='%23B87333'/%3E%3Crect x='3' y='9.5' width='11' height='3' rx='1.5' fill='%23B87333' opacity='0.65'/%3E%3Crect x='3' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.4'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Ccircle cx='3' cy='5.5' r='1.5' fill='%23B87333'/%3E%3Crect x='7' y='4' width='12' height='3' rx='1.5' fill='%23B87333'/%3E%3Ccircle cx='3' cy='11' r='1.5' fill='%23B87333' opacity='0.6'/%3E%3Crect x='7' y='9.5' width='9' height='3' rx='1.5' fill='%23B87333' opacity='0.6'/%3E%3Ccircle cx='3' cy='16.5' r='1.5' fill='%23B87333' opacity='0.35'/%3E%3Crect x='7' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.35'/%3E%3C/svg%3E">
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="HTTP API · Backlog">
+  <meta property="og:title" content="HTTP API — Backlog">
   <meta property="og:description" content="Read and write tasks, plans, docs, and memory from any language. Powers the web UI and your scripts.">
   <meta property="og:url" content="https://mazen160.github.io/backlog/api.html">
   <meta property="og:site_name" content="Backlog">
@@ -23,7 +23,7 @@
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="HTTP API · Backlog">
+  <meta name="twitter:title" content="HTTP API — Backlog">
   <meta name="twitter:description" content="Read and write tasks, plans, docs, and memory from any language.">
   <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
 
@@ -40,20 +40,21 @@
     <a href="index.html" class="sidebar-back">← backlog</a>
     <a href="index.html" class="sidebar-logo">
       <svg class="sidebar-logo-mark" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
-        <rect x="3" y="4"   width="16" height="3" rx="1.5"/>
-        <rect x="3" y="9.5" width="11" height="3" rx="1.5" opacity="0.65"/>
-        <rect x="3" y="15"  width="6"  height="3" rx="1.5" opacity="0.4"/>
+        <circle cx="3"  cy="5.5"  r="1.5"/>
+        <rect   x="7"  y="4"    width="12" height="3" rx="1.5"/>
+        <circle cx="3"  cy="11"   r="1.5" opacity="0.6"/>
+        <rect   x="7"  y="9.5"  width="9"  height="3" rx="1.5" opacity="0.6"/>
+        <circle cx="3"  cy="16.5" r="1.5" opacity="0.35"/>
+        <rect   x="7"  y="15"   width="6"  height="3" rx="1.5" opacity="0.35"/>
       </svg>
       <span class="sidebar-logo-wordmark">Backlog</span>
     </a>
     <div class="sidebar-section">Docs</div>
     <a href="index.html"           class="sidebar-item"><span class="icon">⌂</span>Home</a>
     <a href="getting-started.html" class="sidebar-item"><span class="icon">→</span>Getting Started</a>
-    <a href="working-across-sessions.html" class="sidebar-item"><span class="icon">∾</span>Across Sessions</a>
     <a href="concepts.html"        class="sidebar-item"><span class="icon">◇</span>Core Concepts</a>
     <a href="cli.html"             class="sidebar-item"><span class="icon">⌘</span>CLI Reference</a>
     <a href="mcp.html"             class="sidebar-item"><span class="icon">∷</span>MCP</a>
-    <a href="skills.html"          class="sidebar-item"><span class="icon">⊕</span>Skills</a>
     <a href="api.html"             class="sidebar-item active"><span class="icon">≡</span>API</a>
 
     <div class="sidebar-section">Project</div>
@@ -101,13 +102,13 @@ backlog --as ai:claude-code --db /path/to/backlog.db web --port 8080</code></pre
 
       <p>All API routes live under <code>/api/</code>. The base URL is <code>http://localhost:8080/api/&lt;resource&gt;</code> by default.</p>
 
-      <p>The actor resolved at startup is attributed to every write through the API. There is no per-request actor override. To run as a different actor, restart with a different <code>--as</code> flag.</p>
+      <p>The actor resolved at startup is attributed to every write through the API — there is no per-request actor override. To run as a different actor, restart with a different <code>--as</code> flag.</p>
 
       <h2 id="conventions">Conventions</h2>
 
       <div class="callout callout-note">
         <span class="callout-icon">ℹ</span>
-        <span><strong>Identifiers:</strong> All entities use 26-character Crockford Base32 ULIDs. Tasks are also addressable as <code>TASK-N</code>, bare integer <code>N</code>, or an 8-char ULID prefix.</span>
+        <span><strong>Identifiers:</strong> All entities use 26-character Crockford Base32 ULIDs. Tasks are additionally addressable as <code>TASK-N</code>, bare integer <code>N</code>, or an 8-char ULID prefix.</span>
       </div>
 
       <div class="callout callout-warn">
@@ -232,7 +233,7 @@ curl 'http://localhost:8080/api/projects?include_archived=true'</code></pre>
               <tr><td><code>type</code></td><td>enum</td><td>Task type</td></tr>
               <tr><td><code>priority</code></td><td>int</td><td>Exact match, 1–5</td></tr>
               <tr><td><code>label</code></td><td>string (repeated)</td><td>Multiple <code>label=</code> params are ANDed</td></tr>
-              <tr><td><code>search</code></td><td>string</td><td>FTS5: supports prefix (<code>sql*</code>) and boolean (<code>jwt OR csrf</code>)</td></tr>
+              <tr><td><code>search</code></td><td>string</td><td>FTS5 — supports prefix (<code>sql*</code>) and boolean (<code>jwt OR csrf</code>)</td></tr>
               <tr><td><code>sort</code></td><td>string</td><td><code>priority</code> (default) · <code>created</code> · <code>updated</code> · <code>seq</code></td></tr>
               <tr><td><code>include_archived</code></td><td>bool</td><td>Default <code>false</code></td></tr>
               <tr><td><code>limit</code></td><td>int</td><td>Default 50</td></tr>
@@ -252,7 +253,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <span class="endpoint-path">/api/tasks</span>
         </div>
         <div class="endpoint-body">
-          <p class="endpoint-desc">Create a task. Required: <code>project</code> (alias), <code>title</code>. Optional: <code>description</code>, <code>type</code>, <code>status</code>, <code>priority</code>, <code>assignee</code>, <code>due_date</code> (YYYY-MM-DD or RFC3339), <code>source</code>, <code>external_ref</code>, <code>project_path</code>, <code>labels</code> (string array, auto-created if missing).</p>
+          <p class="endpoint-desc">Create a task. Required: <code>project</code> (alias), <code>title</code>. Optional: <code>description</code>, <code>type</code>, <code>status</code>, <code>priority</code>, <code>assignee</code>, <code>due_date</code> (YYYY-MM-DD or RFC3339), <code>source</code>, <code>external_ref</code>, <code>project_path</code>, <code>labels</code> (string array — auto-created if missing).</p>
           <div class="code-block">
             <pre><code class="language-bash">curl -X POST http://localhost:8080/api/tasks \
   -H 'Content-Type: application/json' \
@@ -277,7 +278,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <span class="endpoint-path">/api/tasks/{id}</span>
         </div>
         <div class="endpoint-body">
-          <p class="endpoint-desc">Partial update. Omitted fields are left unchanged. Accepted: <code>title</code>, <code>description</code>, <code>type</code>, <code>priority</code>, <code>assignee</code>, <code>due_at</code>, <code>due_date</code>, <code>clear_due_at</code> (bool), <code>source</code>, <code>external_ref</code>, <code>project_path</code>. Note: <code>status</code> is not accepted here. Use <code>PATCH /api/tasks/{id}/status</code> instead.</p>
+          <p class="endpoint-desc">Partial update. Omitted fields are left unchanged. Accepted: <code>title</code>, <code>description</code>, <code>type</code>, <code>priority</code>, <code>assignee</code>, <code>due_at</code>, <code>due_date</code>, <code>clear_due_at</code> (bool), <code>source</code>, <code>external_ref</code>, <code>project_path</code>. Note: <code>status</code> is not accepted here — use <code>PATCH /api/tasks/{id}/status</code>.</p>
           <div class="code-block">
             <pre><code class="language-bash">curl -X PATCH http://localhost:8080/api/tasks/TASK-35 \
   -H 'Content-Type: application/json' \
@@ -385,7 +386,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <span class="endpoint-path">/api/labels</span>
         </div>
         <div class="endpoint-body">
-          <p class="endpoint-desc">Create a label. Body: <code>{"project": "&lt;alias&gt;", "name": "security", "color": "#e03e3e"}</code>. Idempotent: returns the existing label if name already exists in that project.</p>
+          <p class="endpoint-desc">Create a label. Body: <code>{"project": "&lt;alias&gt;", "name": "security", "color": "#e03e3e"}</code>. Idempotent — returns the existing label if name already exists in that project.</p>
         </div>
       </div>
 
@@ -500,7 +501,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
       <!-- ─── Memory ─── -->
       <h2 id="memory">Memory</h2>
 
-      <p>Free-form tagged notes scoped to a project. Mutable (not versioned). The agent's cross-session scratchpad: decisions, design rationale, and anything the next session needs to know on pickup.</p>
+      <p>Free-form tagged notes scoped to a project. Mutable (not versioned). Useful for AI agent scratchpads, design rationale, and short-lived context.</p>
 
       <div class="endpoint">
         <div class="endpoint-header">
@@ -573,7 +574,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <span class="endpoint-path">/api/attachments</span>
         </div>
         <div class="endpoint-body">
-          <p class="endpoint-desc">Upload an attachment. Multipart form with fields: <code>file</code> (the binary), <code>linked_type</code> (<code>task</code> or <code>doc</code>), <code>linked_id</code> (ULID), <code>name</code> (optional, defaults to filename).</p>
+          <p class="endpoint-desc">Upload an attachment. Multipart form with fields: <code>file</code> (the binary), <code>linked_type</code> (<code>task</code> or <code>doc</code>), <code>linked_id</code> (ULID), <code>name</code> (optional — defaults to filename).</p>
           <div class="code-block">
             <pre><code class="language-bash">curl -X POST http://localhost:8080/api/attachments \
   -F 'file=@screenshot.png' \
@@ -606,9 +607,9 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <table>
             <thead><tr><th>Param</th><th>Notes</th></tr></thead>
             <tbody>
-              <tr><td><code>project</code></td><td>Project alias (resolved to ID server-side)</td></tr>
+              <tr><td><code>project</code></td><td>Project alias — resolved to ID server-side</td></tr>
               <tr><td><code>kind</code></td><td>Entity kind: <code>task</code>, <code>plan</code>, <code>doc</code>, <code>comment</code>, etc.</td></tr>
-              <tr><td><code>actor</code></td><td><code>kind:name</code> (parsed as <code>actor_kind</code> + <code>actor_name</code>)</td></tr>
+              <tr><td><code>actor</code></td><td><code>kind:name</code> — parsed as <code>actor_kind</code> + <code>actor_name</code></td></tr>
               <tr><td><code>limit</code></td><td>Default 50, max 10000</td></tr>
               <tr><td><code>offset</code></td><td>Default 0</td></tr>
             </tbody>
@@ -625,21 +626,21 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
       <p>These operations are only available via the CLI:</p>
 
       <ul>
-        <li><code>backlog project update</code>: project field updates</li>
-        <li><code>backlog import</code> and <code>backlog import-findings</code>: workspace and findings import</li>
-        <li><code>backlog export</code>: CSV/Markdown/JSON export</li>
-        <li><code>backlog sync</code>: manifest reconciliation</li>
-        <li><code>backlog doctor</code>: integrity check and backup</li>
-        <li><code>backlog profile</code>: workspace profile management</li>
-        <li>Comment delete: comments can be listed and created via API but not deleted</li>
+        <li><code>backlog project update</code> — project field updates</li>
+        <li><code>backlog import</code> and <code>backlog import-findings</code> — workspace and findings import</li>
+        <li><code>backlog export</code> — CSV/Markdown/JSON export</li>
+        <li><code>backlog sync</code> — manifest reconciliation</li>
+        <li><code>backlog doctor</code> — integrity check and backup</li>
+        <li><code>backlog profile</code> — workspace profile management</li>
+        <li>Comment delete — comments can be listed and created via API but not deleted</li>
       </ul>
 
     </div>
 
     <nav class="page-nav" aria-label="Page navigation">
-      <a href="skills.html" class="page-nav-link prev">
+      <a href="mcp.html" class="page-nav-link prev">
         <span class="page-nav-hint">← Previous</span>
-        <span class="page-nav-title">Skills</span>
+        <span class="page-nav-title">MCP</span>
       </a>
       <span></span>
     </nav>
