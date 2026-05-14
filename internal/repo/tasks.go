@@ -119,8 +119,10 @@ func (r *TaskRepo) Delete(ctx context.Context, id string) error {
 // from triggering an FTS5 syntax error that would leak as a raw SQL message.
 func sanitizeFTSQuery(s string) string {
 	s = strings.TrimSpace(s)
+	// Trim trailing hyphens which can cause FTS5 phrase-match errors
+	s = strings.TrimRight(s, "- ")
 	if s == "" {
-		return s
+		return ""
 	}
 	if containsFTSOperator(s) {
 		return s

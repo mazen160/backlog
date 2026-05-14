@@ -891,24 +891,31 @@ func (s *Server) handleAttachments(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) handleAttachmentByID(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		http.Error(w, "method not allowed", 405)
-		return
-	}
 	id := strings.TrimPrefix(r.URL.Path, "/api/attachments/")
 	if id == "" {
 		http.NotFound(w, r)
 		return
 	}
 	svc := service.NewAttachmentService(s.db)
-	a, err := svc.Get(r.Context(), id)
-	if err != nil {
-		http.NotFound(w, r)
-		return
+	switch r.Method {
+	case http.MethodGet:
+		a, err := svc.Get(r.Context(), id)
+		if err != nil {
+			http.NotFound(w, r)
+			return
+		}
+		w.Header().Set("Content-Type", a.MimeType)
+		w.Header().Set("Content-Disposition", contentDispositionAttachment(a.Name))
+		w.Write(a.Data)
+	case http.MethodDelete:
+		if err := svc.Delete(r.Context(), id, s.actor); err != nil {
+			jsonError(w, err, 500)
+			return
+		}
+		w.WriteHeader(http.StatusNoContent)
+	default:
+		http.Error(w, "method not allowed", 405)
 	}
-	w.Header().Set("Content-Type", a.MimeType)
-	w.Header().Set("Content-Disposition", contentDispositionAttachment(a.Name))
-	w.Write(a.Data)
 }
 
 // ─── Activity ─────────────────────────────────────────────────────────────────
@@ -950,6 +957,11 @@ func (s *Server) handleActivity(w http.ResponseWriter, r *http.Request) {
 		offset = 0
 	}
 
+	entityID := q.Get("entity_id")
+	if entityID != "" && entityKind == "" {
+		entityKind = "task"
+	}
+
 	// Resolve project alias to ID
 	projectID := ""
 	if projectAlias != "" {
@@ -963,7 +975,14 @@ func (s *Server) handleActivity(w http.ResponseWriter, r *http.Request) {
 	}
 
 	actRepo := repo.NewActivityRepo(s.db)
-	events, err := actRepo.List(r.Context(), projectID, entityKind, actorKind, actorName, limit, offset)
+	var events []*models.Activity
+	var err error
+	if entityID != "" {
+		// Direct per-entity lookup — ignores other filters for simplicity
+		events, err = actRepo.ListForEntity(r.Context(), entityKind, entityID)
+	} else {
+		events, err = actRepo.List(r.Context(), projectID, entityKind, actorKind, actorName, limit, offset)
+	}
 	if err != nil {
 		jsonError(w, err, 500)
 		return

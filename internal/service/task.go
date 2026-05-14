@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -214,10 +215,38 @@ func (s *TaskService) Get(ctx context.Context, ref string, withPlans, withCommen
 	return t, nil
 }
 
+var taskSeqRefRe = regexp.MustCompile(`(?i)^TASK-(\d+)$|^(\d+)$`)
+
+func parseTaskSeqRef(s string) (int, bool) {
+	s = strings.TrimSpace(s)
+	m := taskSeqRefRe.FindStringSubmatch(s)
+	if m == nil {
+		return 0, false
+	}
+	numStr := m[1]
+	if numStr == "" {
+		numStr = m[2]
+	}
+	n, err := strconv.Atoi(numStr)
+	return n, err == nil
+}
+
 func (s *TaskService) List(ctx context.Context, f models.TaskFilter) ([]*models.Task, int, error) {
 	var tasks []*models.Task
 	var err error
 	if f.Search != "" {
+		// Check if query looks like TASK-N or bare N; if so, do a direct seq lookup
+		if seq, ok := parseTaskSeqRef(f.Search); ok {
+			t, err := s.tasks.GetBySeq(ctx, seq)
+			if err != nil {
+				return []*models.Task{}, 0, nil // no match, return empty
+			}
+			// Populate embedded Project for display
+			if proj, err := s.projects.GetByID(ctx, t.ProjectID); err == nil {
+				t.Project = proj
+			}
+			return []*models.Task{t}, 1, nil
+		}
 		tasks, err = s.tasks.ListBySearch(ctx, f)
 	} else {
 		tasks, err = s.tasks.List(ctx, f)
