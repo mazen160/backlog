@@ -1940,6 +1940,20 @@ async function renderTaskDetail(el) {
 
         <section class="task-section">
           <div class="section-head">
+            <h3 class="section-title">Attachments <span class="count-badge" id="attach-count">…</span></h3>
+          </div>
+          <div id="task-attachments-list"><div class="text-muted text-sm">Loading…</div></div>
+          <div class="attach-upload" style="margin-top:10px">
+            <label class="btn btn-ghost btn-sm" style="cursor:pointer">
+              + Attach file
+              <input type="file" id="task-attach-file" style="display:none" multiple>
+            </label>
+            <span id="attach-upload-status" class="text-muted text-sm" style="margin-left:8px"></span>
+          </div>
+        </section>
+
+        <section class="task-section">
+          <div class="section-head">
             <h3 class="section-title">Activity</h3>
           </div>
           <div id="task-activity-list"><div class="text-muted text-sm">Loading…</div></div>
@@ -1978,6 +1992,36 @@ async function renderTaskDetail(el) {
   makeMetaEditable(task);
 
   loadTaskActivity(task.id);
+
+  loadTaskAttachments(task.id);
+
+  const attachInput = document.getElementById('task-attach-file');
+  const uploadStatus = document.getElementById('attach-upload-status');
+  if (attachInput) {
+    attachInput.onchange = async () => {
+      const files = [...attachInput.files];
+      if (!files.length) return;
+      uploadStatus.textContent = 'Uploading…';
+      let failed = 0;
+      for (const f of files) {
+        const fd = new FormData();
+        fd.append('file', f);
+        fd.append('linked_type', 'task');
+        fd.append('linked_id', task.id);
+        try {
+          const res = await fetch('/api/attachments', { method: 'POST', body: fd });
+          if (!res.ok) throw new Error(await res.text());
+        } catch(e) {
+          failed++;
+          toast('Upload failed: ' + e.message, 'error');
+        }
+      }
+      attachInput.value = '';
+      uploadStatus.textContent = '';
+      if (!failed) toast(files.length === 1 ? 'File attached' : files.length + ' files attached');
+      loadTaskAttachments(task.id);
+    };
+  }
 
   $('#btn-download-task').onclick = e => showTaskDownloadPopover(e.currentTarget, task);
 
@@ -2101,6 +2145,57 @@ async function loadTaskActivity(taskId) {
     }).join('');
   } catch(e) {
     el.innerHTML = '<div class="text-muted text-sm">Could not load activity.</div>';
+  }
+}
+
+async function loadTaskAttachments(taskId) {
+  const listEl = document.getElementById('task-attachments-list');
+  const countEl = document.getElementById('attach-count');
+  if (!listEl) return;
+  try {
+    const data = await api.get('/attachments?task_id=' + taskId);
+    const attachments = data.attachments || [];
+    if (countEl) countEl.textContent = attachments.length;
+    if (!attachments.length) {
+      listEl.innerHTML = '<p class="section-empty">No attachments.</p>';
+      return;
+    }
+    listEl.innerHTML = '<table class="attach-table"><tbody>' +
+      attachments.map(a => {
+        const size = formatBytes(a.size);
+        const ago = timeAgo(a.created_at);
+        return `<tr class="attach-row" data-attach-id="${a.id}">
+          <td class="attach-name" title="${escapeHtml(a.name)}">${escapeHtml(a.name)}</td>
+          <td class="text-muted text-sm">${size}</td>
+          <td class="text-muted text-sm">${ago}</td>
+          <td class="attach-actions">
+            <a class="btn btn-ghost btn-sm" href="/api/attachments/${a.id}/fetch" download="${escapeHtml(a.name)}">Download</a>
+            <button class="btn btn-ghost btn-sm btn-danger-ghost attach-delete-btn" data-id="${a.id}">Delete</button>
+          </td>
+        </tr>`;
+      }).join('') +
+    '</tbody></table>';
+
+    // Wire delete buttons
+    listEl.querySelectorAll('.attach-delete-btn').forEach(btn => {
+      btn.onclick = async () => {
+        if (!confirm('Delete this attachment? This cannot be undone.')) return;
+        btn.disabled = true;
+        try {
+          await fetch('/api/attachments/' + btn.dataset.id, { method: 'DELETE' });
+          btn.closest('tr').remove();
+          const remaining = listEl.querySelectorAll('.attach-row').length;
+          if (countEl) countEl.textContent = remaining;
+          if (!remaining) listEl.innerHTML = '<p class="section-empty">No attachments.</p>';
+          toast('Attachment deleted');
+        } catch(e) {
+          toast('Delete failed: ' + e.message, 'error');
+          btn.disabled = false;
+        }
+      };
+    });
+  } catch(e) {
+    if (listEl) listEl.innerHTML = '<p class="section-empty text-muted">Could not load attachments.</p>';
   }
 }
 

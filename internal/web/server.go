@@ -831,10 +831,26 @@ func (s *Server) handleAttachments(w http.ResponseWriter, r *http.Request) {
 	svc := service.NewAttachmentService(s.db)
 	switch r.Method {
 	case http.MethodGet:
+		project := r.URL.Query().Get("project")
+		taskID := r.URL.Query().Get("task_id")
+
+		if taskID != "" {
+			// List attachments for a specific task
+			attachments, err := svc.List(r.Context(), "task", taskID)
+			if err != nil {
+				jsonError(w, err, 500)
+				return
+			}
+			if attachments == nil {
+				attachments = []*models.Attachment{}
+			}
+			jsonOK(w, map[string]interface{}{"attachments": attachments})
+			return
+		}
+
 		// Empty project means "all projects" — the service/repo aggregate
 		// across every (non-archived) project and populate project_alias /
 		// project_name on each row so the client can render a project chip.
-		project := r.URL.Query().Get("project")
 		attachments, err := svc.ListForProject(r.Context(), project)
 		if err != nil {
 			jsonError(w, err, 500)

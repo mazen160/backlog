@@ -2067,5 +2067,10 @@ body { padding-bottom: 16px; }
   .search-input { width: 100%; }
 }
 
+.attach-table { width: 100%; border-collapse: collapse; }
+.attach-table td { padding: 5px 6px; vertical-align: middle; }
+.attach-name { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.attach-actions { text-align: right; white-space: nowrap; }
+
 *:focus-visible { outline: 2px solid var(--link); outline-offset: 1px; }
 input:focus, textarea:focus, select:focus { outline: none; }
