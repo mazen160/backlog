@@ -30,14 +30,21 @@ func newProjectCmd() *cobra.Command {
 func projectAddCmd() *cobra.Command {
 	var alias, description, repoPath string
 	cmd := &cobra.Command{
-		Use:   "add <name>",
+		Use:   "add [name]",
 		Short: "Add a project",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.MaximumNArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
+			name := alias // default: use alias as name
+			if len(args) > 0 {
+				name = args[0]
+			}
+			if name == "" {
+				return fmt.Errorf("project name is required (pass as argument or use --alias)")
+			}
 			svc := service.NewProjectService(app.DB)
 			p, err := svc.Create(cmd.Context(), models.CreateProjectInput{
 				Alias:       alias,
-				Name:        args[0],
+				Name:        name,
 				Description: description,
 				RepoPath:    repoPath,
 				Actor:       app.Actor,
