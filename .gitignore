@@ -34,3 +34,5 @@ docs/CLAUDE/
 # Stray files
 tests/*.txt
 bin/backlog-test
+tests/
+
