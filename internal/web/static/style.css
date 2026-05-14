@@ -1589,6 +1589,9 @@ textarea.prose-area { font-family: var(--font); }
 .markdown a { color: var(--link); text-decoration: underline; }
 .markdown strong { font-weight: 600; }
 .markdown em { font-style: italic; }
+.markdown table { border-collapse: collapse; width: 100%; margin: 8px 0; }
+.markdown th, .markdown td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+.markdown thead { background: var(--surface-2, #f4f4f4); }
 
 /* ─── Empty state — text-only ──────────────────────────────────────────────── */
 .empty {

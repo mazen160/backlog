@@ -21,11 +21,25 @@ function renderMarkdown(text) {
   s = s.replace(/^[ \t]*[-*] (.+)$/gm, '<li>$1</li>');
   s = s.replace(/^[ \t]*\d+\. (.+)$/gm, '<li>$1</li>');
   s = s.replace(/(<li>[\s\S]*?<\/li>)(\n<li>[\s\S]*?<\/li>)*/g, m => `<ul>${m}</ul>`);
+  // GFM table: detect block of lines where every line starts and ends with |
+  s = s.replace(/(?:^|\n)((?:\|[^\n]+\|\n?)+)/g, (_, tableBlock) => {
+    const rows = tableBlock.trim().split('\n').filter(r => r.trim().startsWith('|'));
+    if (rows.length < 2) return _;
+    // Second row is separator (|---|---|) — validate and remove
+    const sepRow = rows[1];
+    if (!/^\|[\s\-:|]+\|$/.test(sepRow.replace(/\s/g, ''))) return _;
+    const headerCells = rows[0].split('|').slice(1, -1).map(c => `<th>${c.trim()}</th>`).join('');
+    const bodyRows = rows.slice(2).map(r => {
+      const cells = r.split('|').slice(1, -1).map(c => `<td>${c.trim()}</td>`).join('');
+      return `<tr>${cells}</tr>`;
+    }).join('');
+    return `<table><thead><tr>${headerCells}</tr></thead><tbody>${bodyRows}</tbody></table>`;
+  });
   const blocks = s.split(/\n{2,}/);
   s = blocks.map(b => {
     b = b.trim();
     if (!b) return '';
-    if (/^<(h[1-6]|ul|ol|pre|blockquote)/.test(b)) return b;
+    if (/^<(h[1-6]|ul|ol|pre|blockquote|table)/.test(b)) return b;
     return `<p>${b.replace(/\n/g, '<br>')}</p>`;
   }).join('\n');
   return s;
@@ -835,6 +849,7 @@ function buildTaskQuery(limit = PAGE_SIZE, offset = state.taskOffset || 0) {
   if (state.sorts.length) {
     const primaryField = state.sorts[0].field === 'priority' ? '' : state.sorts[0].field;
     if (primaryField) q.set('sort', primaryField);
+    if (state.sorts[0].dir) q.set('order', state.sorts[0].dir);
   }
   if (archivedOnly) q.set('include_archived', 'true');
   if (limit !== null) q.set('limit', limit);
@@ -860,7 +875,7 @@ async function renderTasks(el) {
     state.tasks = tasks;
     state.taskTotal = total;
     if (state.project) await getLabelsForProject(state.project);
-  } catch (e) { toast(e.message, 'error'); return; }
+  } catch (e) { console.error('renderTasks error:', e); toast(e.message, 'error'); return; }
 
   const activeFilters = hasActiveFilters();
   const showing = (state.taskOffset || 0) + state.tasks.length;
@@ -1082,6 +1097,7 @@ function buildLoadMoreQuery() {
   if (state.sorts.length) {
     const pf = state.sorts[0].field === 'priority' ? '' : state.sorts[0].field;
     if (pf) q.set('sort', pf);
+    if (state.sorts[0].dir) q.set('order', state.sorts[0].dir);
   }
   if (state.archivedView === 'archived') q.set('include_archived', 'true');
   return q;
@@ -1921,6 +1937,13 @@ async function renderTaskDetail(el) {
             <button class="btn btn-primary btn-sm" id="btn-add-comment">Comment</button>
           </div>
         </section>
+
+        <section class="task-section">
+          <div class="section-head">
+            <h3 class="section-title">Activity</h3>
+          </div>
+          <div id="task-activity-list"><div class="text-muted text-sm">Loading…</div></div>
+        </section>
       </div>
       <aside class="detail-aside">
         <div class="properties">
@@ -1953,6 +1976,8 @@ async function renderTaskDetail(el) {
   $('#back-to-tasks').onclick = e => { e.preventDefault(); navigate('tasks'); };
 
   makeMetaEditable(task);
+
+  loadTaskActivity(task.id);
 
   $('#btn-download-task').onclick = e => showTaskDownloadPopover(e.currentTarget, task);
 
@@ -2057,6 +2082,26 @@ async function renderTaskDetail(el) {
   $$('.plan-history-btn').forEach(btn => btn.onclick = () => {
     showPlanHistoryModal(btn.dataset.planId);
   });
+}
+
+async function loadTaskActivity(taskId) {
+  const el = document.getElementById('task-activity-list');
+  if (!el) return;
+  try {
+    const data = await api.get('/activity?entity=task&entity_id=' + taskId);
+    const events = data.events || [];
+    if (!events.length) {
+      el.innerHTML = '<div class="text-muted text-sm">No activity yet.</div>';
+      return;
+    }
+    el.innerHTML = events.map(e => {
+      const actor = escapeHtml(e.actor_kind + ':' + e.actor_name);
+      const ago = timeAgo(e.created_at);
+      return `<div class="activity-row"><span class="activity-actor">${actor}</span> <span class="activity-action">${escapeHtml(e.action)}</span> <span class="text-muted text-sm">${ago}</span>${e.summary ? '<div class="activity-summary text-sm">' + escapeHtml(e.summary) + '</div>' : ''}</div>`;
+    }).join('');
+  } catch(e) {
+    el.innerHTML = '<div class="text-muted text-sm">Could not load activity.</div>';
+  }
 }
 
 function showEditTaskModal(task) {
@@ -3501,6 +3546,19 @@ function downloadTextFile(filename, content, mimeType) {
 
 // ─── Attachments ─────────────────────────────────────────────────────────────
 
+async function handleDeleteAttachment(id, btn) {
+  if (!confirm('Delete this attachment? This cannot be undone.')) return;
+  btn.disabled = true;
+  try {
+    await api.del('/attachments/' + id);
+    btn.closest('tr, li, .attachment-row').remove();
+    toast('Attachment deleted');
+  } catch (e) {
+    toast('Failed to delete: ' + e.message, 'error');
+    btn.disabled = false;
+  }
+}
+
 function formatBytes(n) {
   if (n < 1024) return n + ' B';
   if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
@@ -3608,6 +3666,7 @@ async function renderAttachments(el) {
                         <td class="text-muted text-sm" title="${formatDate(a.created_at)}">${timeAgo(a.created_at)}</td>
                         <td>
                           <a class="btn btn-ghost btn-sm" href="/api/attachments/${encodeURIComponent(a.id)}" download="${escapeHtml(a.name)}">Download</a>
+                          <button class="btn btn-ghost btn-sm" onclick="handleDeleteAttachment('${escapeHtml(a.id)}', this)">Delete</button>
                         </td>
                       </tr>`;
                   }).join('')}
@@ -3717,7 +3776,7 @@ async function showUploadAttachmentModal(preselectFile) {
     docSel.innerHTML = '';
     try {
       const [tData, dData] = await Promise.all([
-        api.get('/tasks?project=' + encodeURIComponent(project) + '&limit=200'),
+        api.get('/tasks?project=' + encodeURIComponent(project) + '&limit=200&sort=created&order=desc'),
         api.get('/docs?project=' + encodeURIComponent(project)),
       ]);
       const tasks = tData.tasks || [];
@@ -3725,9 +3784,13 @@ async function showUploadAttachmentModal(preselectFile) {
       linkedTypeSel.innerHTML =
         (tasks.length > 0 ? '<option value="task">Task</option>' : '') +
         (docs.length > 0 ? '<option value="doc">Doc</option>' : '');
-      taskSel.innerHTML = tasks.map(t =>
-        `<option value="${escapeHtml(t.id)}">TASK-${t.seq} — ${escapeHtml(t.title)}</option>`
-      ).join('');
+      taskSel.innerHTML = tasks.map(t => {
+        const priority = t.priority ? `P${t.priority}` : '';
+        const status = t.status || '';
+        const meta = [priority, status].filter(Boolean).join(' · ');
+        const titleTrunc = t.title.length > 60 ? t.title.slice(0, 60) + '…' : t.title;
+        return `<option value="${escapeHtml(t.id)}">[TASK-${t.seq}] ${escapeHtml(titleTrunc)}${meta ? ' · ' + escapeHtml(meta) : ''}</option>`;
+      }).join('');
       docSel.innerHTML = docs.map(d =>
         `<option value="${escapeHtml(d.id)}">${escapeHtml(d.title)}</option>`
       ).join('');
