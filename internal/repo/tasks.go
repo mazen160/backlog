@@ -53,7 +53,7 @@ func (r *TaskRepo) GetBySeq(ctx context.Context, seq int) (*models.Task, error) 
 
 func (r *TaskRepo) List(ctx context.Context, f models.TaskFilter) ([]*models.Task, error) {
 	where, args := buildTaskFilter(f)
-	q := `SELECT ` + taskCols + taskFrom + where + ` ORDER BY ` + taskSortClause(f.Sort)
+	q := `SELECT ` + taskCols + taskFrom + where + ` ORDER BY ` + taskSortClause(f.Sort, f.Order)
 	if f.Limit > 0 {
 		q += fmt.Sprintf(` LIMIT %d OFFSET %d`, f.Limit, f.Offset)
 	}
@@ -76,7 +76,7 @@ func (r *TaskRepo) ListBySearch(ctx context.Context, f models.TaskFilter) ([]*mo
 		// filterWhere starts with " WHERE "; strip it and AND our condition first
 		finalWhere = " WHERE " + ftsCondition + " AND " + filterWhere[7:]
 	}
-	q := `SELECT ` + taskCols + taskFrom + finalWhere + ` ORDER BY ` + taskSortClause(f.Sort)
+	q := `SELECT ` + taskCols + taskFrom + finalWhere + ` ORDER BY ` + taskSortClause(f.Sort, f.Order)
 	allArgs := append([]interface{}{sanitizeFTSQuery(f.Search)}, args...)
 	if f.Limit > 0 {
 		q += fmt.Sprintf(` LIMIT %d OFFSET %d`, f.Limit, f.Offset)
@@ -144,16 +144,20 @@ func containsFTSOperator(s string) bool {
 	return false
 }
 
-func taskSortClause(sort string) string {
+func taskSortClause(sort, order string) string {
+	dir := "ASC"
+	if strings.EqualFold(order, "desc") {
+		dir = "DESC"
+	}
 	switch sort {
 	case "created":
-		return "t.created_at DESC"
+		return "t.created_at " + dir
 	case "updated":
-		return "t.updated_at DESC"
+		return "t.updated_at " + dir
 	case "seq":
-		return "t.task_seq ASC"
+		return "t.task_seq " + dir
 	case "title":
-		return "t.title ASC"
+		return "t.title " + dir
 	default:
 		return "t.priority ASC, t.created_at DESC"
 	}

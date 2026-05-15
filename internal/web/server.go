@@ -183,6 +183,7 @@ func (s *Server) handleTasks(w http.ResponseWriter, r *http.Request) {
 			Labels:          q["label"],
 			Search:          q.Get("search"),
 			Sort:            q.Get("sort"),
+			Order:           q.Get("order"),
 			IncludeArchived: q.Get("include_archived") == "true" || q.Get("include_archived") == "1",
 			Limit:           50,
 			Offset:          0,
@@ -193,7 +194,7 @@ func (s *Server) handleTasks(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		if l := q.Get("limit"); l != "" {
-			if n, err := strconv.Atoi(l); err == nil && n > 0 {
+			if n, err := strconv.Atoi(l); err == nil && n >= 0 {
 				f.Limit = n
 			}
 		}

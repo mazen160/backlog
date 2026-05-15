@@ -147,6 +147,7 @@ type TaskFilter struct {
 	Limit           int
 	Offset          int
 	Sort            string // "priority", "created", "updated", "seq" (default: priority)
+	Order           string // "asc" or "desc"
 }
 
 type CreateTaskInput struct {
