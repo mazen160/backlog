@@ -2169,7 +2169,7 @@ async function loadTaskAttachments(taskId) {
           <td class="text-muted text-sm">${size}</td>
           <td class="text-muted text-sm">${ago}</td>
           <td class="attach-actions">
-            <a class="btn btn-ghost btn-sm" href="/api/attachments/${a.id}/fetch" download="${escapeHtml(a.name)}">Download</a>
+            <a class="btn btn-ghost btn-sm" href="/api/attachments/${encodeURIComponent(a.id)}" download="${escapeHtml(a.name)}">Download</a>
             <button class="btn btn-ghost btn-sm btn-danger-ghost attach-delete-btn" data-id="${a.id}">Delete</button>
           </td>
         </tr>`;
