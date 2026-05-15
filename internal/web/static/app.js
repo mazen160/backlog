@@ -2160,35 +2160,35 @@ async function loadTaskAttachments(taskId) {
       listEl.innerHTML = '<p class="section-empty">No attachments.</p>';
       return;
     }
-    listEl.innerHTML = attachments.map(a => {
-      const size = formatBytes(a.size);
-      const ago = timeAgo(a.created_at);
-      const url = '/api/attachments/' + encodeURIComponent(a.id);
-      const isImage = (a.mime_type || '').startsWith('image/');
-      const isPDF   = a.mime_type === 'application/pdf';
-      const isText  = (a.mime_type || '').startsWith('text/');
-      const preview = isImage
-        ? `<div class="attach-preview"><img src="${url}" alt="${escapeHtml(a.name)}" class="attach-preview-img" loading="lazy"></div>`
-        : (isPDF || isText)
-          ? `<div class="attach-preview"><a href="${url}" target="_blank" class="btn btn-ghost btn-sm">Open</a></div>`
-          : '';
-      return `<div class="attach-item" data-attach-id="${a.id}">
-        ${preview}
-        <div class="attach-item-meta">
-          <span class="attach-name" title="${escapeHtml(a.name)}">${escapeHtml(a.name)}</span>
-          <span class="text-muted text-sm">${size} · ${ago}</span>
-          <div class="attach-actions">
+    listEl.innerHTML = '<table class="attach-table"><tbody>' +
+      attachments.map(a => {
+        const size = formatBytes(a.size);
+        const ago = timeAgo(a.created_at);
+        const url = '/api/attachments/' + encodeURIComponent(a.id);
+        const isImage = (a.mime_type || '').startsWith('image/');
+        return `<tr class="attach-row" data-attach-id="${a.id}">
+          <td class="attach-name"><a href="#" class="attach-name-link" data-id="${a.id}" data-name="${escapeHtml(a.name)}" data-mime="${escapeHtml(a.mime_type || '')}" data-is-image="${isImage}" title="${escapeHtml(a.name)}">${escapeHtml(a.name)}</a></td>
+          <td class="text-muted text-sm">${size}</td>
+          <td class="text-muted text-sm">${ago}</td>
+          <td class="attach-actions">
             <a class="btn btn-ghost btn-sm" href="${url}" download="${escapeHtml(a.name)}">Download</a>
             <button class="btn btn-ghost btn-sm btn-danger-ghost attach-delete-btn" data-id="${a.id}">Delete</button>
-          </div>
-        </div>
-      </div>`;
-    }).join('');
+          </td>
+        </tr>`;
+      }).join('') +
+    '</tbody></table>';
 
     // Wire delete buttons
-    // Click image thumbnail → open full-size in new tab
-    listEl.querySelectorAll('.attach-preview-img').forEach(img => {
-      img.onclick = () => window.open(img.src, '_blank');
+    // Click filename → preview modal (images) or open in new tab (others)
+    listEl.querySelectorAll('.attach-name-link').forEach(link => {
+      link.onclick = e => {
+        e.preventDefault();
+        if (link.dataset.isImage === 'true') {
+          showAttachmentPreview(link.dataset.id, link.dataset.name, link.dataset.mime);
+        } else {
+          window.open('/api/attachments/' + link.dataset.id, '_blank');
+        }
+      };
     });
 
     listEl.querySelectorAll('.attach-delete-btn').forEach(btn => {
@@ -2197,8 +2197,8 @@ async function loadTaskAttachments(taskId) {
         btn.disabled = true;
         try {
           await fetch('/api/attachments/' + btn.dataset.id, { method: 'DELETE' });
-          btn.closest('.attach-item').remove();
-          const remaining = listEl.querySelectorAll('.attach-item').length;
+          btn.closest('tr').remove();
+          const remaining = listEl.querySelectorAll('.attach-row').length;
           if (countEl) countEl.textContent = remaining;
           if (!remaining) listEl.innerHTML = '<p class="section-empty">No attachments.</p>';
           toast('Attachment deleted');
