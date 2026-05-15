@@ -4019,54 +4019,6 @@ body::before { display: none; }
 }
 
 /* ════════ Compatibility strip ════════ */
-.compat-strip {
-  max-width: 1140px;
-  margin: clamp(28px, 4vw, 48px) auto 0;
-  padding: 0 40px;
-}
-.compat-strip-inner {
-  padding: 18px clamp(20px, 3vw, 32px);
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 22px 28px;
-}
-.compat-strip-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--fg-subtle);
-}
-.compat-strip-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-}
-.compat-strip-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--fg-2);
-  letter-spacing: -.005em;
-}
-.compat-strip-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--signal);
-  opacity: .8;
-  flex-shrink: 0;
-}
-
 /* ════════ Compatibility strip ════════ */
 .compat-strip {
   max-width: 1140px;
@@ -4081,14 +4033,34 @@ body::before { display: none; }
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 22px 28px;
+  gap: 16px 32px;
+}
+.compat-strip-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 1;
+  min-width: 0;
+}
+.compat-strip-divider {
+  width: 1px;
+  height: 22px;
+  background: var(--border);
+  flex-shrink: 0;
+  margin: 0 4px;
+}
+@media (max-width: 700px) {
+  .compat-strip-divider { display: none; }
+  .compat-strip-group { flex-wrap: wrap; }
 }
 .compat-strip-label {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: .08em;
+  font-size: 10.5px;
+  letter-spacing: .07em;
   text-transform: uppercase;
   color: var(--fg-subtle);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .compat-strip-list {
   list-style: none;
@@ -4096,7 +4068,7 @@ body::before { display: none; }
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 18px;
+  gap: 6px 16px;
 }
 .compat-strip-item {
   display: inline-flex;
@@ -4114,35 +4086,6 @@ body::before { display: none; }
   background: var(--signal);
   opacity: .8;
   flex-shrink: 0;
-}
-
-/* ════════ Manifesto strip ════════ */
-.manifesto-strip {
-  max-width: 1140px;
-  margin: clamp(40px, 6vw, 72px) auto 0;
-  padding: 0 40px;
-  text-align: center;
-}
-.manifesto-strip-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0 16px;
-}
-.manifesto-item {
-  font-size: clamp(18px, 2.5vw, 26px);
-  font-weight: 600;
-  letter-spacing: -.02em;
-  color: var(--fg-2);
-}
-.manifesto-item-em {
-  color: var(--signal);
-}
-.manifesto-sep {
-  font-size: clamp(18px, 2.5vw, 26px);
-  color: var(--fg-subtle);
-  font-weight: 300;
 }
 
 /* ════════ Pull quote (screenshot bait) ════════ */
@@ -4478,6 +4421,45 @@ body::before { display: none; }
   letter-spacing: .02em;
 }
 
+.loop-lane-wrap {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.loop-lane-labels {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 108px;
+  border-right: 1px solid var(--border);
+  margin-right: 12px;
+}
+.loop-lane-label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10px 0 0;
+  gap: 1px;
+}
+.loop-lane-session {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg-2);
+  letter-spacing: .02em;
+}
+.loop-lane-actor {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--fg-subtle);
+  letter-spacing: .01em;
+}
+.loop-lane-wrap .loop-track-svg {
+  flex: 1;
+  min-width: 0;
+}
+
 .loop-track-svg {
   width: 100%;
   height: 80px;
@@ -4488,40 +4470,152 @@ body::before { display: none; }
 
 .loop-chip rect { transition: none; }
 
-/* Sequential chips — slow, gappy, only 2 loops */
-.loop-section.is-playing .loop-chip.seq-1 rect {
-  animation: seqGrow1 4.5s cubic-bezier(.4,0,.2,1) forwards;
+/* ── Sequential Gantt chart ── */
+.seq-gantt {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
 }
-.loop-section.is-playing .loop-chip.seq-1 text {
-  animation: seqText1 4.5s cubic-bezier(.4,0,.2,1) forwards;
+.seq-gantt-bars {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  height: 72px;
 }
-.loop-section.is-playing .loop-chip.seq-2 rect {
-  animation: seqGrow2 4.5s cubic-bezier(.4,0,.2,1) forwards;
+.seq-gantt-task {
+  flex: 220;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1.5px solid var(--blue-fg);
+  border-opacity: .4;
+  background: var(--blue-bg);
+  clip-path: inset(0 100% 0 0 round 8px);
 }
-.loop-section.is-playing .loop-chip.seq-2 text {
-  animation: seqText2 4.5s cubic-bezier(.4,0,.2,1) forwards;
-}
-.loop-chip.seq-1 rect { fill: var(--blue-bg); stroke: var(--blue-fg); stroke-opacity: .4; }
-.loop-chip.seq-1 text { fill: var(--blue-fg); font-family: var(--font-mono); }
-.loop-chip.seq-2 rect { fill: var(--green-bg); stroke: var(--green-fg); stroke-opacity: .4; }
-.loop-chip.seq-2 text { fill: var(--green-fg); font-family: var(--font-mono); }
+.seq-gantt-task-2 { background: var(--green-bg); border-color: var(--green-fg); }
+.seq-gantt-task-3 { background: var(--blue-bg);  border-color: var(--blue-fg); }
+.seq-gantt-task-4 { background: var(--green-bg); border-color: var(--green-fg); flex: 255; }
 
-@keyframes seqGrow1 {
-  0%   { width: 0; }
-  55%  { width: 420; }
-  100% { width: 420; }
+.seq-gantt-gap {
+  flex: 28;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
 }
-@keyframes seqText1 {
-  0%, 10% { opacity: 0; }
-  60%, 100% { opacity: 1; }
+.seq-gap-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
 }
-@keyframes seqGrow2 {
-  0%, 45%  { width: 0; transform: translateX(450px); }
-  100%     { width: 480; transform: translateX(450px); }
+.seq-gap-icon {
+  font-size: 13px;
+  color: var(--fg-subtle);
+  line-height: 1;
 }
-@keyframes seqText2 {
-  0%, 50% { opacity: 0; }
-  100%    { opacity: 1; }
+.seq-gap-text {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--fg-subtle);
+  text-align: center;
+  letter-spacing: .02em;
+  line-height: 1.3;
+}
+
+.seq-stage-strip {
+  display: flex;
+  height: 9px;
+  flex-shrink: 0;
+}
+.seq-seg {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: .04em;
+  display: flex;
+  align-items: center;
+  padding-left: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.seq-seg-plan   { flex: 38; background: var(--signal); opacity: .55; color: var(--bg); }
+.seq-seg-run    { flex: 115; background: var(--blue-fg); opacity: .28; color: transparent; }
+.seq-seg-review { flex: 34; background: #6A4B89; opacity: .35; color: transparent; }
+.seq-seg-ship   { flex: 18; background: var(--green-fg); opacity: .45; color: transparent; }
+
+.seq-task-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+}
+.seq-task-id {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--blue-fg);
+  letter-spacing: -.01em;
+}
+.seq-gantt-task-2 .seq-task-id,
+.seq-gantt-task-4 .seq-task-id { color: var(--green-fg); }
+.seq-task-time {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--fg-muted);
+  opacity: .8;
+}
+
+.seq-gantt-axis {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2px;
+}
+.seq-gantt-axis span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--fg-subtle);
+  opacity: .7;
+}
+
+/* Sequential Gantt — reveal tasks left-to-right, staggered */
+.loop-section.is-playing .seq-gantt-task-1 { animation: seqReveal1 5s cubic-bezier(.4,0,.2,1) forwards; }
+.loop-section.is-playing .seq-gantt-task-2 { animation: seqReveal2 5s cubic-bezier(.4,0,.2,1) forwards; }
+.loop-section.is-playing .seq-gantt-task-3 { animation: seqReveal3 5s cubic-bezier(.4,0,.2,1) forwards; }
+.loop-section.is-playing .seq-gantt-task-4 { animation: seqReveal4 5s cubic-bezier(.4,0,.2,1) forwards; }
+.loop-section.is-playing .seq-gantt-gap-1  { animation: seqGap1    5s cubic-bezier(.4,0,.2,1) forwards; }
+.loop-section.is-playing .seq-gantt-gap-2  { animation: seqGap2    5s cubic-bezier(.4,0,.2,1) forwards; }
+.loop-section.is-playing .seq-gantt-gap-3  { animation: seqGap3    5s cubic-bezier(.4,0,.2,1) forwards; }
+
+@keyframes seqReveal1 {
+  0%        { clip-path: inset(0 100% 0 0 round 8px); }
+  22%, 100% { clip-path: inset(0 0%   0 0 round 8px); }
+}
+@keyframes seqReveal2 {
+  0%, 24%   { clip-path: inset(0 100% 0 0 round 8px); }
+  46%, 100% { clip-path: inset(0 0%   0 0 round 8px); }
+}
+@keyframes seqReveal3 {
+  0%, 48%   { clip-path: inset(0 100% 0 0 round 8px); }
+  70%, 100% { clip-path: inset(0 0%   0 0 round 8px); }
+}
+@keyframes seqReveal4 {
+  0%, 72%   { clip-path: inset(0 100% 0 0 round 8px); }
+  100%      { clip-path: inset(0 0%   0 0 round 8px); }
+}
+@keyframes seqGap1 {
+  0%, 22%   { opacity: 0; }
+  32%, 100% { opacity: 1; }
+}
+@keyframes seqGap2 {
+  0%, 46%   { opacity: 0; }
+  56%, 100% { opacity: 1; }
+}
+@keyframes seqGap3 {
+  0%, 70%   { opacity: 0; }
+  80%, 100% { opacity: 1; }
 }
 
 /* Parallel lane chips — fly in left-to-right, staggered by index, fast */
@@ -4596,9 +4690,8 @@ body::before { display: none; }
     opacity: 1;
     transform: none;
   }
-  .loop-chip.seq-1 rect { width: 420; }
-  .loop-chip.seq-2 rect { width: 480; transform: translateX(450px); }
-  .loop-chip text { opacity: 1; }
+  .seq-gantt-task { clip-path: none; }
+  .seq-gantt-gap  { opacity: 1; }
 }
 
 /* ════════ Surfaces tabbed section ════════ */

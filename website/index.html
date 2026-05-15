@@ -309,16 +309,25 @@
     <!-- ─── Compatibility strip (honest social proof) ──────────────────── -->
     <section class="compat-strip" aria-label="Works with your AI agent stack">
       <div class="compat-strip-inner">
-        <div class="compat-strip-label">Works with the tools your agents already use</div>
-        <ul class="compat-strip-list" role="list">
-          <li class="compat-strip-item"><span class="compat-strip-dot"></span>Claude Code</li>
-          <li class="compat-strip-item"><span class="compat-strip-dot"></span>Cursor</li>
-          <li class="compat-strip-item"><span class="compat-strip-dot"></span>Codex</li>
-          <li class="compat-strip-item"><span class="compat-strip-dot"></span>OpenCode</li>
-          <li class="compat-strip-item"><span class="compat-strip-dot"></span>MCP</li>
-          <li class="compat-strip-item"><span class="compat-strip-dot"></span>CLI</li>
-          <li class="compat-strip-item"><span class="compat-strip-dot"></span>Git</li>
-        </ul>
+        <div class="compat-strip-group">
+          <div class="compat-strip-label">Agents connect via MCP</div>
+          <ul class="compat-strip-list" role="list">
+            <li class="compat-strip-item"><span class="compat-strip-dot"></span>Claude Code</li>
+            <li class="compat-strip-item"><span class="compat-strip-dot"></span>Cursor</li>
+            <li class="compat-strip-item"><span class="compat-strip-dot"></span>Codex</li>
+            <li class="compat-strip-item"><span class="compat-strip-dot"></span>OpenCode</li>
+          </ul>
+        </div>
+        <div class="compat-strip-divider" aria-hidden="true"></div>
+        <div class="compat-strip-group">
+          <div class="compat-strip-label">You connect via</div>
+          <ul class="compat-strip-list" role="list">
+            <li class="compat-strip-item"><span class="compat-strip-dot"></span>CLI</li>
+            <li class="compat-strip-item"><span class="compat-strip-dot"></span>Web UI</li>
+            <li class="compat-strip-item"><span class="compat-strip-dot"></span>HTTP API</li>
+            <li class="compat-strip-item"><span class="compat-strip-dot"></span>AI Skills</li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -337,17 +346,6 @@
           </a>
           <span class="pullquote-cite">Mazin Ahmed</span>
         </div>
-      </div>
-    </section>
-
-    <!-- ─── Manifesto strip ──────────────────────────────────────────────── -->
-    <section class="manifesto-strip" aria-hidden="true">
-      <div class="manifesto-strip-inner">
-        <span class="manifesto-item">One queue.</span>
-        <span class="manifesto-sep" aria-hidden="true">·</span>
-        <span class="manifesto-item">Many agents.</span>
-        <span class="manifesto-sep" aria-hidden="true">·</span>
-        <span class="manifesto-item manifesto-item-em">Every write attributed.</span>
       </div>
     </section>
 
@@ -393,44 +391,95 @@
             <div class="loop-track-head">
               <div>
                 <div class="loop-track-label">Without Backlog · one long thread</div>
-                <div class="loop-track-sublabel">context bloats · agent loses focus · slow loops</div>
+                <div class="loop-track-sublabel">4 tasks · full day gone · context rebuilt every session</div>
               </div>
               <div class="loop-track-stat">
                 <span class="loop-track-stat-num" data-count="seq" data-target="1">0</span>
                 <span class="loop-track-stat-unit">× baseline</span>
               </div>
             </div>
-            <svg class="loop-track-svg" viewBox="0 0 1000 80" preserveAspectRatio="none" role="img" aria-label="Sequential agent timeline, 2 tasks complete over a workday">
-              <defs>
-                <linearGradient id="loop-grid" x1="0" x2="1">
-                  <stop offset="0%" stop-color="currentColor" stop-opacity="0"/>
-                  <stop offset="50%" stop-color="currentColor" stop-opacity=".15"/>
-                  <stop offset="100%" stop-color="currentColor" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <line x1="0" y1="40" x2="1000" y2="40" stroke="url(#loop-grid)"/>
-              <!-- Hour ticks -->
-              <g class="loop-ticks" fill="currentColor" opacity=".4">
-                <text x="0"    y="74" font-size="10">09:00</text>
-                <text x="125"  y="74" font-size="10">10:00</text>
-                <text x="250"  y="74" font-size="10">11:00</text>
-                <text x="375"  y="74" font-size="10">12:00</text>
-                <text x="500"  y="74" font-size="10" text-anchor="middle">13:00</text>
-                <text x="625"  y="74" font-size="10" text-anchor="middle">14:00</text>
-                <text x="750"  y="74" font-size="10" text-anchor="middle">15:00</text>
-                <text x="875"  y="74" font-size="10" text-anchor="middle">16:00</text>
-                <text x="1000" y="74" font-size="10" text-anchor="end">17:00</text>
-              </g>
-              <!-- Two loops, sequential and slow -->
-              <g class="loop-chip seq-1">
-                <rect x="0" y="22" rx="6" ry="6" width="0" height="32" />
-                <text x="14" y="42" font-size="11" opacity="0">TASK-1 · plan · run · review · ship</text>
-              </g>
-              <g class="loop-chip seq-2">
-                <rect x="0" y="22" rx="6" ry="6" width="0" height="32" />
-                <text x="14" y="42" font-size="11" opacity="0">TASK-2 · plan · run · review · ship</text>
-              </g>
-            </svg>
+            <div class="seq-gantt" aria-label="Sequential agent timeline — 4 tasks fill the workday">
+              <div class="seq-gantt-bars">
+
+                <div class="seq-gantt-task seq-gantt-task-1">
+                  <div class="seq-stage-strip">
+                    <div class="seq-seg seq-seg-plan">plan</div>
+                    <div class="seq-seg seq-seg-run">run</div>
+                    <div class="seq-seg seq-seg-review">review</div>
+                    <div class="seq-seg seq-seg-ship">ship</div>
+                  </div>
+                  <div class="seq-task-body">
+                    <span class="seq-task-id">TASK-1</span>
+                    <span class="seq-task-time">09:00 – 11:00</span>
+                  </div>
+                </div>
+
+                <div class="seq-gantt-gap seq-gantt-gap-1">
+                  <div class="seq-gap-inner">
+                    <span class="seq-gap-icon">↻</span>
+                    <span class="seq-gap-text">rebuilding<br>context</span>
+                  </div>
+                </div>
+
+                <div class="seq-gantt-task seq-gantt-task-2">
+                  <div class="seq-stage-strip">
+                    <div class="seq-seg seq-seg-plan">plan</div>
+                    <div class="seq-seg seq-seg-run">run</div>
+                    <div class="seq-seg seq-seg-review">review</div>
+                    <div class="seq-seg seq-seg-ship">ship</div>
+                  </div>
+                  <div class="seq-task-body">
+                    <span class="seq-task-id">TASK-2</span>
+                    <span class="seq-task-time">11:30 – 13:30</span>
+                  </div>
+                </div>
+
+                <div class="seq-gantt-gap seq-gantt-gap-2">
+                  <div class="seq-gap-inner">
+                    <span class="seq-gap-icon">↻</span>
+                    <span class="seq-gap-text">rebuilding<br>context</span>
+                  </div>
+                </div>
+
+                <div class="seq-gantt-task seq-gantt-task-3">
+                  <div class="seq-stage-strip">
+                    <div class="seq-seg seq-seg-plan">plan</div>
+                    <div class="seq-seg seq-seg-run">run</div>
+                    <div class="seq-seg seq-seg-review">review</div>
+                    <div class="seq-seg seq-seg-ship">ship</div>
+                  </div>
+                  <div class="seq-task-body">
+                    <span class="seq-task-id">TASK-3</span>
+                    <span class="seq-task-time">14:00 – 16:00</span>
+                  </div>
+                </div>
+
+                <div class="seq-gantt-gap seq-gantt-gap-3">
+                  <div class="seq-gap-inner">
+                    <span class="seq-gap-icon">↻</span>
+                    <span class="seq-gap-text">rebuilding<br>context</span>
+                  </div>
+                </div>
+
+                <div class="seq-gantt-task seq-gantt-task-4">
+                  <div class="seq-stage-strip">
+                    <div class="seq-seg seq-seg-plan">plan</div>
+                    <div class="seq-seg seq-seg-run">run</div>
+                    <div class="seq-seg seq-seg-review">review</div>
+                    <div class="seq-seg seq-seg-ship">ship</div>
+                  </div>
+                  <div class="seq-task-body">
+                    <span class="seq-task-id">TASK-4</span>
+                    <span class="seq-task-time">16:30 – 17:00</span>
+                  </div>
+                </div>
+
+              </div>
+              <div class="seq-gantt-axis" aria-hidden="true">
+                <span>09:00</span><span>10:00</span><span>11:00</span><span>12:00</span>
+                <span>13:00</span><span>14:00</span><span>15:00</span><span>16:00</span><span>17:00</span>
+              </div>
+            </div>
           </div>
 
           <div class="loop-vs">
@@ -451,24 +500,25 @@
                 <span class="loop-track-stat-unit">× the loops</span>
               </div>
             </div>
-            <svg class="loop-track-svg loop-track-svg-tall" viewBox="0 0 1000 220" preserveAspectRatio="none" role="img" aria-label="Four parallel agent sessions completing 100 tasks">
-              <!-- Lane backgrounds -->
-              <g opacity=".06" fill="currentColor">
-                <rect x="0" y="6"   width="1000" height="44" rx="6"/>
-                <rect x="0" y="56"  width="1000" height="44" rx="6"/>
-                <rect x="0" y="106" width="1000" height="44" rx="6"/>
-                <rect x="0" y="156" width="1000" height="44" rx="6"/>
-              </g>
-              <!-- Lane labels -->
-              <g fill="currentColor" opacity=".55" font-family="var(--font-mono, monospace)" font-size="10">
-                <text x="8" y="22">session-1 · ai:claude-code</text>
-                <text x="8" y="72">session-2 · ai:claude-code</text>
-                <text x="8" y="122">session-3 · ai:cursor</text>
-                <text x="8" y="172">session-4 · ai:codex</text>
-              </g>
-              <!-- Loop chips per lane: each chip is a closed loop. Will be animated via CSS keyframes (left → right) -->
-              <g class="loop-chips" />
-            </svg>
+            <div class="loop-lane-wrap">
+              <div class="loop-lane-labels" aria-hidden="true">
+                <div class="loop-lane-label"><span class="loop-lane-session">S1</span><span class="loop-lane-actor">ai:claude-code</span></div>
+                <div class="loop-lane-label"><span class="loop-lane-session">S2</span><span class="loop-lane-actor">ai:claude-code</span></div>
+                <div class="loop-lane-label"><span class="loop-lane-session">S3</span><span class="loop-lane-actor">ai:cursor</span></div>
+                <div class="loop-lane-label"><span class="loop-lane-session">S4</span><span class="loop-lane-actor">ai:codex</span></div>
+              </div>
+              <svg class="loop-track-svg loop-track-svg-tall" viewBox="0 0 1000 220" preserveAspectRatio="none" role="img" aria-label="Four parallel agent sessions completing 100 tasks">
+                <!-- Lane backgrounds -->
+                <g opacity=".06" fill="currentColor">
+                  <rect x="0" y="6"   width="1000" height="44" rx="6"/>
+                  <rect x="0" y="56"  width="1000" height="44" rx="6"/>
+                  <rect x="0" y="106" width="1000" height="44" rx="6"/>
+                  <rect x="0" y="156" width="1000" height="44" rx="6"/>
+                </g>
+                <!-- Loop chips per lane -->
+                <g class="loop-chips" />
+              </svg>
+            </div>
           </div>
         </div>
 
@@ -1460,7 +1510,7 @@ sudo mv backlog /usr/local/bin/</code></pre>
           ['#E9E0EF', '#6A4B89'], // purple
         ];
         for (let lane = 0; lane < 4; lane++) {
-          let x = 22;
+          let x = 0;
           const y = laneYs[lane];
           const [fg, fgFg] = palettes[lane];
           for (let i = 0; i < 25; i++) {
