@@ -21,6 +21,7 @@ import (
 //go:embed backlog-enhance-tasks/skill.md
 //go:embed backlog-loop/skill.md
 //go:embed backlog-goal/skill.md
+//go:embed backlog-memory/skill.md
 var fsys embed.FS
 
 // Skill is one named skill with its markdown body.

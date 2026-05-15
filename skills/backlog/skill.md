@@ -4,6 +4,30 @@ description: Interact with the Backlog CLI — create and manage tasks, plans, c
 
 You have access to the `backlog` CLI. Use it to manage tasks, plans, comments, labels, projects, memory entries, docs, and attachments. Always pass `--as ai:<your-model-name>` so writes are attributed to you. Always pass `--json` when you need to parse output.
 
+## Session startup
+
+When invoked at the start of a work session for a backlog project, run the following before doing anything else:
+
+```sh
+# 1. Find the active project
+backlog project list --json --profile default
+
+# 2. Load memory entries (decisions, architecture, context)
+backlog memory list --project <alias> --json --profile default
+
+# 3. Load docs (latest version of each)
+backlog doc list --project <alias> --json --profile default
+# For each doc ID:
+backlog doc show <doc-id> --json --profile default
+
+# 4. Load open tasks for situational awareness
+backlog task list --project <alias> --status todo --json --profile default
+```
+
+Surface the memory entries and doc content as context before responding. This prevents re-deriving decisions that are already recorded and ensures you work with the current state of the project.
+
+If memory entries are empty, suggest running `/backlog-memory <alias>` to bootstrap them.
+
 ## Core concepts
 
 | Concept | Description |
