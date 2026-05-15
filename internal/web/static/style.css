@@ -2072,5 +2072,38 @@ body { padding-bottom: 16px; }
 .attach-name { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .attach-actions { text-align: right; white-space: nowrap; }
 
+/* Task-detail attachment cards with optional image preview */
+.attach-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: var(--hairline);
+}
+.attach-item:last-child { border-bottom: none; }
+.attach-preview { flex-shrink: 0; }
+.attach-preview-img {
+  display: block;
+  max-width: 120px;
+  max-height: 90px;
+  border-radius: 6px;
+  border: var(--hairline);
+  object-fit: cover;
+  cursor: zoom-in;
+}
+.attach-preview-img:hover { opacity: 0.85; }
+.attach-item-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.attach-item-meta .attach-name {
+  font-size: 13.5px;
+  font-weight: 500;
+  max-width: 100%;
+}
+
 *:focus-visible { outline: 2px solid var(--link); outline-offset: 1px; }
 input:focus, textarea:focus, select:focus { outline: none; }
