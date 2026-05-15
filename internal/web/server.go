@@ -43,6 +43,14 @@ func (s *Server) routes() {
 	static, _ := fs.Sub(staticFiles, "static")
 	s.mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.FS(static))))
 
+	// Favicon — browsers request /favicon.ico directly; serve the SVG instead.
+	s.mux.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
+		data, _ := staticFiles.ReadFile("static/favicon.svg")
+		w.Header().Set("Content-Type", "image/svg+xml")
+		w.Header().Set("Cache-Control", "public, max-age=86400")
+		w.Write(data)
+	})
+
 	// SPA index. Serve index.html for "/" and any other path that isn't
 	// an API or static asset, so client-side deep links like /tasks/35 work.
 	// ServeMux routes /api/ and /static/ to their handlers first because
