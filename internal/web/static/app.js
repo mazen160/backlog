@@ -2179,7 +2179,7 @@ async function loadTaskAttachments(taskId) {
     // Wire delete buttons
     listEl.querySelectorAll('.attach-delete-btn').forEach(btn => {
       btn.onclick = async () => {
-        if (!confirm('Delete this attachment? This cannot be undone.')) return;
+        if (!await confirm('Delete this attachment? This cannot be undone.')) return;
         btn.disabled = true;
         try {
           await fetch('/api/attachments/' + btn.dataset.id, { method: 'DELETE' });
@@ -3642,7 +3642,7 @@ function downloadTextFile(filename, content, mimeType) {
 // ─── Attachments ─────────────────────────────────────────────────────────────
 
 async function handleDeleteAttachment(id, btn) {
-  if (!confirm('Delete this attachment? This cannot be undone.')) return;
+  if (!await confirm('Delete this attachment? This cannot be undone.')) return;
   btn.disabled = true;
   try {
     await api.del('/attachments/' + id);
