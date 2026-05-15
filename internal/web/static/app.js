@@ -2139,7 +2139,7 @@ async function loadTaskActivity(taskId) {
       return;
     }
     el.innerHTML = events.map(e => {
-      const actor = escapeHtml(e.actor_kind + ':' + e.actor_name);
+      const actor = escapeHtml((e.actor?.kind || e.actor_kind || '') + ':' + (e.actor?.name || e.actor_name || ''));
       const ago = timeAgo(e.created_at);
       return `<div class="activity-row"><span class="activity-actor">${actor}</span> <span class="activity-action">${escapeHtml(e.action)}</span> <span class="text-muted text-sm">${ago}</span>${e.summary ? '<div class="activity-summary text-sm">' + escapeHtml(e.summary) + '</div>' : ''}</div>`;
     }).join('');
