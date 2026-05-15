@@ -6,27 +6,121 @@ You have access to the `backlog` CLI. Use it to manage tasks, plans, comments, l
 
 ## Session startup
 
-When invoked at the start of a work session for a backlog project, run the following before doing anything else:
+When starting a work session on a backlog project, load context before anything else:
 
 ```sh
-# 1. Find the active project
+# 1. Resolve the active project
 backlog project list --json --profile default
 
-# 2. Load memory entries (decisions, architecture, context)
+# 2. Load persisted memory (decisions, architecture, open-work summaries)
 backlog memory list --project <alias> --json --profile default
 
-# 3. Load docs (latest version of each)
+# 3. Load docs (full body of each)
 backlog doc list --project <alias> --json --profile default
-# For each doc ID:
+# For each doc ID returned:
 backlog doc show <doc-id> --json --profile default
 
 # 4. Load open tasks for situational awareness
 backlog task list --project <alias> --status todo --json --profile default
+backlog task list --project <alias> --status doing --json --profile default
 ```
 
-Surface the memory entries and doc content as context before responding. This prevents re-deriving decisions that are already recorded and ensures you work with the current state of the project.
+Surface memory entries and doc bodies as context before responding — this prevents re-deriving decisions already recorded.
 
-If memory entries are empty, suggest running `/backlog-memory <alias>` to bootstrap them.
+If memory entries are empty → suggest running `/backlog-memory-learn <alias>` first, then `/backlog-memory-store <alias>` to persist summaries.
+
+## Core workflow
+
+The standard agentic loop for working through a backlog:
+
+### 1. Pick a task
+
+```sh
+# List by priority (highest first)
+backlog task list --project <alias> --status todo --json --profile default
+```
+
+Choose the highest-priority task that is actionable. Prefer P1 > P2 > P3.
+
+### 2. Claim it
+
+```sh
+backlog task move TASK-N --status doing --as "ai:<model>" --profile default
+```
+
+### 3. Attach a plan (for non-trivial tasks)
+
+```sh
+backlog plan add --task TASK-N \
+  --title "Implementation plan" \
+  --content "## Steps\n1. ...\n2. ...\n\n## Testing\n- ..." \
+  --as "ai:<model>" --profile default
+```
+
+### 4. Do the work
+
+Implement, fix, or research — whatever the task requires.
+
+### 5. Record outcomes
+
+```sh
+# Add a comment with what was done / any decisions made
+backlog comment add "Fixed by changing X in file Y. Verified with Z." \
+  --task TASK-N --as "ai:<model>" --profile default
+
+# If a decision was made that future sessions should know:
+backlog memory add "Decided to use X because Y" \
+  --project <alias> --tag "decision" --as "ai:<model>" --profile default
+```
+
+### 6. Close it
+
+```sh
+backlog task move TASK-N --status done --as "ai:<model>" --profile default
+```
+
+### 7. Repeat or stop
+
+Pick the next task or surface a summary of what was completed.
+
+## Task triage workflow
+
+When asked to triage or bulk-create tasks from findings (scan output, review notes, etc.):
+
+```sh
+# 1. Write a findings JSON file
+# 2. Dry-run first
+backlog import-findings findings.json --dry-run --profile default
+# 3. Import
+backlog import-findings findings.json --as "ai:<model>" --profile default
+# 4. Confirm
+backlog task list --project <alias> --status todo --json --profile default
+```
+
+Findings file format:
+```json
+{
+  "version": 1,
+  "project": "<alias>",
+  "items": [
+    { "title": "...", "type": "bug", "priority": "P2", "source": "review" }
+  ]
+}
+```
+
+## Memory workflow
+
+- **Learn** (read into context): `/backlog-memory-learn <alias>`
+- **Store** (persist synthesized summaries): `/backlog-memory-store <alias>`
+- Run store after significant work to refresh the `open-work` and `done-work` entries.
+
+## Conventions
+
+- Always `--profile default` unless the user specifies otherwise.
+- Always `--as ai:<your-model-name>` on writes.
+- Always `--json` when parsing output.
+- Use `TASK-N` format in messages to the user.
+- Never hardcode actor names — use `ai:<your-model-name>` dynamically.
 
 ## Core concepts
 
