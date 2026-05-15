@@ -4067,6 +4067,84 @@ body::before { display: none; }
   flex-shrink: 0;
 }
 
+/* ════════ Compatibility strip ════════ */
+.compat-strip {
+  max-width: 1140px;
+  margin: clamp(28px, 4vw, 48px) auto 0;
+  padding: 0 40px;
+}
+.compat-strip-inner {
+  padding: 18px clamp(20px, 3vw, 32px);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 22px 28px;
+}
+.compat-strip-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+}
+.compat-strip-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+.compat-strip-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-2);
+  letter-spacing: -.005em;
+}
+.compat-strip-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--signal);
+  opacity: .8;
+  flex-shrink: 0;
+}
+
+/* ════════ Manifesto strip ════════ */
+.manifesto-strip {
+  max-width: 1140px;
+  margin: clamp(40px, 6vw, 72px) auto 0;
+  padding: 0 40px;
+  text-align: center;
+}
+.manifesto-strip-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 16px;
+}
+.manifesto-item {
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 600;
+  letter-spacing: -.02em;
+  color: var(--fg-2);
+}
+.manifesto-item-em {
+  color: var(--signal);
+}
+.manifesto-sep {
+  font-size: clamp(18px, 2.5vw, 26px);
+  color: var(--fg-subtle);
+  font-weight: 300;
+}
+
 /* ════════ Pull quote (screenshot bait) ════════ */
 .pullquote {
   max-width: 980px;

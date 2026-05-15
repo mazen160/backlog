@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Backlog — The agentic loop for AI coding agents</title>
-  <meta name="description" content="A local-first task queue your AI agents can read and write. Run the agentic loop: agents pull tasks, plan, ship, and pick up the next one — 12× more loops closed per workday.">
+  <title>Backlog · The agentic loop for AI coding agents</title>
+  <meta name="description" content="A local-first task queue your AI agents can read and write. Run the agentic loop: agents pull tasks, plan, ship, and pick up the next one. 12× more loops closed per workday.">
   <meta name="keywords" content="agentic loop, AI agents, AI coding agents, task queue, Backlog DB, MCP, Claude Code, Cursor, agent orchestration, local-first, SQLite, Ralph loop">
   <meta name="author" content="Backlog">
   <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
@@ -12,12 +12,12 @@
   <link rel="canonical" href="https://mazen160.github.io/backlog/">
 
   <!-- Favicon (inline SVG of the wordmark glyph) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Ccircle cx='3' cy='5.5' r='1.5' fill='%23B87333'/%3E%3Crect x='7' y='4' width='12' height='3' rx='1.5' fill='%23B87333'/%3E%3Ccircle cx='3' cy='11' r='1.5' fill='%23B87333' opacity='0.6'/%3E%3Crect x='7' y='9.5' width='9' height='3' rx='1.5' fill='%23B87333' opacity='0.6'/%3E%3Ccircle cx='3' cy='16.5' r='1.5' fill='%23B87333' opacity='0.35'/%3E%3Crect x='7' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.35'/%3E%3C/svg%3E">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Ccircle cx='3' cy='5.5' r='1.5' fill='%23B87333'/%3E%3Crect x='7' y='4' width='12' height='3' rx='1.5' fill='%23B87333'/%3E%3Ccircle cx='3' cy='11' r='1.5' fill='%23B87333' opacity='0.6'/%3E%3Crect x='7' y='9.5' width='9' height='3' rx='1.5' fill='%23B87333' opacity='0.6'/%3E%3Ccircle cx='3' cy='16.5' r='1.5' fill='%23B87333' opacity='0.35'/%3E%3Crect x='7' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.35'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='3' y='4' width='16' height='3' rx='1.5' fill='%23B87333'/%3E%3Crect x='3' y='9.5' width='11' height='3' rx='1.5' fill='%23B87333' opacity='0.65'/%3E%3Crect x='3' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.4'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='3' y='4' width='16' height='3' rx='1.5' fill='%23B87333'/%3E%3Crect x='3' y='9.5' width='11' height='3' rx='1.5' fill='%23B87333' opacity='0.65'/%3E%3Crect x='3' y='15' width='6' height='3' rx='1.5' fill='%23B87333' opacity='0.4'/%3E%3C/svg%3E">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Backlog — The agentic loop for AI coding agents">
+  <meta property="og:title" content="Backlog · The agentic loop for AI coding agents">
   <meta property="og:description" content="A local-first task queue your AI agents can read and write. 12× more loops closed per workday. One binary. No server.">
   <meta property="og:url" content="https://mazen160.github.io/backlog/">
   <meta property="og:site_name" content="Backlog">
@@ -27,14 +27,14 @@
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Backlog — a local-first task queue for AI coding agents. Your AI agents shouldn't ask 'what's next?' They should just check $ backlog.">
+  <meta property="og:image:alt" content="Backlog: a local-first task queue for AI coding agents. Your AI agents shouldn't ask 'what's next?' They should just check $ backlog.">
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Backlog — The agentic loop for AI coding agents">
+  <meta name="twitter:title" content="Backlog · The agentic loop for AI coding agents">
   <meta name="twitter:description" content="A local-first task queue your AI agents can read and write. 12× more loops closed per workday. One binary. No server.">
   <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
-  <meta name="twitter:image:alt" content="Backlog — the agentic loop for AI coding agents.">
+  <meta name="twitter:image:alt" content="Backlog: the agentic loop for AI coding agents.">
 
   <!-- Structured data -->
   <script type="application/ld+json">
@@ -73,12 +73,9 @@
     <div class="lnav-inner">
       <a href="index.html" class="lnav-logo" aria-label="Backlog home">
         <svg class="lnav-logo-mark" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
-          <circle cx="3"  cy="5.5"  r="1.5"/>
-          <rect   x="7"  y="4"    width="12" height="3" rx="1.5"/>
-          <circle cx="3"  cy="11"   r="1.5" opacity="0.6"/>
-          <rect   x="7"  y="9.5"  width="9"  height="3" rx="1.5" opacity="0.6"/>
-          <circle cx="3"  cy="16.5" r="1.5" opacity="0.35"/>
-          <rect   x="7"  y="15"   width="6"  height="3" rx="1.5" opacity="0.35"/>
+          <rect x="3" y="4"   width="16" height="3" rx="1.5"/>
+          <rect x="3" y="9.5" width="11" height="3" rx="1.5" opacity="0.65"/>
+          <rect x="3" y="15"  width="6"  height="3" rx="1.5" opacity="0.4"/>
         </svg>
         <span class="lnav-logo-word">Backlog</span>
       </a>
@@ -102,14 +99,9 @@
     <section class="hero hero-v2" aria-label="Product introduction">
 
       <header class="hero-head">
-        <a class="hero-release" href="https://github.com/mazen160/backlog/releases/latest" rel="noopener">
-          <span class="hero-release-pill">v1.0</span>
-          <span class="hero-release-text">Released — read the changelog</span>
-          <span class="hero-release-arrow" aria-hidden="true">→</span>
-        </a>
         <h1 class="hero-h1">Your AI agent shouldn't ask <em class="hero-h1-em">&ldquo;what&rsquo;s next?&rdquo;</em><br>It should just check <code class="hero-h1-code">$ backlog</code></h1>
-        <p class="hero-sub">Backlog is a local-first task queue your AI coding agents read and write directly. Same database as your CLI. One binary. No server. Built for the agentic loop.</p>
-        <ul class="hero-stats" aria-label="Why teams ship with Backlog">
+        <p class="hero-sub">Your AI agent forgets between sessions. Backlog remembers. Open Claude Code tomorrow, Cursor next week. Every task, plan, comment, and decision is right where you left it. Ship more in less time. One binary. <strong>$0 forever.</strong></p>
+        <ul class="hero-stats" aria-label="Why solo devs ship with Backlog">
           <li class="hero-stat"><span class="hero-stat-num">12<span class="hero-stat-sym">×</span></span><span class="hero-stat-label">more loops closed per workday</span></li>
           <li class="hero-stat"><span class="hero-stat-num">10<span class="hero-stat-sym">×</span></span><span class="hero-stat-label">cheaper per task vs long threads</span></li>
           <li class="hero-stat"><span class="hero-stat-num">1</span><span class="hero-stat-label">file. Zero infra.</span></li>
@@ -174,7 +166,7 @@
           </div>
           <div class="hero-detail-caption">
             <span class="hero-detail-caption-dot"></span>
-            One database. Whatever wrote it — your shell or your agent — appears here.
+            One database. Whatever wrote it, your shell or your agent, appears here.
           </div>
         </article>
 
@@ -235,7 +227,7 @@
               <div class="hero-chat">
                 <div class="hero-chat-msg user">
                   <span class="hero-chat-from">you</span>
-                  <span class="hero-chat-text" data-typewriter="skill">/backlog Add a bug in api — login timeout on /api/session, P2</span>
+                  <span class="hero-chat-text" data-typewriter="skill">/backlog Add a bug in api: login timeout on /api/session, P2</span>
                 </div>
                 <div class="hero-chat-msg agent hero-term-fade-1">
                   <span class="hero-chat-from">claude</span>
@@ -290,15 +282,15 @@
       <!-- Share row -->
       <div class="hero-share" aria-label="Share Backlog">
         <span class="hero-share-label">Share</span>
-        <a class="hero-share-btn hero-share-x" href="https://twitter.com/intent/tweet?text=Your%20AI%20agent%20shouldn%27t%20ask%20%22what%27s%20next%3F%22%20%E2%80%94%20it%20should%20just%20check%20%24%20backlog.%20A%20local-first%20task%20queue%20for%20AI%20coding%20agents.&url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&hashtags=AIAgents,AgenticLoop,DevTools" target="_blank" rel="noopener" aria-label="Share on X (Twitter)">
+        <a class="hero-share-btn hero-share-x" href="https://twitter.com/intent/tweet?text=Your%20AI%20agent%20shouldn%27t%20ask%20%22what%27s%20next%3F%22.%20It%20should%20just%20check%20%24%20backlog.%20A%20local-first%20task%20queue%20for%20AI%20coding%20agents.&url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&hashtags=AIAgents,AgenticLoop,DevTools" target="_blank" rel="noopener" aria-label="Share on X (Twitter)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           X
         </a>
-        <a class="hero-share-btn hero-share-hn" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&t=Backlog%20%E2%80%93%20a%20local-first%20task%20queue%20your%20AI%20coding%20agents%20can%20read%20and%20write" target="_blank" rel="noopener" aria-label="Submit to Hacker News">
+        <a class="hero-share-btn hero-share-hn" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&t=Backlog%3A%20a%20local-first%20task%20queue%20your%20AI%20coding%20agents%20can%20read%20and%20write" target="_blank" rel="noopener" aria-label="Submit to Hacker News">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 0v24h24V0zm6.951 4h2.9l2.15 4.473L14.158 4h2.9l-3.6 7.473V19h-2.9v-7.527z"/></svg>
           HN
         </a>
-        <a class="hero-share-btn hero-share-reddit" href="https://www.reddit.com/submit?url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&title=Backlog%20%E2%80%93%20a%20local-first%20task%20queue%20your%20AI%20coding%20agents%20can%20read%20and%20write" target="_blank" rel="noopener" aria-label="Share on Reddit">
+        <a class="hero-share-btn hero-share-reddit" href="https://www.reddit.com/submit?url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&title=Backlog%3A%20a%20local-first%20task%20queue%20your%20AI%20coding%20agents%20can%20read%20and%20write" target="_blank" rel="noopener" aria-label="Share on Reddit">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12.5c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
           Reddit
         </a>
@@ -336,15 +328,26 @@
         <svg class="pullquote-mark" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.97 6c-3.99 0-7 3.137-7 7.082 0 3.252 2.025 4.918 4.245 4.918 1.79 0 3.245-1.379 3.245-3.082 0-1.582-1.052-2.857-2.428-3.082 0-1.969 1.587-3.836 3.428-3.836V6h-1.49zm9.06 0c-3.99 0-7 3.137-7 7.082 0 3.252 2.025 4.918 4.245 4.918 1.79 0 3.245-1.379 3.245-3.082 0-1.582-1.052-2.857-2.428-3.082 0-1.969 1.587-3.836 3.428-3.836V6h-1.49z"/></svg>
         <blockquote class="pullquote-text">
           We spent a decade teaching humans to fit into Jira. Now we're going to ask an LLM to do it?
-          <span class="pullquote-text-em">An AI agent's backlog should be a file it can read — not a SaaS it has to apologize to.</span>
+          <span class="pullquote-text-em">An agent's backlog should live in its context, with tooling built for agentic AI usage.</span>
         </blockquote>
         <div class="pullquote-footer">
-          <a class="pullquote-tweet" href="https://twitter.com/intent/tweet?text=%22An%20AI%20agent%27s%20backlog%20should%20be%20a%20file%20it%20can%20read%20%E2%80%94%20not%20a%20SaaS%20it%20has%20to%20apologize%20to.%22%20via%20%40mazen160%20backlog&url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F" target="_blank" rel="noopener">
+          <a class="pullquote-tweet" href="https://twitter.com/intent/tweet?text=%22An%20agent%27s%20backlog%20should%20live%20in%20its%20context%2C%20with%20tooling%20built%20for%20agentic%20AI%20usage.%22%20via%20%40mazen160%20backlog&url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F" target="_blank" rel="noopener">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             Quote this on X
           </a>
-          <span class="pullquote-cite">— the Backlog thesis</span>
+          <span class="pullquote-cite">Mazin Ahmed</span>
         </div>
+      </div>
+    </section>
+
+    <!-- ─── Manifesto strip ──────────────────────────────────────────────── -->
+    <section class="manifesto-strip" aria-hidden="true">
+      <div class="manifesto-strip-inner">
+        <span class="manifesto-item">One queue.</span>
+        <span class="manifesto-sep" aria-hidden="true">·</span>
+        <span class="manifesto-item">Many agents.</span>
+        <span class="manifesto-sep" aria-hidden="true">·</span>
+        <span class="manifesto-item manifesto-item-em">Every write attributed.</span>
       </div>
     </section>
 
@@ -365,8 +368,8 @@
               <span class="loop-title-stat-label">less agent cost.</span>
             </span>
           </h2>
-          <p class="loop-sub">A loop is one unit of work: <strong>pick → plan → run → review → ship</strong>. Backlog stores the queue, attributes every step, and keeps multiple agent sessions from stepping on each other. Four parallel sessions pull from the same queue all day — we've measured <strong>~12× the throughput</strong> of one developer running a single agent.</p>
-          <p class="loop-sub loop-sub-cost">And because each task spawns a fresh subagent with only the context it needs, the average session fits in <strong>under 50k tokens</strong> instead of the 500k a single long-running thread bloats into — same quality, roughly <strong>10× cheaper</strong> per loop.</p>
+          <p class="loop-sub">A loop is one unit of work: <strong>pick → plan → run → review → ship</strong>. Backlog is the persistent state your AI agent is missing. The queue, the plans, the comments, the activity log all live in the same local database. Tomorrow's session, next week's session, Cursor today and Claude Code in an hour. They all see the same backlog. No re-onboarding. No "where was I?" prompts. The same developer running fresh sessions across the day closes about <strong>12× the loops</strong> of one long-running thread.</p>
+          <p class="loop-sub loop-sub-cost">And because each task spawns a fresh subagent with only the context it needs, the average session fits in <strong>under 50k tokens</strong> instead of the 500k a single long-running thread bloats into. Same quality, roughly <strong>10× cheaper</strong> per loop.</p>
         </header>
 
         <div class="loop-stages" aria-hidden="true">
@@ -389,15 +392,15 @@
           <div class="loop-track loop-track-seq">
             <div class="loop-track-head">
               <div>
-                <div class="loop-track-label">Sequential</div>
-                <div class="loop-track-sublabel">one developer · one agent session</div>
+                <div class="loop-track-label">Without Backlog · one long thread</div>
+                <div class="loop-track-sublabel">context bloats · agent loses focus · slow loops</div>
               </div>
               <div class="loop-track-stat">
                 <span class="loop-track-stat-num" data-count="seq" data-target="1">0</span>
                 <span class="loop-track-stat-unit">× baseline</span>
               </div>
             </div>
-            <svg class="loop-track-svg" viewBox="0 0 1000 80" preserveAspectRatio="none" role="img" aria-label="Sequential agent timeline — 2 tasks complete over a workday">
+            <svg class="loop-track-svg" viewBox="0 0 1000 80" preserveAspectRatio="none" role="img" aria-label="Sequential agent timeline, 2 tasks complete over a workday">
               <defs>
                 <linearGradient id="loop-grid" x1="0" x2="1">
                   <stop offset="0%" stop-color="currentColor" stop-opacity="0"/>
@@ -440,8 +443,8 @@
           <div class="loop-track loop-track-par">
             <div class="loop-track-head">
               <div>
-                <div class="loop-track-label">Agentic loop · 4 sessions in parallel</div>
-                <div class="loop-track-sublabel">one queue · attribution per session · no merge conflicts</div>
+                <div class="loop-track-label">With Backlog · fresh sessions across the day</div>
+                <div class="loop-track-sublabel">shared queue · zero re-onboarding · context survives every session</div>
               </div>
               <div class="loop-track-stat loop-track-stat-hi">
                 <span class="loop-track-stat-num" data-count="par" data-target="12">0</span>
@@ -480,15 +483,15 @@
           </div>
           <div class="loop-note">
             <div class="loop-note-h">Why it scales</div>
-            <p>The queue is just rows in the Backlog DB. Four sessions is a starting point — add more for bigger backlogs, or run nightly batches against the same database. The CLI, the MCP server, and the web UI all share the same writes.</p>
+            <p>The queue is just rows in the Backlog DB. Four sessions is a starting point. Add more for bigger backlogs, or run nightly batches against the same database. The CLI, the MCP server, and the web UI all share the same writes.</p>
           </div>
           <div class="loop-note loop-note-method">
             <div class="loop-note-h">How we measured 12×</div>
-            <p>Baseline: one developer running a single agent session, plan-then-run-then-review per task. Same developer, same agent model, same workday — four sessions hitting one queue. Throughput measured by <code>done</code> tasks in the activity log. The 12× figure is the median across week-long runs; we've seen higher with longer queues and lower with tasks that require human review on every PR.</p>
+            <p>Baseline: one developer running a single agent session, plan-then-run-then-review per task. Same developer, same agent model, same workday, four sessions hitting one queue. Throughput measured by <code>done</code> tasks in the activity log. The 12× figure is the median across week-long runs. Longer queues run higher, tasks needing human review per PR run lower.</p>
           </div>
           <div class="loop-note loop-note-cost">
             <div class="loop-note-h">Why it's ~10× cheaper</div>
-            <p>One long agent thread accumulates everything it has seen — old plans, dead branches, files it loaded an hour ago. Token bills scale with that bloat. With backlog, each task spawns a <strong>focused subagent</strong> with only what the task needs: the task description, the relevant memory entries, and the linked plan. Most loops finish in <strong>30–60k tokens</strong>. The same work in a single 500k-token session costs an order of magnitude more for the same output.</p>
+            <p>One long agent thread accumulates everything it has seen: old plans, dead branches, files it loaded an hour ago. Token bills scale with that bloat. With backlog, each task spawns a <strong>focused subagent</strong> with only what the task needs: the task description, the relevant memory entries, and the linked plan. Most loops finish in <strong>30–60k tokens</strong>. The same work in a single 500k-token session costs an order of magnitude more for the same output.</p>
           </div>
           <div class="loop-note loop-note-cost-detail">
             <div class="loop-note-h">Specialized subagents per task</div>
@@ -502,12 +505,12 @@
     <!-- ─── How it works ────────────────────────────────────────────────── -->
     <section class="how-section">
       <div class="how-section-inner">
-        <h2>Up and running in three commands.</h2>
+        <h2>Up and running in two commands.</h2>
         <div class="how-grid">
           <div class="how-step">
             <div class="how-num">1</div>
             <div class="how-title">Initialize</div>
-            <div class="how-desc">Run <code style="font-family:var(--font-mono);font-size:12.5px">backlog init</code> in any directory. Three files are created. The workspace is ready.</div>
+            <div class="how-desc">Run <code style="font-family:var(--font-mono);font-size:12.5px">backlog init</code> in any directory. A local database and config file are created. The workspace is ready.</div>
             <code class="how-cmd">backlog init</code>
           </div>
           <div class="how-step">
@@ -515,12 +518,6 @@
             <div class="how-title">Create tasks</div>
             <div class="how-desc">Via the CLI, the web UI, or an AI agent via MCP. Every write is tagged with a typed actor at the DB level.</div>
             <code class="how-cmd">backlog task add -p api -t "Fix login timeout" --type bug --priority P2</code>
-          </div>
-          <div class="how-step">
-            <div class="how-num">3</div>
-            <div class="how-title">Ship</div>
-            <div class="how-desc">The entire history lives in <code style="font-family:var(--font-mono);font-size:12.5px">backlog.db</code>. Commit it with your code. No sync needed.</div>
-            <code class="how-cmd">git add backlog.db backlog.json && git commit -m "chore: update backlog"</code>
           </div>
         </div>
       </div>
@@ -530,8 +527,8 @@
     <div class="showcase-wrap">
       <div class="showcase">
         <div class="showcase-text">
-          <h2>Every action has an author.</h2>
-          <p>Every task, plan, comment, and doc is tagged with a typed actor at the database level — not a log on top, the row itself. Filter your backlog by who (or what) created anything.</p>
+          <h2>Know which agent did what, and when.</h2>
+          <p>Every task, plan, comment, and doc is tagged with a typed actor at the database level. Not a log on top, the row itself. <code>ai:claude-code</code> shipped TASK-7 at 2:18am. <code>ai:cursor</code> is mid-way through TASK-12. <code>ai:semgrep</code> queued eleven new findings on Tuesday. Manage your AI agents like a team you actually run: see what each one is working on, what shipped, what's waiting on you, all from one filter on the same database. Your morning standup writes itself.</p>
           <a href="concepts.html#actor" class="showcase-link">Learn about actors →</a>
         </div>
         <div class="showcase-visual">
@@ -558,7 +555,7 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
       <div class="showcase reverse">
         <div class="showcase-text">
           <h2>Your AI assistant is already in your backlog.</h2>
-          <p>Connect Claude Code, Cursor, Codex, or OpenCode directly via the MCP stdio server. The AI reads tasks, writes plans, leaves comments — all attributed with its own actor name. One config, full access.</p>
+          <p>Connect Claude Code, Cursor, Codex, or OpenCode directly via the MCP stdio server. The AI reads tasks, writes plans, leaves comments, all attributed with its own actor name. One config, full access.</p>
           <div class="client-pills">
             <span class="client-pill">Claude Code</span>
             <span class="client-pill">Cursor</span>
@@ -583,7 +580,7 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
 }</code></pre>
           </div>
           <div style="margin-top:12px;font-size:13px;color:var(--fg-muted)">
-            The AI can create tasks, attach plans, move status, and leave comments — all from within its conversation context.
+            The AI can create tasks, attach plans, move status, and leave comments, all from within its conversation context.
           </div>
         </div>
       </div>
@@ -592,7 +589,7 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
       <div class="showcase">
         <div class="showcase-text">
           <h2>Plans evolve.<br>Every version is permanent.</h2>
-          <p>Attach a markdown plan to any task. Every edit creates an immutable version — no history is ever lost. See exactly what changed, who changed it, and why.</p>
+          <p>Attach a markdown plan to any task. Every edit creates an immutable version. No history is ever lost. See exactly what changed, who changed it, and why.</p>
           <a href="concepts.html#plan" class="showcase-link">How versioned plans work →</a>
         </div>
         <div class="showcase-visual">
@@ -655,12 +652,9 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
             <aside class="ui-side">
               <div class="ui-side-brand">
                 <svg width="16" height="16" viewBox="0 0 22 22" aria-hidden="true">
-                  <circle cx="3"  cy="5.5"  r="1.5" fill="var(--link)"/>
-                  <rect   x="7"  y="4"    width="12" height="3" rx="1.5" fill="var(--link)"/>
-                  <circle cx="3"  cy="11"   r="1.5" fill="var(--link)" opacity="0.6"/>
-                  <rect   x="7"  y="9.5"  width="9"  height="3" rx="1.5" fill="var(--link)" opacity="0.6"/>
-                  <circle cx="3"  cy="16.5" r="1.5" fill="var(--link)" opacity="0.35"/>
-                  <rect   x="7"  y="15"   width="6"  height="3" rx="1.5" fill="var(--link)" opacity="0.35"/>
+                  <rect x="3" y="4"   width="16" height="3" rx="1.5" fill="var(--link)"/>
+                  <rect x="3" y="9.5" width="11" height="3" rx="1.5" fill="var(--link)" opacity="0.65"/>
+                  <rect x="3" y="15"  width="6"  height="3" rx="1.5" fill="var(--link)" opacity="0.4"/>
                 </svg>
                 <span>Backlog</span>
               </div>
@@ -759,12 +753,7 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
           <div class="webui-feature">
             <div class="webui-feature-eye">Inline-editable detail page</div>
             <div class="webui-feature-title">Click any property to edit.</div>
-            <div class="webui-feature-desc">Status, priority, type, assignee, due date — all editable inline with a single click. Comments and plans live on the same page.</div>
-          </div>
-          <div class="webui-feature">
-            <div class="webui-feature-eye">Deep links + history.pushState</div>
-            <div class="webui-feature-title">Every URL is shareable.</div>
-            <div class="webui-feature-desc"><code>/tasks/TASK-42</code>, <code>/docs/architecture</code>, <code>/memory?tag=decision</code> — paste it in Slack, refresh, hit back, all work.</div>
+            <div class="webui-feature-desc">Status, priority, type, assignee, due date are all editable inline with a single click. Comments and plans live on the same page.</div>
           </div>
           <div class="webui-feature">
             <div class="webui-feature-eye">Archived view + restore</div>
@@ -781,7 +770,7 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
         <header class="surfaces-head">
           <div class="surfaces-eyebrow">All in one DB</div>
           <h2 class="surfaces-title">Six surfaces. One file. Every write attributed.</h2>
-          <p class="surfaces-sub">Tasks are the core, but the agent loop needs more — plans the agent writes, docs it reads, memory it remembers, attachments it analyses, an activity feed humans audit.</p>
+          <p class="surfaces-sub">Tasks are the core, but the agent loop needs more. Plans the agent writes, docs it reads, memory it remembers, attachments it analyses, an activity feed humans audit.</p>
         </header>
 
         <div class="surfaces-tabs" role="tablist">
@@ -853,7 +842,7 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
               <ul class="surface-list">
                 <li><span class="surface-li-tag">decision</span> Use SQLite WAL mode for concurrent reads from the web UI.</li>
                 <li><span class="surface-li-tag">auth</span> Reject unsigned JWTs at the middleware layer, not handler.</li>
-                <li><span class="surface-li-tag">scope</span> No real-time updates in v1 — polling is good enough.</li>
+                <li><span class="surface-li-tag">scope</span> No real-time updates in v1; polling is good enough.</li>
                 <li><span class="surface-li-tag">perf</span> Index <code>tasks.status</code> + <code>tasks.priority</code> together.</li>
               </ul>
             </div>
@@ -862,7 +851,7 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
           <article class="surfaces-panel" data-surface="attachments" role="tabpanel" aria-hidden="true">
             <div class="surfaces-panel-text">
               <h3>Repro files live in the DB, not in some bucket.</h3>
-              <p>HAR captures, screenshots, scanner outputs, design files — drop them in, they're committed. No signed URLs, no external storage, no expired links.</p>
+              <p>HAR captures, screenshots, scanner outputs, design files. Drop them in, they're committed. No signed URLs, no external storage, no expired links.</p>
               <code class="surfaces-cmd">backlog attachment add --task TASK-5 ./repro-payload.har</code>
             </div>
             <div class="surfaces-panel-visual">
@@ -894,7 +883,7 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
           <article class="surfaces-panel" data-surface="skill" role="tabpanel" aria-hidden="true">
             <div class="surfaces-panel-text">
               <h3>Skills your agent already knows.</h3>
-              <p><code>/backlog</code> teaches Claude Code and Cursor the whole CLI — flags, ID formats, attribution, completion protocol. <code>/backlog-enhance-tasks</code> rewrites titles, expands descriptions, and generates plans on demand.</p>
+              <p><code>/backlog</code> teaches Claude Code and Cursor the whole CLI: flags, ID formats, attribution, completion protocol. <code>/backlog-enhance-tasks</code> rewrites titles, expands descriptions, and generates plans on demand.</p>
               <div class="surfaces-links">
                 <a href="https://github.com/mazen160/backlog/blob/main/skills/backlog/skill.md" rel="noopener">View skill source →</a>
                 <a href="https://github.com/mazen160/backlog/blob/main/skills/backlog-enhance-tasks/skill.md" rel="noopener">View enhance-tasks skill →</a>
@@ -915,15 +904,15 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
     <!-- ─── Who it's for ─────────────────────────────────────────────── -->
     <section class="usecases-section">
       <div class="usecases-section-inner">
-        <h2>Built for real teams.</h2>
-        <p class="uc-sub">Whether you're working alone with an AI agent, running a security program, or shipping as a team — the workflow fits.</p>
+        <h2>Built for solo devs shipping with AI.</h2>
+        <p class="uc-sub">Same workflow whether your AI is writing code with you, triaging security findings, or running unattended overnight.</p>
         <div class="usecases-stack">
 
           <div class="usecase">
             <div class="usecase-text">
               <span class="usecase-tag">Solo dev + AI agent</span>
               <div class="usecase-headline">"You and Claude, on the same backlog."</div>
-              <p class="usecase-body">You create tasks. Your AI agent drafts plans, leaves comments, imports findings — all tagged with its own actor name. At the end of the sprint you can see exactly what was done and by whom. No guessing what the AI touched.</p>
+              <p class="usecase-body">You create tasks. Your AI agent drafts plans, leaves comments, imports findings, all tagged with its own actor name. At the end of the sprint you can see exactly what was done and by whom. No guessing what the AI touched.</p>
             </div>
             <div class="usecase-visual">
               <div class="code-block">
@@ -944,39 +933,52 @@ backlog task list --type bug --actor-kind ai --status todo</code></pre>
             <div class="usecase-text">
               <span class="usecase-tag">Security &amp; compliance</span>
               <div class="usecase-headline">"Every finding becomes a tracked task."</div>
-              <p class="usecase-body">Point your scanner at the findings format. Import in bulk with a single command. Every vulnerability becomes a <code style="font-family:var(--font-mono);font-size:13px">TASK-N</code> with source, external ref, and a pre-attached remediation plan — attributed to the tool that found it.</p>
+              <p class="usecase-body">Point your scanner at the findings format. Import in bulk with a single command. Every vulnerability becomes a <code style="font-family:var(--font-mono);font-size:13px">TASK-N</code> with source, external ref, and a pre-attached remediation plan, attributed to the tool that found it.</p>
             </div>
             <div class="usecase-visual">
               <div class="code-block">
-                <div class="code-block-header">findings.json → backlog</div>
-                <pre><code class="language-bash">backlog import-findings scan.json --as ai:semgrep
-
-# Review what was imported
-backlog task list \
-  --actor-name semgrep \
-  --type vulnerability \
-  --priority P1</code></pre>
+                <div class="code-block-header">findings.json</div>
+                <pre><code class="language-json">{
+  "version": 1,
+  "project": "app",
+  "items": [
+    {
+      "title": "SQL injection in /search",
+      "type": "vulnerability",
+      "priority": "P1",
+      "source": "semgrep",
+      "plans": [{
+        "title": "Fix",
+        "body": "Use parameterized queries."
+      }]
+    }
+  ]
+}</code></pre>
+              </div>
+              <div class="code-block" style="margin-top:12px">
+                <div class="code-block-header">import</div>
+                <pre><code class="language-bash">backlog import-findings findings.json --as ai:semgrep</code></pre>
               </div>
             </div>
           </div>
 
           <div class="usecase">
             <div class="usecase-text">
-              <span class="usecase-tag">Engineering teams</span>
-              <div class="usecase-headline">"The backlog lives where the code lives."</div>
-              <p class="usecase-body">Commit <code style="font-family:var(--font-mono);font-size:13px">backlog.db</code> and <code style="font-family:var(--font-mono);font-size:13px">backlog.json</code> to the repo. Every team member — and every AI agent — has the same backlog from the moment they check out the branch. No sync service. No separate account to create.</p>
+              <span class="usecase-tag">Solo dev shipping with AI</span>
+              <div class="usecase-headline">"Ship more in a week than you did last month."</div>
+              <p class="usecase-body">Your AI agent reads <code style="font-family:var(--font-mono);font-size:13px">backlog task list --status todo --limit 1</code>, picks the next task, plans it, ships it, posts a completion comment, and grabs the next one. You review at the end of the day. The DB is the contract: no instructions to repeat, no context to rebuild between sessions. See the <a href="working-across-sessions.html" class="showcase-link">cross-session walkthrough →</a></p>
             </div>
             <div class="usecase-visual">
               <div class="code-block">
-                <div class="code-block-header">Team workflow</div>
-                <pre><code class="language-bash"># On checkout — sync manifest with DB
-backlog sync
+                <div class="code-block-header">One-shot agent loop</div>
+                <pre><code class="language-bash"># Pick the next task
+ID=$(backlog task list --status todo --limit 1 --json | jq -r '.tasks[0].id')
 
-# Open the shared web UI
-backlog web --port 8080
-
-# Export for the weekly report
-backlog export --format md --project api</code></pre>
+# Agent does the work, then:
+backlog task move "$ID" --status doing --as ai:claude-code
+backlog plan add --task "$ID" --title "Implementation" --from-file plan.md
+backlog comment add --task "$ID" "Shipped in PR #42" --as ai:claude-code
+backlog task move "$ID" --status done --as ai:claude-code</code></pre>
               </div>
             </div>
           </div>
@@ -1016,11 +1018,11 @@ backlog export --format md --project api</code></pre>
             </div>
             <p class="caps-card-lede">The pieces an agent needs to plan, ship, and pick up the next task.</p>
             <ul class="caps-card-list">
-              <li><strong>Versioned plans</strong> — every edit an immutable row.</li>
-              <li><strong>Project docs</strong> — markdown the agent loads as context.</li>
-              <li><strong>Memory</strong> — tagged decisions that survive sessions.</li>
-              <li><strong>Comments</strong> — completion protocol attestation.</li>
-              <li><strong>Activity log</strong> — append-only audit trail.</li>
+              <li><strong>Versioned plans.</strong> Every edit is an immutable row.</li>
+              <li><strong>Project docs.</strong> Markdown the agent loads as context.</li>
+              <li><strong>Memory.</strong> Tagged decisions that survive sessions.</li>
+              <li><strong>Comments.</strong> Completion protocol attestation.</li>
+              <li><strong>Activity log.</strong> Append-only audit trail.</li>
             </ul>
           </article>
 
@@ -1029,13 +1031,13 @@ backlog export --format md --project api</code></pre>
               <span class="caps-card-num">03</span>
               <h3>Interfaces</h3>
             </div>
-            <p class="caps-card-lede">CLI, MCP, web UI, and skills — all on the same service layer.</p>
+            <p class="caps-card-lede">CLI, MCP, web UI, and skills all sit on the same service layer.</p>
             <ul class="caps-card-list">
-              <li><strong>CLI</strong> — 14 verb groups, <code>--json</code> on every command.</li>
-              <li><strong>MCP stdio</strong> — Claude Code, Cursor, Codex, OpenCode.</li>
-              <li><strong>Web UI</strong> — list, board, grid, and timeline views.</li>
-              <li><strong>HTTP API</strong> — for scripts and custom clients.</li>
-              <li><strong>Skills</strong> — <code>/backlog</code> + <code>/backlog-enhance-tasks</code>.</li>
+              <li><strong>CLI.</strong> 14 verb groups, <code>--json</code> on every command.</li>
+              <li><strong>MCP stdio.</strong> Claude Code, Cursor, Codex, OpenCode.</li>
+              <li><strong>Web UI.</strong> List, board, grid, and timeline views.</li>
+              <li><strong>HTTP API.</strong> For scripts and custom clients.</li>
+              <li><strong>Skills.</strong> <code>/backlog</code> + <code>/backlog-enhance-tasks</code>.</li>
             </ul>
           </article>
 
@@ -1046,11 +1048,11 @@ backlog export --format md --project api</code></pre>
             </div>
             <p class="caps-card-lede">The boring parts that make a v1 actually trustworthy.</p>
             <ul class="caps-card-list">
-              <li><strong>Doctor</strong> — integrity check + atomic <code>VACUUM INTO</code> backup.</li>
-              <li><strong>Import</strong> — bulk findings JSON for scanners.</li>
-              <li><strong>Export</strong> — JSON, CSV, Markdown.</li>
-              <li><strong>Profiles</strong> — named workspaces in TOML.</li>
-              <li><strong>Migrations</strong> — embedded SQL, auto-applied on open.</li>
+              <li><strong>Doctor.</strong> Integrity check plus atomic <code>VACUUM INTO</code> backup.</li>
+              <li><strong>Import.</strong> Bulk findings JSON for scanners.</li>
+              <li><strong>Export.</strong> JSON, CSV, Markdown.</li>
+              <li><strong>Profiles.</strong> Named workspaces in TOML.</li>
+              <li><strong>Migrations.</strong> Schema updates roll forward automatically when you upgrade the binary. Nothing to run, nothing to maintain.</li>
             </ul>
           </article>
 
@@ -1069,9 +1071,9 @@ backlog export --format md --project api</code></pre>
     <section class="compare-section" aria-label="Comparison">
       <div class="compare-section-inner">
         <header class="compare-head">
-          <div class="compare-eyebrow">Honest comparison</div>
+          <div class="compare-eyebrow">Compare tools</div>
           <h2 class="compare-title">Backlog wins where the agent loop matters.</h2>
-          <p class="compare-sub">It loses on real-time collaboration and 500-person rollouts. Different tools, different problems.</p>
+          <p class="compare-sub">It loses on real-time human collaboration and integration marketplaces. Different tools, different problems.</p>
         </header>
         <div class="compare-wrap">
           <table class="compare-table">
@@ -1085,18 +1087,18 @@ backlog export --format md --project api</code></pre>
               </tr>
             </thead>
             <tbody>
+              <tr><td class="compare-row-label">Made for agentic AI and humans</td><td class="cell-yes">yes, by design</td><td class="cell-no">humans only</td><td class="cell-no">humans only</td><td class="cell-no">humans only</td></tr>
+              <tr><td class="compare-row-label">Cost</td><td class="cell-yes">$0, MIT</td><td>per seat</td><td>per seat</td><td>per repo</td></tr>
               <tr><td class="compare-row-label">AI agent can read &amp; write directly</td><td class="cell-yes">native (MCP)</td><td class="cell-mid">via API + glue</td><td class="cell-mid">via API + glue</td><td class="cell-mid">via API + glue</td></tr>
-              <tr><td class="compare-row-label">Typed actor on every row</td><td class="cell-yes">yes — column</td><td class="cell-no">no</td><td class="cell-no">no</td><td class="cell-no">no</td></tr>
-              <tr><td class="compare-row-label">Immutable plan versions</td><td class="cell-yes">yes — every edit</td><td class="cell-no">edit overwrites</td><td class="cell-no">edit overwrites</td><td class="cell-no">edit overwrites</td></tr>
+              <tr><td class="compare-row-label">Native agentic AI memory</td><td class="cell-yes">tagged, cross-session</td><td class="cell-no">no</td><td class="cell-no">no</td><td class="cell-no">no</td></tr>
+              <tr><td class="compare-row-label">Typed actor on every row</td><td class="cell-yes">yes, schema column</td><td class="cell-no">no</td><td class="cell-no">no</td><td class="cell-no">no</td></tr>
+              <tr><td class="compare-row-label">Immutable plan versions</td><td class="cell-yes">yes, every edit</td><td class="cell-no">edit overwrites</td><td class="cell-no">edit overwrites</td><td class="cell-no">edit overwrites</td></tr>
               <tr><td class="compare-row-label">Workspace = file in your repo</td><td class="cell-yes">single Backlog DB</td><td class="cell-no">cloud-only</td><td class="cell-no">cloud-only</td><td class="cell-mid">tied to repo</td></tr>
               <tr><td class="compare-row-label">Self-hosted / offline</td><td class="cell-yes">single binary</td><td class="cell-no">no</td><td class="cell-mid">on-prem tier</td><td class="cell-mid">enterprise tier</td></tr>
-              <tr><td class="compare-row-label">Real-time multi-cursor editing</td><td class="cell-no">no</td><td class="cell-yes">yes</td><td class="cell-yes">yes</td><td class="cell-mid">partial</td></tr>
               <tr><td class="compare-row-label">Built-in integrations marketplace</td><td class="cell-no">no</td><td class="cell-yes">extensive</td><td class="cell-yes">extensive</td><td class="cell-yes">extensive</td></tr>
-              <tr><td class="compare-row-label">Pricing</td><td class="cell-yes">free · MIT</td><td>per seat</td><td>per seat</td><td>per repo</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="compare-foot">If you need a sprint board for fifty stakeholders, use Linear. If you want a queue your agents can drain overnight, this.</p>
       </div>
     </section>
 
@@ -1104,34 +1106,44 @@ backlog export --format md --project api</code></pre>
     <section class="faq-section" aria-label="Frequently asked questions">
       <div class="faq-section-inner">
         <header class="faq-head">
-          <div class="faq-eyebrow">Questions you'll have</div>
-          <h2 class="faq-title">The honest answers.</h2>
+          <div class="faq-eyebrow">FAQ</div>
+          <h2 class="faq-title">Common questions.</h2>
         </header>
         <div class="faq-grid">
 
           <details class="faq-item">
-            <summary>How does a team share the backlog without a server?</summary>
-            <div class="faq-body">Commit <code>backlog.db</code> and <code>backlog.json</code> to the same repo as your code. Every checkout has the full backlog. Pulls merge it like any other file. For day-to-day collaboration during a session, point your team at one machine running <code>backlog web</code> on a port.</div>
+            <summary>What happens when I close Claude Code and open Cursor?</summary>
+            <div class="faq-body">Backlog lives in a local database, the same one every MCP client reads. Close Claude Code, open Cursor: the next session sees exactly what the last one left behind. Point both clients' MCP config at the same <code>BACKLOG_DB</code> and they're reading from the same brain.</div>
           </details>
 
           <details class="faq-item">
-            <summary>What happens with merge conflicts on <code>backlog.db</code>?</summary>
-            <div class="faq-body">SQLite is a binary file, so git's textual merge won't help. The practical workflow: treat <code>backlog.db</code> like a build artefact — one person rebases, runs <code>backlog import</code> from the other branch's DB, and commits the merged result. The <code>--dry-run</code> mode previews the merge first. For tighter sync, <code>backlog sync</code> reconciles against <code>backlog.json</code>.</div>
+            <summary>Does this cost anything?</summary>
+            <div class="faq-body">No. Backlog is MIT-licensed, runs locally, and ships as a single binary. No seats, no per-user pricing, no cloud bill. The only cost is the disk space the database takes (a few MB for thousands of tasks).</div>
           </details>
 
           <details class="faq-item">
-            <summary>Will SQLite hold up at scale?</summary>
-            <div class="faq-body">SQLite handles tens of thousands of rows on a laptop and millions on a server with no fuss. The bottleneck for a backlog is human attention, not row count. WAL mode supports multiple concurrent readers and a single writer; four parallel agent sessions hit that limit only briefly during commits.</div>
+            <summary>Why not just use GitHub Issues?</summary>
+            <div class="faq-body">GitHub Issues is great for tracking work humans care about. It's not designed for an AI agent to read on every session: no atomic task claim, no typed actor on every row, no MCP integration, no immutable plan versioning, and no native memory the agent can read on pickup and write on completion. Backlog is purpose-built for agentic loops: the queue, the plans, the tagged memory entries, the activity log all live in one local file the agent reads and writes natively. Use Issues for public-facing work; use Backlog for the AI's working queue and its persistent memory across sessions.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary>How does a team share one backlog?</summary>
+            <div class="faq-body">Run <code>backlog web</code> on one shared host (a workstation, an internal server, a Tailscale node) and point teammates and their agents at that URL. The HTTP API and MCP server expose the same data the CLI does. For asymmetric handoffs (e.g. moving findings between branches) use <code>backlog import &lt;other.db&gt;</code> to merge two workspaces with full plan history preserved.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Will it hold up at scale?</summary>
+            <div class="faq-body">The local DB handles tens of thousands of rows on a laptop and millions on a server with no fuss. The bottleneck for a backlog is human attention, not row count. Concurrent readers are supported alongside a single writer; four parallel agent sessions hit that limit only briefly during commits.</div>
           </details>
 
           <details class="faq-item">
             <summary>Why not just use Linear or Jira's API from my agent?</summary>
-            <div class="faq-body">You can. But you're then paying for API quota, dealing with rate limits, and writing prompt glue for fields the agent doesn't understand. With Backlog the MCP server runs locally, attribution is enforced by the schema, and the agent has full read/write in one config line.</div>
+            <div class="faq-body">Linear and Jira were designed for humans clicking buttons. Backlog is designed for AI agents reading and writing the database directly. That difference shows up everywhere: an MCP server ships with the binary (no API client, no auth tokens, no rate limits); typed <code>human:</code> / <code>ai:</code> actors are enforced as columns on every row (so every change is auditable by who made it); immutable plan versions preserve the agent's reasoning forever; atomic task claims prevent two agents from picking the same row. Linear and Jira can be wrapped to look agent-friendly. Backlog was built for the agentic loop from the schema up.</div>
           </details>
 
           <details class="faq-item">
-            <summary>What if I outgrow SQLite or want centralised infra?</summary>
-            <div class="faq-body">Export with <code>backlog export --format json</code> or pull rows through the HTTP API. The data model is documented; importing into a Postgres-backed clone is a weekend, not a migration. You're never locked in — your backlog is a flat file.</div>
+            <summary>What if I outgrow it or want centralised infra?</summary>
+            <div class="faq-body">Two clean exits. Run <code>backlog export --format json</code> for a full dump, or read rows directly via the HTTP API. The schema is small and documented: tasks, plans, comments, memory, actors, activity. Spinning up a Postgres-backed clone with the same shape is a weekend, not a migration. You own your data; Backlog is just the binary holding it today.</div>
           </details>
 
           <details class="faq-item">
@@ -1146,7 +1158,7 @@ backlog export --format md --project api</code></pre>
     <!-- ─── Install section ───────────────────────────────────────────── -->
     <section class="install-wrap">
       <div class="install-wrap-inner">
-        <h2>Get running in under a minute.</h2>
+        <h2>Two commands and you're running.</h2>
         <p class="install-sub">Single static binary. No CGO. No runtime dependencies. Go 1.22+.</p>
         <div class="landing-install-grid">
           <div class="code-block">
@@ -1176,12 +1188,9 @@ sudo mv backlog /usr/local/bin/</code></pre>
         <div class="lfooter-brand">
           <a href="index.html" class="lfooter-logo" aria-label="Backlog home">
             <svg class="lfooter-logo-mark" width="20" height="20" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
-              <circle cx="3"  cy="5.5"  r="1.5"/>
-              <rect   x="7"  y="4"    width="12" height="3" rx="1.5"/>
-              <circle cx="3"  cy="11"   r="1.5" opacity="0.6"/>
-              <rect   x="7"  y="9.5"  width="9"  height="3" rx="1.5" opacity="0.6"/>
-              <circle cx="3"  cy="16.5" r="1.5" opacity="0.35"/>
-              <rect   x="7"  y="15"   width="6"  height="3" rx="1.5" opacity="0.35"/>
+              <rect x="3" y="4"   width="16" height="3" rx="1.5"/>
+              <rect x="3" y="9.5" width="11" height="3" rx="1.5" opacity="0.65"/>
+              <rect x="3" y="15"  width="6"  height="3" rx="1.5" opacity="0.4"/>
             </svg>
             <span class="lfooter-logo-word">Backlog</span>
           </a>
@@ -1195,13 +1204,13 @@ sudo mv backlog /usr/local/bin/</code></pre>
             <a href="https://github.com/mazen160/backlog" rel="noopener" class="lfooter-social-icon" aria-label="GitHub repository">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
             </a>
-            <a href="https://twitter.com/intent/tweet?text=Your%20AI%20agent%20shouldn%27t%20ask%20%22what%27s%20next%3F%22%20%E2%80%94%20it%20should%20just%20check%20%24%20backlog.%20A%20local-first%20task%20queue%20for%20AI%20coding%20agents.&url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&hashtags=AIAgents,AgenticLoop,DevTools" target="_blank" rel="noopener" class="lfooter-social-icon" aria-label="Share on X (Twitter)">
+            <a href="https://twitter.com/intent/tweet?text=Your%20AI%20agent%20shouldn%27t%20ask%20%22what%27s%20next%3F%22.%20It%20should%20just%20check%20%24%20backlog.%20A%20local-first%20task%20queue%20for%20AI%20coding%20agents.&url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&hashtags=AIAgents,AgenticLoop,DevTools" target="_blank" rel="noopener" class="lfooter-social-icon" aria-label="Share on X (Twitter)">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </a>
-            <a href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&t=Backlog%20%E2%80%93%20a%20local-first%20task%20queue%20your%20AI%20coding%20agents%20can%20read%20and%20write" target="_blank" rel="noopener" class="lfooter-social-icon" aria-label="Submit to Hacker News">
+            <a href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&t=Backlog%3A%20a%20local-first%20task%20queue%20your%20AI%20coding%20agents%20can%20read%20and%20write" target="_blank" rel="noopener" class="lfooter-social-icon" aria-label="Submit to Hacker News">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 0v24h24V0zm6.951 4h2.9l2.15 4.473L14.158 4h2.9l-3.6 7.473V19h-2.9v-7.527z"/></svg>
             </a>
-            <a href="https://www.reddit.com/submit?url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&title=Backlog%20%E2%80%93%20a%20local-first%20task%20queue%20your%20AI%20coding%20agents%20can%20read%20and%20write" target="_blank" rel="noopener" class="lfooter-social-icon" aria-label="Share on Reddit">
+            <a href="https://www.reddit.com/submit?url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&title=Backlog%3A%20a%20local-first%20task%20queue%20your%20AI%20coding%20agents%20can%20read%20and%20write" target="_blank" rel="noopener" class="lfooter-social-icon" aria-label="Share on Reddit">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12.5c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249z"/></svg>
             </a>
             <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F" target="_blank" rel="noopener" class="lfooter-social-icon" aria-label="Share on LinkedIn">
@@ -1222,6 +1231,7 @@ sudo mv backlog /usr/local/bin/</code></pre>
           <div class="lfooter-col-h">Reference</div>
           <a href="cli.html">CLI</a>
           <a href="mcp.html">MCP server</a>
+          <a href="skills.html">Skills</a>
           <a href="api.html">HTTP API</a>
           <a href="https://github.com/mazen160/backlog/blob/main/CHANGELOG.md" rel="noopener">Changelog</a>
         </div>
