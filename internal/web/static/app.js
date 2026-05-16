@@ -1940,7 +1940,7 @@ async function renderTaskDetail(el) {
                   <span class="comment-actor mono">${escapeHtml(c.actor?.kind)}:${escapeHtml(c.actor?.name)}</span>
                   <span class="comment-time" title="${formatDate(c.created_at)}">${timeAgo(c.created_at)}</span>
                 </div>
-                <div class="comment-body">${escapeHtml(c.body)}</div>
+                <div class="comment-body markdown">${renderMarkdown(c.body)}</div>
               </div>`).join('')}
           <div class="comment-composer">
             <textarea class="form-control prose-area" id="new-comment" placeholder="Add a comment…"></textarea>
