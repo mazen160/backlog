@@ -10,9 +10,15 @@ function renderMarkdown(text) {
   let s = text
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+  // Stash fenced code blocks and inline code before any other transforms so
+  // markdown syntax inside them (headings, bold, etc.) is never processed.
+  const stash = [];
+  const stashPush = html => { const i = stash.length; stash.push(html); return `\x00${i}\x00`; };
   s = s.replace(/```([^\n]*)\n?([\s\S]*?)```/g, (_, lang, code) =>
-    `<pre><code>${code.trimEnd()}</code></pre>`);
-  s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+    stashPush(`<pre><code>${code.trimEnd()}</code></pre>`));
+  s = s.replace(/`([^`]+)`/g, (_, code) =>
+    stashPush(`<code>${code}</code>`));
+
   s = s.replace(/^### (.+)$/gm, '<h3>$1</h3>');
   s = s.replace(/^## (.+)$/gm, '<h2>$1</h2>');
   s = s.replace(/^# (.+)$/gm, '<h1>$1</h1>');
@@ -40,8 +46,12 @@ function renderMarkdown(text) {
     b = b.trim();
     if (!b) return '';
     if (/^<(h[1-6]|ul|ol|pre|blockquote|table)/.test(b)) return b;
+    if (/^\x00\d+\x00$/.test(b)) return b; // stashed block-level element
     return `<p>${b.replace(/\n/g, '<br>')}</p>`;
   }).join('\n');
+
+  // Restore stashed code blocks and inline code
+  s = s.replace(/\x00(\d+)\x00/g, (_, i) => stash[+i]);
   return s;
 }
 
