@@ -54,9 +54,9 @@ var skillTargets = []skillTarget{
 		tool:   "Codex",
 		detect: ".codex",
 		dest: func(home, name string) string {
-			return filepath.Join(home, ".codex", "prompts", name+".md")
+			return filepath.Join(home, ".codex", "skills", name, "SKILL.md")
 		},
-		wrap: plain,
+		wrap: skill.CodexWrap,
 	},
 }
 
@@ -67,10 +67,9 @@ func newInstallSkillsCmd() *cobra.Command {
 		Use:     "install-skills",
 		Aliases: []string{"install-skill"},
 		Short:   "Install backlog skills into detected AI coding tools",
-		Long: `Writes the four embedded backlog skills (backlog, backlog-enhance-tasks,
-backlog-loop, backlog-goal) into every detected AI coding tool on this
-machine. By default a target is "detected" when its config directory exists
-under $HOME (~/.claude, ~/.cursor, ~/.config/opencode, ~/.codex).
+		Long: `Writes the embedded backlog skills into every detected AI coding tool on
+this machine. By default a target is "detected" when its config directory
+exists under $HOME (~/.claude, ~/.cursor, ~/.config/opencode, ~/.codex).
 
 Use --all to install into every supported target whether or not it is
 detected. Use --skill to install only specific skills (repeatable).`,

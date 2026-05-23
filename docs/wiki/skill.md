@@ -32,7 +32,7 @@ Scans `$HOME` for supported AI coding tools and writes every embedded skill into
 | Claude Code | `~/.claude/`        | `~/.claude/skills/<name>/skill.md`                 |
 | Cursor      | `~/.cursor/`        | `~/.cursor/rules/<name>.mdc` (with frontmatter)    |
 | OpenCode    | `~/.config/opencode/` | `~/.config/opencode/skills/<name>/skill.md`      |
-| Codex       | `~/.codex/`         | `~/.codex/prompts/<name>.md`                       |
+| Codex       | `~/.codex/`         | `~/.codex/skills/<name>/SKILL.md`                  |
 
 ### Useful flags
 
@@ -280,7 +280,7 @@ skills/backlog-goal/skill.md           # goal-lifecycle with checkpoints
 | Claude Code | `~/.claude/skills/<name>/skill.md` |
 | Cursor | `~/.cursor/rules/<name>.mdc` |
 | OpenCode | `~/.config/opencode/skills/<name>/skill.md` |
-| Codex | `~/.codex/prompts/<name>.md` |
+| Codex | `~/.codex/skills/<name>/SKILL.md` |
 
 Skills are embedded in the `backlog` binary via `skills/skills.go`. `backlog install-skills` writes them into whichever of the four tool directories exist under `$HOME`.
 
