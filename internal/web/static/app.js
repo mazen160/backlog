@@ -2556,6 +2556,7 @@ async function renderDocs(el) {
       pageHeader({
         title: 'Docs',
         subtitle,
+        viewToggle: '<button class="btn btn-ghost" id="btn-docs-download">Download</button>',
         primary: { id: 'btn-new-doc', label: '+ New Doc', shortcut: 'N' },
       }) + html`
       <div class="docs-layout" data-selected="${state.currentDocId ? 'true' : 'false'}">
@@ -2564,6 +2565,9 @@ async function renderDocs(el) {
       </div>`;
 
     $('#btn-new-doc').onclick = () => showNewDocModal();
+    $('#btn-docs-download').onclick = e => {
+      showDocsDownloadPopover(e.currentTarget, docs, { aggregated, search });
+    };
 
     let docsSearchTimer;
     const searchInput = $('#docs-search');
