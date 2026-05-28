@@ -9,7 +9,7 @@ import (
 
 func newDoctorCmd() *cobra.Command {
 	cmd := &cobra.Command{Use: "doctor", Short: "Check and repair the workspace"}
-	cmd.AddCommand(doctorCheckCmd(), doctorBackupCmd())
+	cmd.AddCommand(doctorCheckCmd(), doctorBackupCmd(), doctorProjectCmd())
 	return cmd
 }
 

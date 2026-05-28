@@ -2551,11 +2551,15 @@ async function renderDocs(el) {
 
     const listHTML = renderDocsListPane(docs, allDocs.length, search, aggregated);
     const readerHTML = renderDocsReaderPane(allDocs);
+    const docsDownloadButton = state.currentDocId
+      ? ''
+      : '<button class="btn btn-ghost" id="btn-docs-download">Downloads all Docs</button>';
 
     el.innerHTML =
       pageHeader({
         title: 'Docs',
         subtitle,
+        viewToggle: docsDownloadButton,
         primary: { id: 'btn-new-doc', label: '+ New Doc', shortcut: 'N' },
       }) + html`
       <div class="docs-layout" data-selected="${state.currentDocId ? 'true' : 'false'}">
@@ -2564,6 +2568,12 @@ async function renderDocs(el) {
       </div>`;
 
     $('#btn-new-doc').onclick = () => showNewDocModal();
+    const docsDownload = $('#btn-docs-download');
+    if (docsDownload) {
+      docsDownload.onclick = e => {
+        showDocsDownloadPopover(e.currentTarget, docs, { aggregated, search });
+      };
+    }
 
     let docsSearchTimer;
     const searchInput = $('#docs-search');

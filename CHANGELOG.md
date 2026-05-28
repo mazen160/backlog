@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.0.3 — 2026-05-25
+
+**Added**
+- `backlog activity analyze --project <alias> --since <window>` summarizes project activity with created/completed counts, cycle time by type, status-transition latency, WIP by actor, weak completion evidence, reopened work, bug followups, label churn, and human-vs-AI close ratios.
+- `backlog doctor project --project <alias>` detects stale, orphaned, and weakly closed project work, including never-started tasks, stale `doing` tasks, missing plans, missing completion comments/evidence, label-only latest activity, and final-audit tasks closed while earlier work remains open.
+
+**Improved**
+- `backlog install-skills` now installs Codex skills into `~/.codex/skills/<name>/SKILL.md` with Codex-compatible frontmatter instead of writing saved prompts.
+- The Docs web UI can download all visible docs from the list view.
+
+**Fixed**
+- Hide the all-docs download action while a single document is open in the reader.
+
 ## v1.0.2 — 2026-05-16
 
 **Improved**

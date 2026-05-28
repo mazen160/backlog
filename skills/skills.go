@@ -1,7 +1,5 @@
-// Package skill embeds the four agentic-loop skill directories that live
-// alongside this file (backlog, backlog-enhance-tasks, backlog-loop,
-// backlog-goal) into the binary and exposes them for installation into
-// supported AI coding tools.
+// Package skill embeds the agentic-loop skill directories that live alongside
+// this file and exposes them for installation into supported AI coding tools.
 //
 // The canonical source of each skill is the corresponding directory next to
 // this file. Keeping the directives co-located with the markdown means a
@@ -98,6 +96,17 @@ func CursorWrap(s Skill) string {
 		desc = desc[:197] + "..."
 	}
 	return "---\ndescription: " + desc + "\nglobs:\nalwaysApply: false\n---\n\n" + body
+}
+
+// CodexWrap converts a raw skill body into Codex's SKILL.md format. Codex
+// discovers skills from directory names, but emitting explicit name and
+// description frontmatter makes the installed files match native Codex skills.
+func CodexWrap(s Skill) string {
+	desc, body := splitFrontmatter(s.Body)
+	if desc == "" {
+		desc = fmt.Sprintf("Backlog %s skill", s.Name)
+	}
+	return "---\nname: " + s.Name + "\ndescription: " + desc + "\n---\n\n" + body
 }
 
 // splitFrontmatter returns (description, body-without-frontmatter). If the

@@ -65,5 +65,6 @@ func newActivityCmd() *cobra.Command {
 	cmd.Flags().StringVar(&entityKind, "kind", "", "filter by entity kind (task, plan, doc, comment, memory, project, label, attachment)")
 	cmd.Flags().StringVar(&actorKind, "actor-kind", "", "filter by actor kind (human|ai)")
 	cmd.Flags().StringVar(&actorName, "actor-name", "", "filter by actor name")
+	cmd.AddCommand(activityAnalyzeCmd())
 	return cmd
 }
