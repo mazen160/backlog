@@ -1,4 +1,5 @@
 ---
+name: backlog-memory-learn
 description: Load a backlog project's full context into the session — tasks, plans, docs, and memory entries — so the agent can work with complete situational awareness without re-deriving what is already known.
 ---
 

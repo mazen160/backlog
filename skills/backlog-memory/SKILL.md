@@ -1,4 +1,5 @@
 ---
+name: backlog-memory
 description: Read a backlog workspace and synthesize its content into persistent Claude memory entries — tasks, plans, docs, and existing memory — grouped by theme so future sessions load context instantly.
 ---
 

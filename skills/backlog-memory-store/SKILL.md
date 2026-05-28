@@ -1,4 +1,5 @@
 ---
+name: backlog-memory-store
 description: Synthesize a backlog project's tasks, docs, and activity into persistent memory entries so future sessions load context instantly. The write counterpart to /backlog-memory-learn.
 ---
 

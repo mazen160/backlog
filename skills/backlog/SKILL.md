@@ -1,4 +1,5 @@
 ---
+name: backlog
 description: Interact with the Backlog CLI — create and manage tasks, plans, comments, labels, projects, memory, docs, and attachments in a local SQLite workspace
 ---
 

@@ -1,3 +1,8 @@
+---
+name: backlog-enhance-tasks
+description: Enhance a backlog task's title, description, and optionally generate a plan using Claude. Invoke as /backlog-enhance-tasks TASK-N or /backlog-enhance-tasks TASK-N --build-plan.
+---
+
 # backlog-enhance-tasks
 
 Enhance a backlog task's title, description, and optionally generate a plan using Claude.
