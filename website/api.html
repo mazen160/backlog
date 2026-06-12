@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTTP API — Backlog</title>
+  <title>HTTP API · Backlog</title>
   <meta name="description" content="Backlog's embedded HTTP API. Read and write tasks, plans, docs, and memory from any language. Powers the web UI and your scripts.">
   <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
@@ -12,7 +12,7 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="HTTP API — Backlog">
+  <meta property="og:title" content="HTTP API · Backlog">
   <meta property="og:description" content="Read and write tasks, plans, docs, and memory from any language. Powers the web UI and your scripts.">
   <meta property="og:url" content="https://mazen160.github.io/backlog/api.html">
   <meta property="og:site_name" content="Backlog">
@@ -23,13 +23,13 @@
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="HTTP API — Backlog">
+  <meta name="twitter:title" content="HTTP API · Backlog">
   <meta name="twitter:description" content="Read and write tasks, plans, docs, and memory from any language.">
   <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="style.css">
@@ -102,7 +102,7 @@ backlog --as ai:claude-code --db /path/to/backlog.db web --port 8080</code></pre
 
       <p>All API routes live under <code>/api/</code>. The base URL is <code>http://localhost:8080/api/&lt;resource&gt;</code> by default.</p>
 
-      <p>The actor resolved at startup is attributed to every write through the API — there is no per-request actor override. To run as a different actor, restart with a different <code>--as</code> flag.</p>
+      <p>The actor resolved at startup is attributed to every write through the API. There is no per-request actor override. To run as a different actor, restart with a different <code>--as</code> flag.</p>
 
       <h2 id="conventions">Conventions</h2>
 
@@ -233,8 +233,9 @@ curl 'http://localhost:8080/api/projects?include_archived=true'</code></pre>
               <tr><td><code>type</code></td><td>enum</td><td>Task type</td></tr>
               <tr><td><code>priority</code></td><td>int</td><td>Exact match, 1–5</td></tr>
               <tr><td><code>label</code></td><td>string (repeated)</td><td>Multiple <code>label=</code> params are ANDed</td></tr>
-              <tr><td><code>search</code></td><td>string</td><td>FTS5 — supports prefix (<code>sql*</code>) and boolean (<code>jwt OR csrf</code>)</td></tr>
-              <tr><td><code>sort</code></td><td>string</td><td><code>priority</code> (default) · <code>created</code> · <code>updated</code> · <code>seq</code></td></tr>
+              <tr><td><code>search</code></td><td>string</td><td>FTS5: supports prefix (<code>sql*</code>) and boolean (<code>jwt OR csrf</code>)</td></tr>
+              <tr><td><code>sort</code></td><td>string</td><td><code>priority</code> (default) · <code>created</code> · <code>updated</code> · <code>seq</code> · <code>title</code></td></tr>
+              <tr><td><code>order</code></td><td>string</td><td><code>asc</code> (default) · <code>desc</code>. Ignored when <code>sort=priority</code>, which has a fixed order.</td></tr>
               <tr><td><code>include_archived</code></td><td>bool</td><td>Default <code>false</code></td></tr>
               <tr><td><code>limit</code></td><td>int</td><td>Default 50</td></tr>
               <tr><td><code>offset</code></td><td>int</td><td>Default 0</td></tr>
@@ -253,7 +254,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <span class="endpoint-path">/api/tasks</span>
         </div>
         <div class="endpoint-body">
-          <p class="endpoint-desc">Create a task. Required: <code>project</code> (alias), <code>title</code>. Optional: <code>description</code>, <code>type</code>, <code>status</code>, <code>priority</code>, <code>assignee</code>, <code>due_date</code> (YYYY-MM-DD or RFC3339), <code>source</code>, <code>external_ref</code>, <code>project_path</code>, <code>labels</code> (string array — auto-created if missing).</p>
+          <p class="endpoint-desc">Create a task. Required: <code>project</code> (alias), <code>title</code>. Optional: <code>description</code>, <code>type</code>, <code>status</code>, <code>priority</code>, <code>assignee</code>, <code>due_date</code> (YYYY-MM-DD or RFC3339), <code>source</code>, <code>external_ref</code>, <code>project_path</code>, <code>labels</code> (string array, auto-created if missing).</p>
           <div class="code-block">
             <pre><code class="language-bash">curl -X POST http://localhost:8080/api/tasks \
   -H 'Content-Type: application/json' \
@@ -278,7 +279,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <span class="endpoint-path">/api/tasks/{id}</span>
         </div>
         <div class="endpoint-body">
-          <p class="endpoint-desc">Partial update. Omitted fields are left unchanged. Accepted: <code>title</code>, <code>description</code>, <code>type</code>, <code>priority</code>, <code>assignee</code>, <code>due_at</code>, <code>due_date</code>, <code>clear_due_at</code> (bool), <code>source</code>, <code>external_ref</code>, <code>project_path</code>. Note: <code>status</code> is not accepted here — use <code>PATCH /api/tasks/{id}/status</code>.</p>
+          <p class="endpoint-desc">Partial update. Omitted fields are left unchanged. Accepted: <code>title</code>, <code>description</code>, <code>type</code>, <code>priority</code>, <code>assignee</code>, <code>due_at</code>, <code>due_date</code>, <code>clear_due_at</code> (bool), <code>source</code>, <code>external_ref</code>, <code>project_path</code>. Note: <code>status</code> is not accepted here. Use <code>PATCH /api/tasks/{id}/status</code>.</p>
           <div class="code-block">
             <pre><code class="language-bash">curl -X PATCH http://localhost:8080/api/tasks/TASK-35 \
   -H 'Content-Type: application/json' \
@@ -357,16 +358,6 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
         </div>
       </div>
 
-      <div class="endpoint">
-        <div class="endpoint-header">
-          <span class="method method-delete">DELETE</span>
-          <span class="endpoint-path">/api/tasks/{id}</span>
-        </div>
-        <div class="endpoint-body">
-          <p class="endpoint-desc">Hard delete a task and all its plans, comments, and label associations. Response: <code>204</code>.</p>
-        </div>
-      </div>
-
       <!-- ─── Labels ─── -->
       <h2 id="labels">Labels</h2>
 
@@ -376,7 +367,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <span class="endpoint-path">/api/labels</span>
         </div>
         <div class="endpoint-body">
-          <p class="endpoint-desc">List all labels. Pass <code>project=&lt;alias&gt;</code> to filter by project.</p>
+          <p class="endpoint-desc">List the labels for a project. <code>project=&lt;alias&gt;</code> is <strong>required</strong>. Omitting it returns <code>400</code>. Returns <code>{"labels": [...]}</code>.</p>
         </div>
       </div>
 
@@ -386,7 +377,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <span class="endpoint-path">/api/labels</span>
         </div>
         <div class="endpoint-body">
-          <p class="endpoint-desc">Create a label. Body: <code>{"project": "&lt;alias&gt;", "name": "security", "color": "#e03e3e"}</code>. Idempotent — returns the existing label if name already exists in that project.</p>
+          <p class="endpoint-desc">Create a label. Body: <code>{"project": "&lt;alias&gt;", "name": "security", "color": "#e03e3e"}</code>. Idempotent: returns the existing label if name already exists in that project.</p>
         </div>
       </div>
 
@@ -399,7 +390,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <span class="endpoint-path">/api/plans</span>
         </div>
         <div class="endpoint-body">
-          <p class="endpoint-desc">List plans. Required: <code>task=&lt;id&gt;</code> query param. Returns current version of each plan on the task.</p>
+          <p class="endpoint-desc">List plans, current version of each. Optional <code>project=&lt;alias&gt;</code> filter; omit to aggregate across all non-archived projects (each row carries <code>project_alias</code> / <code>project_name</code>). Returns <code>{"plans": [...]}</code>.</p>
         </div>
       </div>
 
@@ -539,7 +530,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <span class="endpoint-path">/api/memory/{id}/append</span>
         </div>
         <div class="endpoint-body">
-          <p class="endpoint-desc">Append content to an existing memory entry. Creates a new version with the old body + newline + new content. Body: <code>{"body": "additional content"}</code>.</p>
+          <p class="endpoint-desc">Append to an existing memory entry in place (memory is not versioned). The new content is joined to the existing body with a newline. Body: <code>{"value": "additional content"}</code>.</p>
         </div>
       </div>
 
@@ -564,7 +555,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <span class="endpoint-path">/api/attachments</span>
         </div>
         <div class="endpoint-body">
-          <p class="endpoint-desc">List attachment metadata. Pass <code>project=&lt;alias&gt;</code> to filter. Omit for all projects. Does not return the blob data.</p>
+          <p class="endpoint-desc">List attachment metadata. Pass <code>task_id=&lt;id&gt;</code> to list a single task's attachments, or <code>project=&lt;alias&gt;</code> to filter by project (omit both for all projects). Does not return the blob data.</p>
         </div>
       </div>
 
@@ -574,7 +565,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <span class="endpoint-path">/api/attachments</span>
         </div>
         <div class="endpoint-body">
-          <p class="endpoint-desc">Upload an attachment. Multipart form with fields: <code>file</code> (the binary), <code>linked_type</code> (<code>task</code> or <code>doc</code>), <code>linked_id</code> (ULID), <code>name</code> (optional — defaults to filename).</p>
+          <p class="endpoint-desc">Upload an attachment. Multipart form with fields: <code>file</code> (the binary), <code>linked_type</code> (<code>task</code> or <code>doc</code>), <code>linked_id</code> (ULID), <code>name</code> (optional, defaults to filename).</p>
           <div class="code-block">
             <pre><code class="language-bash">curl -X POST http://localhost:8080/api/attachments \
   -F 'file=@screenshot.png' \
@@ -607,10 +598,12 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
           <table>
             <thead><tr><th>Param</th><th>Notes</th></tr></thead>
             <tbody>
-              <tr><td><code>project</code></td><td>Project alias — resolved to ID server-side</td></tr>
+              <tr><td><code>project</code></td><td>Project alias, resolved to ID server-side</td></tr>
               <tr><td><code>kind</code></td><td>Entity kind: <code>task</code>, <code>plan</code>, <code>doc</code>, <code>comment</code>, etc.</td></tr>
-              <tr><td><code>actor</code></td><td><code>kind:name</code> — parsed as <code>actor_kind</code> + <code>actor_name</code></td></tr>
-              <tr><td><code>limit</code></td><td>Default 50, max 10000</td></tr>
+              <tr><td><code>actor</code></td><td><code>kind:name</code>, parsed as <code>actor_kind</code> + <code>actor_name</code></td></tr>
+              <tr><td><code>actor_kind</code> / <code>actor_name</code></td><td>Filter by actor kind/name directly, instead of the combined <code>actor</code> param</td></tr>
+              <tr><td><code>entity_id</code></td><td>Return events for one entity (defaults <code>kind</code> to <code>task</code>); other filters are ignored</td></tr>
+              <tr><td><code>limit</code></td><td>Default 10000, max 10000</td></tr>
               <tr><td><code>offset</code></td><td>Default 0</td></tr>
             </tbody>
           </table>
@@ -626,13 +619,14 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
       <p>These operations are only available via the CLI:</p>
 
       <ul>
-        <li><code>backlog project update</code> — project field updates</li>
-        <li><code>backlog import</code> and <code>backlog import-findings</code> — workspace and findings import</li>
-        <li><code>backlog export</code> — CSV/Markdown/JSON export</li>
-        <li><code>backlog sync</code> — manifest reconciliation</li>
-        <li><code>backlog doctor</code> — integrity check and backup</li>
-        <li><code>backlog profile</code> — workspace profile management</li>
-        <li>Comment delete — comments can be listed and created via API but not deleted</li>
+        <li><code>backlog project update</code>: project field updates</li>
+        <li><code>backlog import</code> and <code>backlog import-findings</code>: workspace and findings import</li>
+        <li><code>backlog export</code>: CSV/Markdown/JSON export</li>
+        <li><code>backlog sync</code>: manifest reconciliation</li>
+        <li><code>backlog doctor</code>: integrity check and backup</li>
+        <li><code>backlog profile</code>: workspace profile management</li>
+        <li>Task hard delete: <code>backlog task delete</code> removes a task and its plans, comments, and label links; the API only exposes archive/unarchive</li>
+        <li>Comment delete: comments can be listed and created via API but not deleted</li>
       </ul>
 
     </div>
@@ -650,7 +644,7 @@ curl 'http://localhost:8080/api/tasks?search=injection*&limit=20'</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
-<script>hljs.highlightAll();
+<script>if (window.hljs) hljs.highlightAll();
 (function ghStars() {
   const targets = document.querySelectorAll('[data-stars-target]');
   if (!targets.length) return;

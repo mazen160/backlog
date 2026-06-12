@@ -34,6 +34,12 @@ The result is the **agentic loop**: spawn a fresh subagent, let it pull a task, 
 
 > **One queue. Many agents. Every write attributed.**
 
+<div align="center">
+
+<img src="assets/backlog-concept-one-queue-many-agents.png" alt="One Backlog database at the center, read and written by multiple AI agents through MCP" width="100%">
+
+</div>
+
 ---
 
 ## Install
@@ -85,7 +91,7 @@ One binary. No dependencies. No runtime to install.
 
 <div align="center">
 
-<img src="assets/agentic-loop.png" alt="The agentic loop — pick, plan, ship, review, attribute, repeat — all backed by one Backlog DB" width="100%">
+<img src="assets/backlog-agentic-loop-editorial.png" alt="The agentic loop — pick, plan, ship, review, attribute, repeat — all backed by one Backlog DB" width="560">
 
 </div>
 
@@ -128,7 +134,33 @@ For step-by-step setup, see [Getting Started](https://mazen160.github.io/backlog
 
 ---
 
+## Concepts
+
+A quick glossary of the vocabulary used throughout Backlog. Full detail in [Core Concepts](https://mazen160.github.io/backlog/concepts.html).
+
+| Term | What it is |
+|---|---|
+| **Workspace** | A directory holding a `backlog.db` (and a `config.toml`). Every project, task, plan, and comment lives in that one SQLite file. Created by `backlog init`. |
+| **Profile** | A named pointer to a workspace, registered in `~/.config/backlog/config.toml`, so you can switch workspaces without typing paths. |
+| **Project** | A named group of tasks inside a workspace, identified by a short **alias** (e.g. `api`) — the alias is what you pass to `-p` / `--project`. |
+| **Task** | The unit of work. Has a type, status, priority, and actor; addressed as `TASK-N`. |
+| **Plan** | A versioned markdown document attached to a task. Every edit creates a new immutable version; the full history stays readable. |
+| **Comment** | An append-only, actor-attributed note on a task. |
+| **Label** | A per-project tag for filtering tasks. |
+| **Doc** | A versioned markdown document attached to a *project* (not a task) — runbooks, ADRs, design notes. |
+| **Memory** | A free-form, taggable, mutable note for cross-session agent context. |
+| **Actor** | The `human:name` or `ai:name` attributed to every write. |
+| **Activity** | An append-only log of every write across the workspace. |
+
+---
+
 ## Features
+
+<div align="center">
+
+<img src="assets/backlog-capability-motifs.png" alt="Backlog motifs — a typed queue, project memory, actor attribution, and an MCP hub" width="640">
+
+</div>
 
 - **Local-first** — the Backlog DB sits next to your code. Commits with your repo (or doesn't — your call).
 - **Single binary** — ~17 MB. No runtime, no dependencies, no daemon.
@@ -137,6 +169,7 @@ For step-by-step setup, see [Getting Started](https://mazen160.github.io/backlog
 - **Actor attribution** — every write is signed `human:name` or `ai:name`. Filter, audit, blame.
 - **MCP server** — plug into Claude Code, Cursor, Codex, OpenCode, or anything that speaks MCP.
 - **Full-text search** — `backlog task list --search "injection*"` runs in milliseconds.
+- **Workflow health reports** — `backlog activity analyze` and `backlog doctor project` surface cycle time, stale work, and weakly-closed tasks across parallel agent sessions.
 - **Bulk findings import** — structured JSON intake for security scanners and AI agents.
 - **Web UI** — `backlog web` serves a clean dashboard from the same Backlog DB.
 - **Export anywhere** — JSON, CSV, or Markdown.
@@ -155,6 +188,8 @@ For step-by-step setup, see [Getting Started](https://mazen160.github.io/backlog
 | `backlog plan add/update/show/history` | Versioned plans on tasks |
 | `backlog comment add/list` | Comments on tasks |
 | `backlog label create/attach/detach` | Per-project labels |
+| `backlog activity / activity analyze` | Audit trail and project workflow-health report |
+| `backlog doctor project` | Lint a project for stale, orphaned, and weakly-closed work |
 | `backlog import-findings <file.json>` | Bulk import from scanners/agents |
 | `backlog import <other.db>` | Merge another workspace |
 | `backlog export --format json\|csv\|md` | Export tasks |
@@ -242,6 +277,26 @@ Every finding becomes a task. Every task is attributed to the scanner that found
 
 ---
 
+## Workflow health
+
+When several agents are closing tasks against the same queue, an empty backlog doesn't mean the work was done well. Two read-only reports tell you whether it actually was:
+
+```sh
+# How is this project trending over the last week?
+backlog activity analyze --project app --since 7d
+```
+
+Cycle time by task type, status-transition latency (todo→doing, doing→done), WIP by actor, reopened work, bug follow-ups, label churn, and the human-vs-AI close ratio — one report, no dashboard required. Add `--json` to pipe it into your own.
+
+```sh
+# What did the agents close badly?
+backlog doctor project --project app
+```
+
+Flags stale `doing` tasks, tasks created but never started, tasks closed with no plan or completion evidence, and final-audit tasks marked done while earlier work is still open. Every issue carries a severity, a code, and the evidence behind it — so the next agent (or you) can fix it instead of rediscovering it.
+
+---
+
 ## Documentation
 
 | Page | Description |
@@ -286,6 +341,12 @@ Share what you build:
 ---
 
 ## Under the hood
+
+<div align="center">
+
+<img src="assets/backlog-ledger-stilllife.png" alt="A ledger and index cards — the durable, tangible queue your agents share" width="100%">
+
+</div>
 
 The Backlog DB is an embedded SQLite store with WAL mode, full-text search (FTS5), and atomic backups. Backlog itself is written in Go and ships as a single static binary.
 

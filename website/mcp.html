@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MCP — Backlog</title>
+  <title>MCP · Backlog</title>
   <meta name="description" content="Wire Backlog into Claude Code, Cursor, Codex, and OpenCode via MCP. Your AI agent reads and writes the same Backlog DB your shell uses.">
   <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
@@ -12,24 +12,24 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="MCP — Backlog">
+  <meta property="og:title" content="MCP · Backlog">
   <meta property="og:description" content="Wire Backlog into Claude Code, Cursor, Codex, and OpenCode via MCP. Your AI agent reads and writes the same Backlog DB your shell uses.">
   <meta property="og:url" content="https://mazen160.github.io/backlog/mcp.html">
   <meta property="og:site_name" content="Backlog">
   <meta property="og:image" content="https://mazen160.github.io/backlog/og-share.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Backlog MCP \u2014 Claude Code, Cursor, Codex, OpenCode.">
+  <meta property="og:image:alt" content="Backlog MCP: Claude Code, Cursor, Codex, OpenCode.">
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MCP — Backlog">
+  <meta name="twitter:title" content="MCP · Backlog">
   <meta name="twitter:description" content="Wire Backlog into Claude Code, Cursor, Codex, and OpenCode via MCP.">
   <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="style.css">
@@ -91,7 +91,7 @@
 
       <p>The <a href="https://modelcontextprotocol.io">Model Context Protocol</a> (MCP) is an open standard for connecting AI assistants to external tools. Instead of constructing CLI invocations, an MCP server exposes named tools over JSON-RPC 2.0 on stdin/stdout. The AI calls tools by name with structured arguments.</p>
 
-      <p>Backlog's MCP server lets any compatible AI assistant read and write your backlog directly — creating tasks, attaching plans, moving status, leaving comments — without any prompt engineering around command syntax.</p>
+      <p>Backlog's MCP server lets any compatible AI assistant read and write your backlog directly, creating tasks, attaching plans, moving status, and leaving comments, without any prompt engineering around command syntax.</p>
 
       <div class="code-block">
         <pre><code class="language-bash">backlog mcp serve --as ai:claude-code --db /path/to/backlog.db</code></pre>
@@ -109,16 +109,15 @@
         <thead><tr><th>Priority</th><th>Source</th></tr></thead>
         <tbody>
           <tr><td>1</td><td><code>--db &lt;path&gt;</code> flag</td></tr>
-          <tr><td>2</td><td><code>--profile &lt;name&gt;</code> flag</td></tr>
-          <tr><td>3</td><td><code>BACKLOG_DB</code> environment variable</td></tr>
-          <tr><td>4</td><td>Walk up from cwd looking for <code>backlog.db</code></td></tr>
-          <tr><td>5</td><td>Default profile (<code>backlog profile set-default</code>)</td></tr>
+          <tr><td>2</td><td><code>BACKLOG_DB</code> environment variable</td></tr>
+          <tr><td>3</td><td><code>--profile &lt;name&gt;</code> flag</td></tr>
+          <tr><td>4</td><td>Default profile (<code>backlog profile set-default</code>)</td></tr>
         </tbody>
       </table>
 
       <div class="callout callout-note">
         <span class="callout-icon">ℹ</span>
-        <span>Using <code>BACKLOG_DB</code> in the MCP config is the most reliable approach — it bypasses cwd-walking entirely and makes the config portable regardless of where the AI tool spawns the process.</span>
+        <span>Setting <code>BACKLOG_DB</code> in the MCP config is the most reliable approach: it pins the workspace explicitly and makes the config portable regardless of where the AI tool spawns the process. There is no cwd-walking fallback, so an MCP server started without <code>--db</code>, <code>--profile</code>, or a default profile will fail to find a workspace.</span>
       </div>
 
       <h2 id="claude-code">Claude Code</h2>
@@ -253,7 +252,7 @@
         </tbody>
       </table>
 
-      <h3>task_create — optional fields</h3>
+      <h3>task_create: optional fields</h3>
       <table>
         <thead><tr><th>Field</th><th>Type</th><th>Values</th></tr></thead>
         <tbody>
@@ -266,7 +265,7 @@
         </tbody>
       </table>
 
-      <h3>task_list — filter fields</h3>
+      <h3>task_list: filter fields</h3>
       <table>
         <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
         <tbody>
@@ -311,7 +310,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
-<script>hljs.highlightAll();
+<script>if (window.hljs) hljs.highlightAll();
 (function ghStars() {
   const targets = document.querySelectorAll('[data-stars-target]');
   if (!targets.length) return;

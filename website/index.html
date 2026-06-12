@@ -61,7 +61,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="style.css">
@@ -349,6 +349,14 @@
       </div>
     </section>
 
+    <!-- ─── Concept illustration ───────────────────────────────────────── -->
+    <section class="concept-band" aria-label="One database, many agents">
+      <figure class="concept-fig">
+        <img src="assets/backlog-concept-one-queue-many-agents.png" alt="One Backlog database at the center, read and written by multiple AI agents through MCP" loading="lazy">
+        <figcaption>One database at the center. Every agent reads and writes the same queue, every write attributed.</figcaption>
+      </figure>
+    </section>
+
     <!-- ─── The agentic loop ───────────────────────────────────────────── -->
     <section id="loop" class="loop-section" aria-label="The agentic loop">
       <div class="loop-section-inner">
@@ -366,7 +374,7 @@
               <span class="loop-title-stat-label">less agent cost.</span>
             </span>
           </h2>
-          <p class="loop-sub">A loop is one unit of work: <strong>pick → plan → run → review → ship</strong>. Backlog is the persistent state your AI agent is missing. The queue, the plans, the comments, the activity log all live in the same local database. Tomorrow's session, next week's session, Cursor today and Claude Code in an hour. They all see the same backlog. No re-onboarding. No "where was I?" prompts. The same developer running fresh sessions across the day closes about <strong>12× the loops</strong> of one long-running thread.</p>
+          <p class="loop-sub">A loop is one unit of work: <strong>pick → plan → run → review → ship</strong>. Backlog is the persistent state your AI agent is missing. The queue, the plans, the comments, the activity log all live in the same local database. Tomorrow's session, next week's session, Cursor today and Claude Code in an hour. They all see the same backlog, so nothing needs re-onboarding and no session opens with a "where was I?" prompt. The same developer running fresh sessions across the day closes about <strong>12× the loops</strong> of one long-running thread.</p>
           <p class="loop-sub loop-sub-cost">And because each task spawns a fresh subagent with only the context it needs, the average session fits in <strong>under 50k tokens</strong> instead of the 500k a single long-running thread bloats into. Same quality, roughly <strong>10× cheaper</strong> per loop.</p>
         </header>
 
@@ -398,7 +406,7 @@
                 <span class="loop-track-stat-unit">× baseline</span>
               </div>
             </div>
-            <div class="seq-gantt" aria-label="Sequential agent timeline — 4 tasks fill the workday">
+            <div class="seq-gantt" aria-label="Sequential agent timeline, 4 tasks fill the workday">
               <div class="seq-gantt-bars">
 
                 <div class="seq-gantt-task seq-gantt-task-1">
@@ -545,7 +553,7 @@
           </div>
           <div class="loop-note loop-note-cost-detail">
             <div class="loop-note-h">Specialized subagents per task</div>
-            <p>Different work needs different context. A SAST finding gets a security-focused subagent with the scanner output and the auth-related docs. A feature task gets a feature-shaped subagent with the PRD memory and the affected handler files. Each subagent is born fresh, knows only what it needs, and is gone when the task is done. No cross-contamination, no runaway context.</p>
+            <p>Different work needs different context. A SAST finding gets a security-focused subagent with the scanner output and the auth-related docs. A feature task gets a feature-shaped subagent with the PRD memory and the affected handler files. Each subagent is born fresh, knows only what it needs, and is gone when the task is done. One task's context never bleeds into the next, and nothing accumulates the bloat of a long-running thread.</p>
           </div>
         </div>
 
@@ -688,7 +696,7 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
         <div class="webui-head">
           <div class="webui-eyebrow">backlog web</div>
           <h2 class="webui-title">The same backlog, in your browser.</h2>
-          <p class="webui-sub">A polished workspace served straight from the binary. List, board, grid, and timeline views. Inline editing on every property. No build step, no separate front-end repo.</p>
+          <p class="webui-sub">A polished workspace served straight from the binary. List, board, grid, and timeline views. Inline editing on every property. It needs no build step and no separate front-end repo.</p>
         </div>
 
         <div class="ui-mockup" aria-label="Preview of the embedded Backlog web UI">
@@ -901,7 +909,7 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
           <article class="surfaces-panel" data-surface="attachments" role="tabpanel" aria-hidden="true">
             <div class="surfaces-panel-text">
               <h3>Repro files live in the DB, not in some bucket.</h3>
-              <p>HAR captures, screenshots, scanner outputs, design files. Drop them in, they're committed. No signed URLs, no external storage, no expired links.</p>
+              <p>HAR captures, screenshots, scanner outputs, design files. Drop them in and they're committed straight to the database, so there's no external storage to wire up and no links that can expire.</p>
               <code class="surfaces-cmd">backlog attachment add --task TASK-5 ./repro-payload.har</code>
             </div>
             <div class="surfaces-panel-visual">
@@ -962,7 +970,7 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
             <div class="usecase-text">
               <span class="usecase-tag">Solo dev + AI agent</span>
               <div class="usecase-headline">"You and Claude, on the same backlog."</div>
-              <p class="usecase-body">You create tasks. Your AI agent drafts plans, leaves comments, imports findings, all tagged with its own actor name. At the end of the sprint you can see exactly what was done and by whom. No guessing what the AI touched.</p>
+              <p class="usecase-body">You create tasks. Your AI agent drafts plans, leaves comments, imports findings, all tagged with its own actor name. At the end of the sprint you can see exactly what was done and by whom, so you never have to guess what the AI changed.</p>
             </div>
             <div class="usecase-visual">
               <div class="code-block">
@@ -1098,7 +1106,8 @@ backlog task move "$ID" --status done --as ai:claude-code</code></pre>
             </div>
             <p class="caps-card-lede">The boring parts that make a v1 actually trustworthy.</p>
             <ul class="caps-card-list">
-              <li><strong>Doctor.</strong> Integrity check plus atomic <code>VACUUM INTO</code> backup.</li>
+              <li><strong>Doctor.</strong> Integrity check, atomic backup, and a project linter for stale or weakly-closed work.</li>
+              <li><strong>Health reports.</strong> <code>activity analyze</code> for cycle time, latency, and human-vs-AI close ratio.</li>
               <li><strong>Import.</strong> Bulk findings JSON for scanners.</li>
               <li><strong>Export.</strong> JSON, CSV, Markdown.</li>
               <li><strong>Profiles.</strong> Named workspaces in TOML.</li>
@@ -1183,7 +1192,7 @@ backlog task move "$ID" --status done --as ai:claude-code</code></pre>
 
           <details class="faq-item">
             <summary>Will it hold up at scale?</summary>
-            <div class="faq-body">The local DB handles tens of thousands of rows on a laptop and millions on a server with no fuss. The bottleneck for a backlog is human attention, not row count. Concurrent readers are supported alongside a single writer; four parallel agent sessions hit that limit only briefly during commits.</div>
+            <div class="faq-body">The local DB handles tens of thousands of rows on a laptop and millions on a server. The bottleneck for a backlog is human attention, not row count. SQLite allows many concurrent readers with one writer at a time, so four parallel agent sessions only contend for the database briefly, during commits.</div>
           </details>
 
           <details class="faq-item">
@@ -1307,7 +1316,7 @@ sudo mv backlog /usr/local/bin/</code></pre>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
   <script>
-    hljs.highlightAll();
+    if (window.hljs) hljs.highlightAll();
 
     // ─── Live GitHub star count (cached 1h via localStorage) ──────────────
     (function ghStars() {

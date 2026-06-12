@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CLI Reference — Backlog</title>
-  <meta name="description" content="Complete Backlog CLI reference. Add, query, and ship tasks from your shell — with full attribution to the human or AI agent that made each write.">
+  <title>CLI Reference · Backlog</title>
+  <meta name="description" content="Complete Backlog CLI reference. Add, query, and ship tasks from your shell, with full attribution to the human or AI agent that made each write.">
   <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://mazen160.github.io/backlog/cli.html">
@@ -12,8 +12,8 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="CLI Reference — Backlog">
-  <meta property="og:description" content="Add, query, and ship tasks from your shell \u2014 with full attribution to the human or AI agent that made each write.">
+  <meta property="og:title" content="CLI Reference · Backlog">
+  <meta property="og:description" content="Add, query, and ship tasks from your shell, with full attribution to the human or AI agent that made each write.">
   <meta property="og:url" content="https://mazen160.github.io/backlog/cli.html">
   <meta property="og:site_name" content="Backlog">
   <meta property="og:image" content="https://mazen160.github.io/backlog/og-share.png">
@@ -23,13 +23,13 @@
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="CLI Reference — Backlog">
+  <meta name="twitter:title" content="CLI Reference · Backlog">
   <meta name="twitter:description" content="Add, query, and ship tasks from your shell. Full attribution per write.">
   <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="style.css">
@@ -87,6 +87,7 @@
         <li><a href="#export">export</a></li>
         <li><a href="#sync">sync</a></li>
         <li><a href="#doctor">doctor</a></li>
+        <li><a href="#activity">activity</a></li>
         <li><a href="#mcp">mcp serve</a></li>
         <li><a href="#web">web</a></li>
         <li><a href="#version">version / completion</a></li>
@@ -115,11 +116,11 @@
       <p>First match wins:</p>
       <ol>
         <li><code>--db</code> flag</li>
-        <li><code>--profile</code> flag</li>
         <li><code>$BACKLOG_DB</code> environment variable</li>
-        <li>Walk up from current directory looking for <code>backlog.db</code></li>
+        <li><code>--profile</code> flag</li>
         <li>Default profile from <code>~/.config/backlog/config.toml</code></li>
       </ol>
+      <p>If none resolve, the command errors with <code>no backlog workspace found</code>. There is no search of the current directory or its parents.</p>
 
       <!-- ─── init ─── -->
       <h2 id="init">init</h2>
@@ -129,7 +130,7 @@
           <span class="cmd-verb">backlog init</span>
           <span class="cmd-flag">[--profile &lt;name&gt;] [--path &lt;dir&gt;]</span>
         </div>
-        <div class="cmd-block-desc">Create a workspace. Produces <code>backlog.db</code>, <code>backlog.json</code>, and <code>backlog.config</code>.</div>
+        <div class="cmd-block-desc">Create a workspace and register a profile. Produces <code>backlog.db</code> (SQLite) and a <code>config.toml</code> holding workspace defaults. A <code>backlog.json</code> manifest is optional and read by <code>backlog sync</code>. <code>init</code> does not create it.</div>
         <table class="cmd-flags-table">
           <tr><td>--profile &lt;name&gt;</td><td>Register a named profile pointing to the new workspace (default: <code>default</code>)</td></tr>
           <tr><td>--path &lt;dir&gt;</td><td>Place the workspace at this directory instead of <code>~/.backlog/&lt;profile&gt;</code></td></tr>
@@ -153,7 +154,7 @@ backlog init --path ~/projects/app   # custom path</code></pre>
         </div>
         <div class="cmd-block-desc">Create a project. The alias is used in all other commands.</div>
         <table class="cmd-flags-table">
-          <tr><td>--alias &lt;alias&gt;</td><td>Short identifier — lowercase alphanumeric with optional hyphens (required)</td></tr>
+          <tr><td>--alias &lt;alias&gt;</td><td>Short identifier: lowercase alphanumeric with optional hyphens (required)</td></tr>
           <tr><td>--description &lt;text&gt;</td><td>Human-readable description</td></tr>
           <tr><td>--repo-path &lt;path&gt;</td><td>Filesystem path to the source repository</td></tr>
         </table>
@@ -278,13 +279,13 @@ backlog task add \
           <span class="cmd-verb">backlog task list</span>
           <span class="cmd-flag">[filters] [--limit N] [--offset N] [--json]</span>
         </div>
-        <div class="cmd-block-desc">List tasks. Multiple filters can be combined — all must match (AND logic).</div>
+        <div class="cmd-block-desc">List tasks. Multiple filters can be combined. All must match (AND logic).</div>
         <table class="cmd-flags-table">
           <tr><td>--project &lt;alias&gt;</td><td>Filter by project</td></tr>
           <tr><td>--status &lt;status&gt;</td><td><code>todo</code> · <code>doing</code> · <code>done</code></td></tr>
           <tr><td>--type &lt;type&gt;</td><td>Task type filter</td></tr>
           <tr><td>--priority &lt;P1-P5&gt;</td><td>Exact priority match</td></tr>
-          <tr><td>--label &lt;name&gt;</td><td>Filter by label (repeatable — OR logic)</td></tr>
+          <tr><td>--label &lt;name&gt;</td><td>Filter by label (repeatable, OR logic)</td></tr>
           <tr><td>--actor-kind &lt;human|ai&gt;</td><td>Filter by actor kind</td></tr>
           <tr><td>--actor-name &lt;name&gt;</td><td>Filter by actor name</td></tr>
           <tr><td>--source &lt;text&gt;</td><td>Filter by source system</td></tr>
@@ -448,7 +449,7 @@ backlog plan history $PLAN_ID</code></pre>
           <span class="cmd-verb">backlog label create</span>
           <span class="cmd-flag">--project &lt;alias&gt; &lt;name&gt; [--color #rrggbb]</span>
         </div>
-        <div class="cmd-block-desc">Create a per-project label. Labels are scoped to a project — the same name in two projects is independent.</div>
+        <div class="cmd-block-desc">Create a per-project label. Labels are scoped to a project: the same name in two projects is independent.</div>
       </div>
 
       <div class="cmd-block">
@@ -622,9 +623,42 @@ backlog plan history $PLAN_ID</code></pre>
         <div class="cmd-block-desc">Create an atomic backup via SQLite <code>VACUUM INTO</code>. Safe to run while the database is in use.</div>
       </div>
 
+      <div class="cmd-block">
+        <div class="cmd-block-signature">
+          <span class="cmd-verb">backlog doctor project</span>
+          <span class="cmd-flag">[--project &lt;alias&gt;] [--stale-after &lt;dur&gt;] [--limit &lt;n&gt;]</span>
+        </div>
+        <div class="cmd-block-desc">Lint a project for stale, orphaned, and weakly-closed work: tasks created but never started, <code>doing</code> tasks gone quiet past <code>--stale-after</code> (default <code>7d</code>), tasks missing a plan, tasks closed with no completion evidence, label-only activity, and final-audit tasks closed while earlier work is still open. Each issue carries a severity, a code, and its evidence. Read-only; supports <code>--json</code>.</div>
+      </div>
+
       <div class="code-block">
         <pre><code class="language-bash">backlog doctor check
-backlog doctor backup --to ~/backups/backlog-$(date +%Y%m%d).db</code></pre>
+backlog doctor backup --to ~/backups/backlog-$(date +%Y%m%d).db
+backlog doctor project --project app --stale-after 7d</code></pre>
+      </div>
+
+      <!-- ─── activity ─── -->
+      <h2 id="activity">activity</h2>
+
+      <div class="cmd-block">
+        <div class="cmd-block-signature">
+          <span class="cmd-verb">backlog activity</span>
+          <span class="cmd-flag">[--project &lt;alias&gt;] [--actor-kind &lt;kind&gt;] [--limit &lt;n&gt;]</span>
+        </div>
+        <div class="cmd-block-desc">Print the append-only audit trail of every state transition. Filter by project, entity, or actor.</div>
+      </div>
+
+      <div class="cmd-block">
+        <div class="cmd-block-signature">
+          <span class="cmd-verb">backlog activity analyze</span>
+          <span class="cmd-flag">[--project &lt;alias&gt;] [--since &lt;window&gt;] [--stale-after &lt;dur&gt;]</span>
+        </div>
+        <div class="cmd-block-desc">A workflow-health report for a project over a time window: throughput, cycle time by task type, status-transition latency (todo→doing, doing→done), WIP by actor, reopened work, bug follow-ups, label churn, and the human-vs-AI close ratio. <code>--since</code> accepts <code>7d</code>, <code>24h</code>, <code>all</code>, RFC3339, or <code>YYYY-MM-DD</code>. Read-only; supports <code>--json</code>.</div>
+      </div>
+
+      <div class="code-block">
+        <pre><code class="language-bash">backlog activity --project app --actor-kind ai --limit 50
+backlog activity analyze --project app --since 7d</code></pre>
       </div>
 
       <!-- ─── mcp ─── -->
@@ -747,7 +781,7 @@ backlog task move "$TASK_ID" --status doing</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
-<script>hljs.highlightAll();
+<script>if (window.hljs) hljs.highlightAll();
 (function ghStars() {
   const targets = document.querySelectorAll('[data-stars-target]');
   if (!targets.length) return;

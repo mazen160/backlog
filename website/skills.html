@@ -29,7 +29,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="style.css">
@@ -98,7 +98,7 @@
 
       <div class="callout callout-tip">
         <span class="callout-icon">✦</span>
-        <span>All four skills are <strong>embedded in the <code>backlog</code> binary</strong>. <code>backlog install-skills</code> detects Claude Code, Cursor, OpenCode, and Codex on your machine and writes the right file in each tool's native format. No repo clone, no manual copy.</span>
+        <span>All four skills are <strong>embedded in the <code>backlog</code> binary</strong>. <code>backlog install-skills</code> detects Claude Code, Cursor, OpenCode, and Codex on your machine and writes the right file in each tool's native format. There's no repo to clone and nothing to copy by hand.</span>
       </div>
 
       <h2 id="inventory">Skills inventory</h2>
@@ -455,7 +455,7 @@ done</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/markdown.min.js"></script>
-<script>hljs.highlightAll();
+<script>if (window.hljs) hljs.highlightAll();
 (function ghStars() {
   const targets = document.querySelectorAll('[data-stars-target]');
   if (!targets.length) return;

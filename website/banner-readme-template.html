@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBFAF7; --surface:#FFFFFF; --sidebar:#F4F1EA;
+    --ink:#2F2B25; --fg2:#47413A; --muted:#7B756D; --subtle:#A29B91;
+    --copper:#B87333; --copper2:#8A4E24;
+    --orange-bg:#F5DEC5; --orange-fg:#AD5C18;
+    --gray-bg:#E7E4DD; --gray-fg:#5B554C;
+    --blue:#2F6F8F;
+    --border:#ECE8DF; --border2:#DED8CC;
+    --mono:'IBM Plex Mono',monospace; --sans:'IBM Plex Sans',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:1200px;height:800px;overflow:hidden;}
+  .banner{position:relative;width:1200px;height:800px;background:var(--cream);font-family:var(--sans);color:var(--ink);overflow:hidden;}
+  /* faint dotted grid, top-left */
+  .dots{position:absolute;top:64px;left:64px;width:140px;height:110px;
+    background-image:radial-gradient(circle, var(--border2) 1.4px, transparent 1.6px);
+    background-size:15px 15px;opacity:.6;}
+  .pad{position:absolute;inset:0;padding:74px 80px;}
+  .eyebrow{font-family:var(--mono);font-size:15px;font-weight:500;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--copper);}
+  .headline{margin-top:50px;font-weight:700;font-size:40px;line-height:1.1;letter-spacing:-0.02em;color:var(--ink);max-width:600px;}
+  .subline{margin-top:26px;font-size:27px;font-weight:500;color:var(--fg2);display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .cmd{font-family:var(--mono);font-size:22px;font-weight:600;color:var(--copper);
+    background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:6px 14px;}
+  .stats{margin-top:40px;display:flex;gap:14px;}
+  .stat{display:flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--border2);
+    border-radius:10px;padding:11px 16px;font-family:var(--mono);font-size:15px;color:var(--fg2);}
+  .stat .dot{width:7px;height:7px;border-radius:50%;background:var(--copper);flex-shrink:0;}
+  .stat b{color:var(--ink);font-weight:600;}
+
+  /* task card */
+  .card{position:absolute;top:118px;right:64px;width:420px;background:var(--surface);
+    border:1px solid var(--border2);border-radius:14px;
+    box-shadow:0 18px 50px rgba(47,43,37,.13), 0 3px 10px rgba(47,43,37,.06);overflow:hidden;}
+  .card-bar{display:flex;align-items:center;gap:14px;padding:13px 18px;background:var(--sidebar);border-bottom:1px solid var(--border);}
+  .traffic{display:flex;gap:7px;}
+  .traffic i{width:11px;height:11px;border-radius:50%;display:block;}
+  .r{background:#ff5f57;} .y{background:#febc2e;} .g{background:#28c840;}
+  .card-url{font-family:var(--mono);font-size:13px;color:var(--muted);}
+  .card-body{padding:20px 22px 18px;}
+  .ref{font-family:var(--mono);font-size:12px;color:var(--subtle);}
+  .title{margin-top:6px;font-size:21px;font-weight:600;color:var(--ink);letter-spacing:-0.01em;}
+  .pills{margin-top:12px;display:flex;gap:8px;}
+  .pill{font-family:var(--mono);font-size:12px;font-weight:500;padding:3px 10px;border-radius:5px;}
+  .pill-todo{background:var(--orange-bg);color:var(--orange-fg);}
+  .pill-p2{background:var(--gray-bg);color:var(--gray-fg);}
+  .fields{margin-top:18px;display:grid;grid-template-columns:84px 1fr;row-gap:9px;font-family:var(--mono);font-size:14px;}
+  .fields .k{color:var(--muted);}
+  .fields .v{color:var(--fg2);}
+  .fields .v.copper{color:var(--copper);}
+  .desc-h{margin-top:18px;font-size:13px;font-weight:600;color:var(--ink);}
+  .desc{margin-top:8px;font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--fg2);}
+  .card-foot{margin-top:18px;padding-top:14px;border-top:1px solid var(--border);
+    font-family:var(--mono);font-size:12px;color:var(--muted);}
+
+  /* bottom strip */
+  .rule{position:absolute;left:80px;right:80px;bottom:118px;height:1px;background:var(--border2);}
+  .foot{position:absolute;left:80px;right:80px;bottom:64px;display:flex;justify-content:center;gap:64px;
+    font-family:var(--mono);font-size:16px;color:var(--muted);letter-spacing:.02em;}
+  .foot .sep{color:var(--copper);}
+</style>
+</head>
+<body>
+  <div class="banner">
+    <div class="dots"></div>
+    <div class="pad">
+      <div class="eyebrow">BACKLOG &nbsp;&middot;&nbsp; MIT</div>
+      <h1 class="headline">Your AI agent shouldn't ask<br>&lsquo;what&rsquo;s next?&rsquo;</h1>
+      <div class="subline">It should just check <span class="cmd">$ backlog</span> .</div>
+      <div class="stats">
+        <div class="stat"><span class="dot"></span><b>12&times;</b>&nbsp;more loops</div>
+        <div class="stat"><span class="dot"></span><b>10&times;</b>&nbsp;cheaper</div>
+        <div class="stat"><span class="dot"></span><b>1</b>&nbsp;file. Zero infra.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-bar">
+        <div class="traffic"><i class="r"></i><i class="y"></i><i class="g"></i></div>
+        <div class="card-url">localhost:8080 / tasks / TASK-42</div>
+      </div>
+      <div class="card-body">
+        <div class="ref">TASK-42</div>
+        <div class="title">Add retry with exponential backoff</div>
+        <div class="pills"><span class="pill pill-todo">todo</span><span class="pill pill-p2">P2</span></div>
+        <div class="fields">
+          <div class="k">Status:</div><div class="v">todo</div>
+          <div class="k">Priority:</div><div class="v">P2</div>
+          <div class="k">Actor:</div><div class="v copper">ai:claude-code</div>
+        </div>
+        <div class="desc-h">Description</div>
+        <div class="desc">Implement exponential backoff for transient failures in the HTTP client.<br>Base delay 500ms, max delay 30s, jitter enabled.</div>
+        <div class="card-foot">Backlog DB &middot; 1 file</div>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+    <div class="foot"><span>local-first</span><span class="sep">&middot;</span><span>MCP-ready</span><span class="sep">&middot;</span><span>no server</span></div>
+  </div>
+</body>
+</html>

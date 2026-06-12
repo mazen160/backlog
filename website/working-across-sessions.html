@@ -22,7 +22,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="style.css">
@@ -151,7 +151,7 @@ backlog task list --status doing --as human:mazin</code></pre>
         <pre><code class="language-bash">backlog task show TASK-1 --with-plans --with-comments</code></pre>
       </div>
 
-      <p>Now you tell Cursor "continue TASK-1." It reads the plan, sees Claude already stubbed the JWKS fetcher, sees the open work item ("Tests pending"), and picks up exactly there. No re-onboarding. No "what does this codebase do?" preamble. No rewriting the plan from scratch.</p>
+      <p>Now you tell Cursor "continue TASK-1." It reads the plan, sees Claude already stubbed the JWKS fetcher, sees the open work item ("Tests pending"), and picks up exactly there. It doesn't need to re-onboard, ask what the codebase does, or rewrite the plan from scratch.</p>
 
       <p>Cursor finishes the tests, leaves its own comment, and writes a memory entry so the next session doesn't repeat its work:</p>
 
@@ -220,7 +220,7 @@ backlog mcp serve --as ai:claude-code &amp;
         <li><strong>Activity log is the audit trail.</strong> Every write across the workspace lands in <code>activity_log</code>. Filter by project, entity, or actor. The morning standup writes itself.</li>
       </ul>
 
-      <p>That's it. No clever protocol. The state lives in a file. The clients read and write it. Your work survives the session.</p>
+      <p>That's it. There's no clever protocol behind it: the state lives in a file, the clients read and write it, and your work survives the session.</p>
 
       <h2 id="next">Where to go from here</h2>
 
@@ -248,7 +248,7 @@ backlog mcp serve --as ai:claude-code &amp;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
-<script>hljs.highlightAll();
+<script>if (window.hljs) hljs.highlightAll();
 (function ghStars() {
   const targets = document.querySelectorAll('[data-stars-target]');
   if (!targets.length) return;

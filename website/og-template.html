@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  .og {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    background:
+      linear-gradient(90deg, #FBFAF7 0%, #FBFAF7 52%, color-mix(in srgb, #FBFAF7 35%, transparent) 70%, transparent 100%),
+      url("assets/backlog-og-background.png");
+    background-size: cover, cover;
+    background-position: center, center right;
+    background-repeat: no-repeat, no-repeat;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: #2F2B25;
+  }
+  .pad { position: absolute; inset: 0; padding: 72px 80px; display: flex; flex-direction: column; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand svg { display: block; }
+  .brand .word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 32px; letter-spacing: -0.01em; color: #2F2B25; }
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 62px;
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    color: #2F2B25;
+    max-width: 720px;
+    margin-top: auto;
+  }
+  .headline .em { color: #B87333; font-style: italic; }
+  .sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 19px;
+    line-height: 1.6;
+    color: #7B756D;
+    margin-top: 20px;
+    letter-spacing: 0.01em;
+    max-width: 620px;
+  }
+  .sub .dot { color: #B87333; }
+</style>
+</head>
+<body>
+  <div class="og">
+    <div class="pad">
+      <div class="brand">
+        <svg width="34" height="34" viewBox="0 0 22 22" aria-hidden="true">
+          <rect x="3" y="4" width="16" height="3" rx="1.5" fill="#B87333"/>
+          <rect x="3" y="9.5" width="11" height="3" rx="1.5" fill="#B87333" opacity="0.65"/>
+          <rect x="3" y="15" width="6" height="3" rx="1.5" fill="#B87333" opacity="0.4"/>
+        </svg>
+        <span class="word">Backlog</span>
+      </div>
+      <h1 class="headline">One queue. Many agents.<br><span class="em">Every write attributed.</span></h1>
+      <div class="sub">Local-first task queue for AI coding agents<br>github.com/mazen160/backlog</div>
+    </div>
+  </div>
+</body>
+</html>

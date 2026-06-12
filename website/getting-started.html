@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Getting Started — Backlog</title>
+  <title>Getting Started · Backlog</title>
   <meta name="description" content="Install Backlog in 60 seconds. Set up your first Backlog workspace, run the agentic loop with Claude Code or Cursor via MCP, and ship your first task.">
   <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
@@ -12,24 +12,24 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Getting Started — Backlog">
+  <meta property="og:title" content="Getting Started · Backlog">
   <meta property="og:description" content="Install Backlog in 60 seconds. Set up your first Backlog workspace and run the agentic loop with Claude Code or Cursor.">
   <meta property="og:url" content="https://mazen160.github.io/backlog/getting-started.html">
   <meta property="og:site_name" content="Backlog">
   <meta property="og:image" content="https://mazen160.github.io/backlog/og-share.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Backlog — getting started in 60 seconds.">
+  <meta property="og:image:alt" content="Backlog: getting started in 60 seconds.">
 
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Getting Started — Backlog">
+  <meta name="twitter:title" content="Getting Started · Backlog">
   <meta name="twitter:description" content="Install Backlog in 60 seconds. Set up your first Backlog workspace.">
   <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="style.css">
@@ -74,6 +74,7 @@
     <div class="toc">
       <div class="toc-title">On this page</div>
       <ol>
+        <li><a href="#concepts">Core concepts</a></li>
         <li><a href="#install">Install</a></li>
         <li><a href="#init">Initialize a workspace</a></li>
         <li><a href="#project">Create a project</a></li>
@@ -91,6 +92,26 @@
     </div>
 
     <div class="doc-body">
+
+      <h2 id="concepts">Core concepts</h2>
+
+      <p>A few terms show up in every command below. Here's the short version; the <a href="concepts.html">Core Concepts</a> page covers each one in full.</p>
+
+      <table>
+        <thead><tr><th>Term</th><th>What it is</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Workspace</strong></td><td>A directory holding a <code>backlog.db</code> (and a <code>config.toml</code>). Every project, task, plan, and comment lives in that one SQLite file. Created by <code>backlog init</code>.</td></tr>
+          <tr><td><strong>Profile</strong></td><td>A named pointer to a workspace, registered in <code>~/.config/backlog/config.toml</code>, so you can switch workspaces without typing paths.</td></tr>
+          <tr><td><strong>Project</strong></td><td>A named group of tasks inside a workspace, identified by a short <strong>alias</strong> (e.g. <code>api</code>), the alias is what you pass to <code>-p</code> / <code>--project</code>.</td></tr>
+          <tr><td><strong>Task</strong></td><td>The unit of work. Has a type, status, priority, and actor; addressed as <code>TASK-N</code>.</td></tr>
+          <tr><td><strong>Plan</strong></td><td>A versioned markdown document attached to a task. Every edit creates a new immutable version.</td></tr>
+          <tr><td><strong>Comment</strong></td><td>An append-only, actor-attributed note on a task.</td></tr>
+          <tr><td><strong>Label</strong></td><td>A per-project tag for filtering tasks.</td></tr>
+          <tr><td><strong>Doc</strong></td><td>A versioned markdown document attached to a <em>project</em> (not a task): runbooks, ADRs, design notes.</td></tr>
+          <tr><td><strong>Memory</strong></td><td>A free-form, taggable, mutable note for cross-session agent context.</td></tr>
+          <tr><td><strong>Actor</strong></td><td>The <code>human:name</code> or <code>ai:name</code> attributed to every write.</td></tr>
+        </tbody>
+      </table>
 
       <h2 id="install">Install</h2>
 
@@ -127,31 +148,32 @@ sudo mv backlog /usr/local/bin/</code></pre>
 
       <h2 id="init">Initialize a workspace</h2>
 
-      <p>Create a directory for your project and run <code>backlog init</code> inside it:</p>
+      <p>By default <code>backlog init</code> creates the workspace under <code>~/.backlog/&lt;profile&gt;</code>. To keep it next to your code instead, pass <code>--path</code>:</p>
 
       <div class="code-block">
-        <pre><code class="language-bash">mkdir my-project && cd my-project
-backlog init</code></pre>
+        <pre><code class="language-bash">backlog init --path ./my-project
+cd my-project</code></pre>
       </div>
       <div class="code-block">
         <div class="code-block-header">Output</div>
-        <pre><code>✓ workspace initialized at /Users/alice/my-project</code></pre>
+        <pre><code>✓ workspace initialized: /Users/alice/my-project (profile: "default") [default]</code></pre>
       </div>
 
-      <p>Three files are created:</p>
+      <p>This registers a profile named <code>default</code> and writes two files into the workspace:</p>
 
       <table>
         <thead><tr><th>File</th><th>Purpose</th></tr></thead>
         <tbody>
-          <tr><td><code>backlog.db</code></td><td>SQLite database — all tasks, projects, plans, comments, labels</td></tr>
-          <tr><td><code>backlog.json</code></td><td>Project manifest — used by <code>backlog sync</code> to reconcile</td></tr>
-          <tr><td><code>backlog.config</code></td><td>Local workspace settings</td></tr>
+          <tr><td><code>backlog.db</code></td><td>SQLite database: all tasks, projects, plans, comments, labels</td></tr>
+          <tr><td><code>config.toml</code></td><td>Local workspace settings: default actor, project, and output format</td></tr>
         </tbody>
       </table>
 
+      <p><code>init</code> does not create a <code>backlog.json</code>. That file is an optional, hand-authored project manifest: you write it yourself (or commit it with your repo), and <code>backlog sync</code> reads it to create any listed projects that don't exist yet in the database. Sync is one-way (manifest → database) and never deletes.</p>
+
       <div class="callout callout-tip">
         <span class="callout-icon">✦</span>
-        <span>Commit <code>backlog.db</code> and <code>backlog.json</code> to your repository so your team — and any AI agents working alongside you — share the same backlog.</span>
+        <span>Commit <code>backlog.db</code> to your repository so your team (and any AI agents working alongside you) share the same backlog. Add a <code>backlog.json</code> manifest too if you want project definitions tracked in plain text and reconciled with <code>backlog sync</code>.</span>
       </div>
 
       <p>To create a named workspace for use across directories, pass <code>--profile</code>:</p>
@@ -163,7 +185,7 @@ backlog init --path ~/projects/api   # custom path</code></pre>
 
       <h2 id="project">Create a project</h2>
 
-      <p>A project groups tasks under a short <em>alias</em> — the identifier you type in every other command.</p>
+      <p>A project groups tasks under a short <em>alias</em>, the identifier you type in every other command.</p>
 
       <div class="code-block">
         <pre><code class="language-bash">backlog project add "API Service" --alias api --repo-path /code/api</code></pre>
@@ -255,7 +277,7 @@ backlog task move TASK-1 --status done</code></pre>
 
       <h2 id="plans">Attach a plan</h2>
 
-      <p>Plans are versioned markdown documents. Every edit creates an immutable new version — old versions are always readable.</p>
+      <p>Plans are versioned markdown documents. Every edit creates an immutable new version, and old versions are always readable.</p>
 
       <div class="code-block">
         <pre><code class="language-bash">backlog plan add \
@@ -339,7 +361,7 @@ backlog task list --label auth</code></pre>
 
       <h2 id="import">Bulk import from a scanner</h2>
 
-      <p>Create a findings file — suitable for output from security scanners, AI triage agents, or any structured source:</p>
+      <p>Create a findings file, suitable for output from security scanners, AI triage agents, or any structured source:</p>
 
       <div class="code-block">
         <div class="code-block-header">findings.json</div>
@@ -415,7 +437,7 @@ backlog export --format md                       # paste into PRs / reports</cod
 
       <h2 id="web">Open the web UI</h2>
 
-      <p>The embedded web UI runs entirely from the binary — no additional setup:</p>
+      <p>The embedded web UI runs entirely from the binary, no additional setup:</p>
 
       <div class="code-block">
         <pre><code class="language-bash">backlog web                           # opens http://localhost:8080 in browser
@@ -423,11 +445,11 @@ backlog web --port 3000               # custom port
 backlog web --port 3000 --no-browser  # don't auto-open</code></pre>
       </div>
 
-      <p>The web UI provides list, Kanban, and grid task views, versioned docs, memory entries, attachments, and an activity timeline. All API endpoints are also usable directly — see the <a href="api.html">API reference</a>.</p>
+      <p>The web UI provides list, Kanban, and grid task views, versioned docs, memory entries, attachments, and an activity timeline. All API endpoints are also usable directly. See the <a href="api.html">API reference</a>.</p>
 
       <h2 id="mcp">Connect an AI assistant</h2>
 
-      <p>Start the MCP stdio server so an AI coding assistant can read and write your backlog directly — without CLI invocations:</p>
+      <p>Start the MCP stdio server so an AI coding assistant can read and write your backlog directly, without CLI invocations:</p>
 
       <div class="code-block">
         <pre><code class="language-bash">backlog mcp serve --as ai:claude-code</code></pre>
@@ -435,7 +457,7 @@ backlog web --port 3000 --no-browser  # don't auto-open</code></pre>
 
       <div class="callout callout-note">
         <span class="callout-icon">ℹ</span>
-        <span>For full configuration snippets for Claude Code, Cursor, Codex, and OpenCode — including how to set <code>BACKLOG_DB</code> so the server always finds the right workspace — see the <a href="mcp.html">MCP guide</a>.</span>
+        <span>For full configuration snippets for Claude Code, Cursor, Codex, and OpenCode (including how to set <code>BACKLOG_DB</code> so the server always finds the right workspace), see the <a href="mcp.html">MCP guide</a>.</span>
       </div>
 
     </div>
@@ -456,7 +478,7 @@ backlog web --port 3000 --no-browser  # don't auto-open</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
-<script>hljs.highlightAll();
+<script>if (window.hljs) hljs.highlightAll();
 (function ghStars() {
   const targets = document.querySelectorAll('[data-stars-target]');
   if (!targets.length) return;
