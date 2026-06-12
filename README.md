@@ -305,7 +305,7 @@ Flags stale `doing` tasks, tasks created but never started, tasks closed with no
 | [Core Concepts](https://mazen160.github.io/backlog/concepts.html) | Workspaces, projects, tasks, plans, actors, profiles |
 | [CLI Reference](https://mazen160.github.io/backlog/cli.html) | Every command and flag with examples |
 | [MCP](https://mazen160.github.io/backlog/mcp.html) | Wire into Claude Code, Cursor, Codex, OpenCode |
-| [Skills](https://mazen160.github.io/backlog/skills.html) | The four embedded agentic-loop skills |
+| [Skills](https://mazen160.github.io/backlog/skills.html) | The five embedded agentic-loop skills |
 | [HTTP API](https://mazen160.github.io/backlog/api.html) | Routes exposed by `backlog web` |
 | [Working Across Sessions](https://mazen160.github.io/backlog/working-across-sessions.html) | Three-day cross-session walkthrough |
 

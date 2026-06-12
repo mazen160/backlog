@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+**Changed**
+- Consolidated the project-memory skills into a single `backlog-memory` skill. It does both jobs and auto-selects the mode: **learn** (load a project's tasks, plans, docs, and memory into the session) at the start of a fresh session, **store** (synthesize the project's state into persistent memory entries) after work has been done, and it asks when that's ambiguous. Force a mode with `/backlog-memory learn` or `/backlog-memory store`. Replaces the separate `backlog-memory-learn` and `backlog-memory-store` skills.
+
 ## v1.0.3 — 2026-05-25
 
 Workflow observability for agent-driven queues. When four agents are closing

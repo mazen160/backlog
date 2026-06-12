@@ -99,7 +99,7 @@ Two packages use `//go:embed` to bundle files into the binary:
 
 - `internal/migrate/migrate.go` embeds `migrations/*.sql` — all migration SQL files are compiled into the binary and run automatically on DB open.
 - `internal/web/server.go` embeds the `static/` directory — the entire SPA (HTML, CSS, JS) is served from memory, requiring no external files at runtime.
-- `skills/skills.go` embeds `backlog/skill.md`, `backlog-enhance-tasks/skill.md`, `backlog-loop/skill.md`, and `backlog-goal/skill.md`. `backlog install-skills` writes them into `~/.claude`, `~/.cursor`, `~/.config/opencode`, and `~/.codex` in each tool's native format.
+- `skills/skills.go` embeds `backlog/skill.md`, `backlog-enhance-tasks/skill.md`, `backlog-loop/skill.md`, `backlog-goal/skill.md`, and `backlog-memory/skill.md`. `backlog install-skills` writes them into `~/.claude`, `~/.cursor`, `~/.config/opencode`, and `~/.codex` in each tool's native format.
 
 ## MCP server
 
