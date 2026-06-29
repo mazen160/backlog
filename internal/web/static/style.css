@@ -1843,6 +1843,7 @@ body { padding-bottom: 16px; }
   line-height: 1.35;
   margin-bottom: 8px;
   color: var(--fg);
+  overflow-wrap: anywhere;
 }
 .kanban-card-meta {
   display: flex;
