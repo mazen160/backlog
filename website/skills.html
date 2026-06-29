@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skills · Backlog</title>
-  <meta name="description" content="Four agentic-loop skills (backlog, backlog-enhance-tasks, backlog-loop, backlog-goal) embedded in the binary and installable into Claude Code, Cursor, OpenCode, and Codex.">
+  <meta name="description" content="Five agentic-loop skills (backlog, backlog-enhance-tasks, backlog-loop, backlog-goal, backlog-memory) embedded in the binary and installable into Claude Code, Cursor, OpenCode, and Codex.">
   <meta name="theme-color" content="#2F2B25" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#191918" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://mazen160.github.io/backlog/skills.html">
@@ -13,7 +13,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:title" content="Skills · Backlog">
-  <meta property="og:description" content="Four agentic-loop skills (backlog, backlog-enhance-tasks, backlog-loop, backlog-goal) embedded in the binary and installable into Claude Code, Cursor, OpenCode, and Codex.">
+  <meta property="og:description" content="Five agentic-loop skills (backlog, backlog-enhance-tasks, backlog-loop, backlog-goal, backlog-memory) embedded in the binary and installable into Claude Code, Cursor, OpenCode, and Codex.">
   <meta property="og:url" content="https://mazen160.github.io/backlog/skills.html">
   <meta property="og:site_name" content="Backlog">
   <meta property="og:image" content="https://mazen160.github.io/backlog/og-share.png">
@@ -24,12 +24,12 @@
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Skills · Backlog">
-  <meta name="twitter:description" content="Four Claude Code / Cursor skills that turn Backlog into an agentic loop.">
+  <meta name="twitter:description" content="Five Claude Code / Cursor skills that turn Backlog into an agentic loop.">
   <meta name="twitter:image" content="https://mazen160.github.io/backlog/og-share.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="style.css">
@@ -70,7 +70,7 @@
     <div class="doc-page-header">
       <div class="doc-section-label">Reference</div>
       <h1 class="doc-page-title">Skills</h1>
-      <p class="doc-page-subtitle">Four skills embedded in the binary, installable into Claude Code, Cursor, OpenCode, and Codex via <code>backlog install-skills</code>. Turn the CLI into an agentic loop, from a single enhanced task to a fully-judged multi-checkpoint goal.</p>
+      <p class="doc-page-subtitle">Five skills embedded in the binary, installable into Claude Code, Cursor, OpenCode, and Codex via <code>backlog install-skills</code>. Turn the CLI into an agentic loop, from a single enhanced task to a fully-judged multi-checkpoint goal, with persistent project memory.</p>
     </div>
 
     <div class="toc">
@@ -83,6 +83,7 @@
         <li><a href="#enhance-tasks">backlog-enhance-tasks</a></li>
         <li><a href="#loop">backlog-loop</a></li>
         <li><a href="#goal">backlog-goal</a></li>
+        <li><a href="#memory">backlog-memory</a></li>
         <li><a href="#conventions">Common conventions</a></li>
         <li><a href="#dependency-graph">Dependency graph</a></li>
       </ol>
@@ -94,11 +95,11 @@
 
       <p>Skills are markdown files, no code or binary, that become part of an AI coding assistant's context when invoked. They teach the assistant how to drive the <code>backlog</code> CLI and how to layer richer workflows on top of it.</p>
 
-      <p>The Backlog repo ships four skills. The base skill (<code>backlog</code>) is the canonical CLI reference. The other three are workflow skills that depend on it.</p>
+      <p>The Backlog repo ships five skills. The base skill (<code>backlog</code>) is the canonical CLI reference; the other four layer workflows and project memory on top of it.</p>
 
       <div class="callout callout-tip">
         <span class="callout-icon">✦</span>
-        <span>All four skills are <strong>embedded in the <code>backlog</code> binary</strong>. <code>backlog install-skills</code> detects Claude Code, Cursor, OpenCode, and Codex on your machine and writes the right file in each tool's native format. No repo clone, no manual copy.</span>
+        <span>All five skills are <strong>embedded in the <code>backlog</code> binary</strong>. <code>backlog install-skills</code> detects Claude Code, Cursor, OpenCode, and Codex on your machine and writes the right file in each tool's native format. There's no repo to clone and nothing to copy by hand.</span>
       </div>
 
       <h2 id="inventory">Skills inventory</h2>
@@ -125,6 +126,11 @@
             <td><code>backlog-goal</code></td>
             <td>End-to-end goal workflow. PREP mode does exhaustive intake and seeds a checkpoint-based board. RUN mode executes via Scout/Judge/Worker sub-agents with parallel safety and a mandatory final audit.</td>
             <td><code>/backlog-goal &lt;goal&gt;</code></td>
+          </tr>
+          <tr>
+            <td><code>backlog-memory</code></td>
+            <td>Project memory in one skill: <strong>learn</strong> (load tasks, plans, docs, and memory into the session) and <strong>store</strong> (synthesize the project's state into persistent memory). Auto-picks the mode — learn on a fresh session, store after work — and asks when ambiguous.</td>
+            <td><code>/backlog-memory</code></td>
           </tr>
         </tbody>
       </table>
@@ -389,6 +395,28 @@ done</code></pre>
 
       <p>For one well-scoped item, use <code>/backlog-loop</code> instead.</p>
 
+      <h2 id="memory">backlog-memory</h2>
+
+      <p>Project memory in a single skill. It does two jobs and picks the right one automatically.</p>
+
+      <h3>Invocation</h3>
+
+      <div class="code-block">
+        <pre><code class="language-bash">/backlog-memory                # auto: learn on a fresh session, store after work
+/backlog-memory &lt;alias&gt;        # same, for a specific project
+/backlog-memory learn &lt;alias&gt;  # force read-into-context
+/backlog-memory store &lt;alias&gt;  # force persist synthesized memory</code></pre>
+      </div>
+
+      <h3>Two modes</h3>
+
+      <ul>
+        <li><strong>learn</strong> — reads tasks, plans, docs, and memory entries into the session. Read-only.</li>
+        <li><strong>store</strong> — synthesizes the project's state into memory entries grouped by theme (<code>arch</code>, <code>decisions</code>, <code>open-work</code>, <code>done-work</code>, <code>context</code>), idempotently.</li>
+      </ul>
+
+      <p>With no explicit mode it auto-selects: <strong>learn</strong> at the start of a fresh session, <strong>store</strong> after work has been done this session, and it asks when that's ambiguous.</p>
+
       <h2 id="conventions">Common conventions</h2>
 
       <h3>Actor attribution</h3>
@@ -414,7 +442,7 @@ done</code></pre>
 
       <h3>Completion protocol</h3>
 
-      <p>Across all four skills, the completion sequence for a task is:</p>
+      <p>Across these skills, the completion sequence for a task is:</p>
 
       <ol>
         <li>Do the work.</li>
@@ -427,12 +455,12 @@ done</code></pre>
       <h2 id="dependency-graph">Dependency graph</h2>
 
       <div class="code-block">
-        <pre><code>backlog-goal      backlog-loop      backlog-enhance-tasks
-    │                 │                       │
-    └─────────────────┴───────────────────────┘
-                      │
-                      ▼
-                  backlog  (canonical CLI reference)</code></pre>
+        <pre><code>backlog-goal   backlog-loop   backlog-enhance-tasks   backlog-memory
+     │              │                  │                     │
+     └──────────────┴──────────────────┴─────────────────────┘
+                              │
+                              ▼
+                       backlog  (canonical CLI reference)</code></pre>
       </div>
 
       <p>Every workflow skill depends on the base <code>backlog</code> skill for command surface, flag semantics, and JSON shapes. Each declares the dependency at the top of its skill file so an agent loading the workflow skill is reminded to read the base skill first.</p>
@@ -455,7 +483,7 @@ done</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/markdown.min.js"></script>
-<script>hljs.highlightAll();
+<script>if (window.hljs) hljs.highlightAll();
 (function ghStars() {
   const targets = document.querySelectorAll('[data-stars-target]');
   if (!targets.length) return;

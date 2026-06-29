@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  .banner {
+    position: relative;
+    width: 1200px; height: 630px;
+    background: #0A0A0B;
+    overflow: hidden;
+    font-family: 'Archivo', sans-serif;
+  }
+  .viz {
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 588px;
+    width: auto;
+  }
+  .scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, #0A0A0B 40%, rgba(10,10,11,0.88) 54%, rgba(10,10,11,0) 74%);
+  }
+  .glow {
+    position: absolute; left: -140px; top: -160px;
+    width: 560px; height: 560px;
+    background: radial-gradient(circle, rgba(251,42,106,0.18), transparent 70%);
+  }
+  .pad {
+    position: absolute; inset: 0;
+    padding: 94px 72px 0;
+    display: flex; flex-direction: column; justify-content: flex-start;
+  }
+  .headline {
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 1.07;
+    letter-spacing: -0.015em;
+    color: #F6F6F8;
+    max-width: 600px;
+  }
+  .headline .neon { color: #FB2A6A; }
+  .headline .cmd {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    color: #FB2A6A;
+    white-space: nowrap;
+  }
+  .sub {
+    margin-top: 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 17px;
+    line-height: 1.5;
+    color: #9A9AA4;
+    max-width: 470px;
+    letter-spacing: 0.01em;
+  }
+  .rule {
+    position: absolute; left: 72px; bottom: 100px;
+    width: 280px; height: 1px;
+    background: linear-gradient(90deg, #FB2A6A, transparent);
+  }
+  .byline {
+    position: absolute; left: 72px; bottom: 52px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .mono-circle {
+    width: 30px; height: 30px;
+    border: 1.5px solid #FB2A6A; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #FB2A6A; font-weight: 900; font-size: 14px;
+  }
+  .byline .sep { color: #3A3A42; font-family: 'Space Mono', monospace; }
+  .byline .name {
+    font-family: 'Space Mono', monospace;
+    font-size: 15px; letter-spacing: 0.24em;
+    color: #8C8C96; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+  <div class="banner">
+    <img class="viz" src="assets/blog-banner-neon-visual.png" alt="">
+    <div class="scrim"></div>
+    <div class="glow"></div>
+    <div class="pad">
+      <div class="headline">Your AI agent shouldn't ask &ldquo;what&rsquo;s next?&rdquo;<br><span class="neon">It should just check</span> <span class="cmd">$ backlog</span></div>
+      <div class="sub">A local-first task queue your AI coding agents read and write.</div>
+    </div>
+    <div class="rule"></div>
+    <div class="byline">
+      <span class="mono-circle">M</span>
+      <span class="sep">|</span>
+      <span class="name">Mazin Ahmed</span>
+    </div>
+  </div>
+</body>
+</html>

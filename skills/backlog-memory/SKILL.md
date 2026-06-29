@@ -1,108 +1,167 @@
 ---
 name: backlog-memory
-description: Read a backlog workspace and synthesize its content into persistent Claude memory entries — tasks, plans, docs, and existing memory — grouped by theme so future sessions load context instantly.
+description: One skill for a backlog project's persistent memory. It does two jobs — learn (load the project's tasks, plans, docs, and memory into the session) and store (synthesize the project's state into persistent memory entries). When invoked without a mode it auto-picks: learn at the start of a fresh session, store after work has been done this session, and it asks when that's ambiguous.
 ---
 
 # backlog-memory
 
-Ingest a backlog project workspace into structured Claude memory entries. Run this once per project to bootstrap context, or re-run to refresh stale entries.
+Two jobs, one skill:
 
-## When to use
+- **learn** — read everything in a project (tasks, plans, docs, memory) into the current session. Read-only.
+- **store** — synthesize the project's state into persistent memory entries, grouped by theme, so future sessions load context instantly.
 
-Invoke as `/backlog-memory` or `/backlog-memory <project-alias>`.
+## Invocation
 
-- No argument: uses the default profile's default project (or prompts if ambiguous).
-- With alias: targets that specific project (e.g. `/backlog-memory api`).
+- `/backlog-memory` — auto-pick the mode (see below), default project.
+- `/backlog-memory <alias>` — auto-pick the mode for that project.
+- `/backlog-memory learn [alias]` — force **learn**.
+- `/backlog-memory store [alias]` — force **store**.
 
-## Workflow
+## Choosing the mode (when none is given)
 
-### 1. Resolve the project
+An explicit `learn` / `store` always wins. Otherwise decide:
+
+- **Start of a fresh session / orienting** — you've just started, little or no project context is loaded, the user wants to get up to speed → run **learn**.
+- **Work has been done this session** — tasks were created, moved, or closed; plans or comments were added; decisions were made; the project state changed → run **store** to refresh the persisted summaries.
+- **Ambiguous / you can't tell** — ask the user before doing anything: *"Should I learn (load this project's context) or store (persist a fresh memory snapshot)?"*
+
+When you're unsure whether work has happened, check recent activity and use your judgment:
+
+```sh
+backlog activity --project <alias> --limit 20 --json --profile default
+```
+
+Recent writes by the current actor in this session lean toward **store**; a quiet log at the start of a session leans toward **learn**.
+
+## Resolve the project
 
 ```sh
 backlog project list --json --profile default
 ```
 
-If an alias was provided, use it. If not, pick the project the user is actively working in (check `state.project` or ask).
+Use the provided alias, or pick the project the user is actively working in. If it's genuinely unclear which project, ask.
 
-### 2. Fetch all workspace content
+---
 
-Run all three in parallel:
+## Mode: learn (read into context)
+
+The **read phase** — no writes.
+
+### 1. Read everything in parallel
 
 ```sh
-# All tasks (with plans and comments)
-backlog task list --project <alias> --json --profile default
+# Memory entries (decisions, architecture, context notes)
+backlog memory list --project <alias> --json --profile default
 
-# All docs (latest version of each)
+# Docs list
 backlog doc list --project <alias> --json --profile default
 
-# Existing memory entries
-backlog memory list --project <alias> --json --profile default
+# Open tasks (todo + doing)
+backlog task list --project <alias> --status todo --json --profile default
+backlog task list --project <alias> --status doing --json --profile default
 ```
 
-For each doc ID returned, fetch the full body:
+For each doc ID, fetch the full body:
+
 ```sh
 backlog doc show <doc-id> --json --profile default
 ```
 
-For each task with plans, the plan bodies are included in `task list` output — no extra fetch needed.
+### 2. Surface as context
 
-### 3. Synthesize into themes
+Present in this order:
 
-Group the collected content into these themes (omit any that have no content):
+- **Memory entries** — grouped by tag, full body of each.
+- **Docs** — title + full body of each.
+- **Open work** — list tasks as `[TASK-N] P<priority> Title (status)`, doing first, then todo by priority.
 
-| Theme tag | What goes in it |
+### 3. Flag gaps
+
+- No memory entries → suggest running `/backlog-memory store <alias>` to bootstrap them.
+- No docs → note it.
+- No open tasks → confirm the backlog is clear.
+
+---
+
+## Mode: store (persist synthesized memory)
+
+The **write phase** — read the full workspace and persist synthesized summaries.
+
+### 1. Fetch workspace content
+
+```sh
+# All tasks with plans
+backlog task list --project <alias> --json --profile default
+
+# Docs (then fetch each body)
+backlog doc list --project <alias> --json --profile default
+backlog doc show <doc-id> --json --profile default
+
+# Existing memory (to avoid duplicating)
+backlog memory list --project <alias> --json --profile default
+```
+
+### 2. Synthesize into themes
+
+Distill into these themes — one memory entry per theme, max ~400 words each. Summarise; do not dump raw task lists. Omit themes with no content.
+
+| Theme tag | Content |
 |---|---|
-| `arch` | Stack, data model, key design decisions extracted from docs and memory |
-| `decisions` | Explicit decision records found in memory entries or doc sections |
-| `open-work` | Summary of todo/doing tasks, grouped by priority |
-| `done-work` | Summary of recently completed tasks (last 20) |
-| `context` | Project description, repo path, actor conventions, anything that doesn't fit above |
+| `arch` | Tech stack, data model, key architectural decisions, repo layout |
+| `decisions` | Explicit decisions recorded in memory or docs (the "why" behind choices) |
+| `open-work` | todo/doing tasks grouped by priority — what still needs doing |
+| `done-work` | Recently completed tasks (last 20–30) — what was shipped |
+| `context` | Project name/description, actor conventions, workflow norms, anything else |
 
-Write one memory entry per theme. Keep each body under ~400 words — summarise, don't dump raw task lists.
+### 3. Write or update memory entries
 
-### 4. Write memory entries
-
-Before writing, check whether entries with the same tags already exist:
+For each theme, check whether an entry already exists:
 
 ```sh
 backlog memory list --project <alias> --tag <theme> --json --profile default
 ```
 
-- If an entry exists for that theme → **append** updated content (use `backlog memory append <id> "..."`)
-- If none exists → **add** a new entry
+**No existing entry** → add:
 
 ```sh
-# Add (new)
 backlog memory add "<synthesized body>" \
   --project <alias> \
   --tag "<theme>" \
   --as "ai:<your-model-name>" \
   --profile default
-
-# Append (existing)
-backlog memory append <memory-id> "<updated content>" --profile default
 ```
 
-### 5. Report
+**Entry exists** → delete the stale one and re-add (keeps entries fresh without accumulating duplicates):
 
-After writing, output a short summary:
+```sh
+backlog memory delete <old-memory-id> --profile default
+backlog memory add "<updated body>" \
+  --project <alias> \
+  --tag "<theme>" \
+  --as "ai:<your-model-name>" \
+  --profile default
+```
+
+### 4. Report
 
 ```
-backlog-memory: <project-alias>
-  Tasks read:   <N> (todo: X, doing: Y, done: Z)
-  Docs read:    <N>
-  Themes written:
-    arch        → <new | updated>
-    decisions   → <new | updated>
-    open-work   → <new | updated>
-    done-work   → <new | updated>
-    context     → <new | updated>
+backlog-memory (store): <project-alias>
+  Tasks read:    <N total> (todo: X, doing: Y, done: Z)
+  Docs read:     <N>
+  Memory written:
+    arch         → <created | updated | skipped (no content)>
+    decisions    → <created | updated | skipped>
+    open-work    → <created | updated | skipped>
+    done-work    → <created | updated | skipped>
+    context      → <created | updated | skipped>
 ```
+
+---
 
 ## Notes
 
 - Always use `--profile default` for all backlog CLI calls.
-- Always attribute writes to `ai:<your-model-name>`.
+- **learn** is read-only; **store** attributes every write to `ai:<your-model-name>`.
 - Do not write raw task JSON into memory — synthesize human-readable summaries.
-- Idempotent: re-running should update existing entries, not create duplicates.
-- If the project has no tasks, docs, or memory, write a single `context` entry with the project description and exit cleanly.
+- store is idempotent: delete-and-recreate per theme keeps entries fresh without duplicates.
+- A common flow is learn → do work → store. When in doubt about which the user wants, ask.

@@ -28,7 +28,7 @@ backlog task list --project <alias> --status doing --json --profile default
 
 Surface memory entries and doc bodies as context before responding — this prevents re-deriving decisions already recorded.
 
-If memory entries are empty → suggest running `/backlog-memory-learn <alias>` first, then `/backlog-memory-store <alias>` to persist summaries.
+If memory entries are empty → suggest running `/backlog-memory <alias>` to load context and bootstrap summaries.
 
 ## Core workflow
 
@@ -111,8 +111,8 @@ Findings file format:
 
 ## Memory workflow
 
-- **Learn** (read into context): `/backlog-memory-learn <alias>`
-- **Store** (persist synthesized summaries): `/backlog-memory-store <alias>`
+- `/backlog-memory <alias>` — one skill that both **learns** (reads tasks, plans, docs, and memory into context) and **stores** (persists synthesized summaries). It auto-picks: learn at the start of a session, store after work has been done, and asks if it's ambiguous.
+- Force a mode with `/backlog-memory learn <alias>` or `/backlog-memory store <alias>`.
 - Run store after significant work to refresh the `open-work` and `done-work` entries.
 
 ## Conventions

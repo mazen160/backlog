@@ -11,7 +11,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -41,8 +41,9 @@
       --blue-bg:      #D8E7EE;  --blue-fg:   #2F6F8F;
       --gray-bg:      #E7E4DD;  --gray-fg:   #5B554C;
 
-      --font:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+      --font:         'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+      --font-mono:    'IBM Plex Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -136,9 +137,10 @@
 
     /* — Title strip — */
     .demo-title {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -.025em;
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 600;
+      letter-spacing: -.01em;
       margin: 0 0 6px;
       line-height: 1.15;
     }
@@ -515,9 +517,10 @@
       margin-bottom: 10px;
     }
     .summary-h {
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: -.025em;
+      font-family: var(--font-display);
+      font-size: 27px;
+      font-weight: 600;
+      letter-spacing: -.01em;
       margin: 0 0 16px;
       line-height: 1.2;
     }

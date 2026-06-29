@@ -1,6 +1,6 @@
 # Backlog Skills
 
-The backlog repo ships four Claude Code / Cursor skills. Skills are markdown files — no code, no binary — that become part of the AI assistant's context when invoked. They teach the assistant how to use the `backlog` CLI and how to layer richer workflows on top of it.
+The backlog repo ships five Claude Code / Cursor skills. Skills are markdown files — no code, no binary — that become part of the AI assistant's context when invoked. They teach the assistant how to use the `backlog` CLI and how to layer richer workflows on top of it.
 
 ## Skills inventory
 
@@ -17,7 +17,7 @@ Each skill declares its dependency on the `backlog` skill at the top of its file
 
 ### Automatic install
 
-All four skills are embedded in the `backlog` binary.
+All five skills are embedded in the `backlog` binary.
 
 ```sh
 backlog install-skills
@@ -249,7 +249,7 @@ Always pass `--json` when piping to `jq` or otherwise programmatically parsing.
 
 ### Completion protocol
 
-Across all four skills, the completion sequence for a task is:
+Across these skills, the completion sequence for a task is:
 
 1. Do the work.
 2. Post a comment summarizing what was done (Scout/Worker/Judge receipt for the goal/loop skills; plain summary for the base skill).

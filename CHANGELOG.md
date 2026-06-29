@@ -5,15 +5,37 @@ All notable changes to this project will be documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+**Changed**
+- Consolidated the project-memory skills into a single `backlog-memory` skill. It does both jobs and auto-selects the mode: **learn** (load a project's tasks, plans, docs, and memory into the session) at the start of a fresh session, **store** (synthesize the project's state into persistent memory entries) after work has been done, and it asks when that's ambiguous. Force a mode with `/backlog-memory learn` or `/backlog-memory store`. Replaces the separate `backlog-memory-learn` and `backlog-memory-store` skills.
+
 ## v1.0.3 — 2026-05-25
 
+Workflow observability for agent-driven queues. When four agents are closing
+tasks in parallel, you need to see whether the work is actually healthy — not
+just whether the queue is empty. This release adds two read-only reports that
+answer "is this project on track?" and "what did the agents close badly?"
+without leaving the terminal.
+
 **Added**
-- `backlog activity analyze --project <alias> --since <window>` summarizes project activity with created/completed counts, cycle time by type, status-transition latency, WIP by actor, weak completion evidence, reopened work, bug followups, label churn, and human-vs-AI close ratios.
-- `backlog doctor project --project <alias>` detects stale, orphaned, and weakly closed project work, including never-started tasks, stale `doing` tasks, missing plans, missing completion comments/evidence, label-only latest activity, and final-audit tasks closed while earlier work remains open.
+- `backlog activity analyze --project <alias> --since <window>` — a workflow-health
+  report for a project over a time window. Surfaces created/completed counts,
+  cycle time by task type, status-transition latency (todo→doing, doing→done),
+  work-in-progress by actor, reopened work, bug follow-ups, label churn, and the
+  human-vs-AI close ratio. `--json` for dashboards; `--since` accepts `7d`,
+  `24h`, `all`, RFC3339, or `YYYY-MM-DD`.
+- `backlog doctor project --project <alias>` — a project linter that detects
+  stale, orphaned, and weakly-closed work: tasks created but never started,
+  `doing` tasks gone quiet past `--stale-after` (default `7d`), tasks missing
+  plans, tasks closed with no completion comment or evidence, label-only latest
+  activity, and final-audit tasks marked done while earlier work is still open.
+  Each issue ships with a severity, a code, and the evidence behind it.
 
 **Improved**
-- `backlog install-skills` now installs Codex skills into `~/.codex/skills/<name>/SKILL.md` with Codex-compatible frontmatter instead of writing saved prompts.
-- The Docs web UI can download all visible docs from the list view.
+- `backlog install-skills` now installs Codex skills into `~/.codex/skills/<name>/SKILL.md`
+  with Codex-compatible frontmatter, instead of writing saved prompts.
+- The Docs web UI can download all visible docs from the list view in one click.
 
 **Fixed**
 - Hide the all-docs download action while a single document is open in the reader.
