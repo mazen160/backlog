@@ -215,6 +215,54 @@ input, textarea, select { font-family: inherit; }
 .sidebar-projselect-wrap { padding: 4px 10px 12px; }
 .sidebar-projselect-label { display: none; }
 
+/* ─── Sidebar collapse / expand ───────────────────────────────────────────── */
+.sidebar-toggle {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--fg-muted);
+  border-radius: var(--radius);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--t-quick), color var(--t-quick);
+}
+.sidebar-toggle:hover { background: var(--bg-hover); color: var(--fg); }
+
+.sidebar-expand {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 40;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--border-2);
+  background: var(--bg);
+  color: var(--fg-muted);
+  border-radius: var(--radius);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(15, 15, 15, 0.06);
+  transition: background var(--t-quick), color var(--t-quick);
+}
+.sidebar-expand:hover { background: var(--bg-hover); color: var(--fg); }
+
+.layout.sidebar-collapsed { grid-template-columns: 1fr; }
+.layout.sidebar-collapsed .sidebar { display: none; }
+.layout.sidebar-collapsed .sidebar-expand { display: inline-flex; }
+
 /* ─── Page header — Notion's hero title style ─────────────────────────────── */
 .page-header {
   display: flex;
@@ -224,6 +272,12 @@ input, textarea, select { font-family: inherit; }
   padding: 0;
   border: none;
   gap: 16px;
+  flex-wrap: wrap;
+}
+/* The actions group (view toggle, group-by, download, primary button) wraps
+   onto its own line, then within itself, so nothing is clipped on narrow widths. */
+.page-header > .flex {
+  flex-wrap: wrap;
 }
 .page-title {
   font-family: var(--font);
@@ -1713,7 +1767,7 @@ body { padding-bottom: 16px; }
 .meta-dropdown-item:hover { background: var(--bg-hover); }
 .meta-dropdown-current { background: var(--bg-hover); font-weight: 500; }
 
-.detail-title-editable { cursor: text; flex: 1; min-width: 0; display: block; }
+.detail-title-editable { cursor: text; flex: 1; min-width: 0; display: block; overflow-wrap: anywhere; }
 .detail-title-editable:hover { background: var(--bg-hover); border-radius: var(--radius); }
 .detail-title-input {
   display: block;

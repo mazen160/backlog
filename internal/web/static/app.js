@@ -4610,6 +4610,19 @@ async function init() {
   $$('.sidebar-item[data-page]').forEach(el =>
     el.onclick = e => { e.preventDefault(); navigate(el.dataset.page); });
 
+  // Sidebar collapse/expand toggle, persisted across sessions.
+  const layoutEl = document.querySelector('.layout');
+  const sidebarToggle = $('#sidebar-toggle');
+  const sidebarExpand = $('#sidebar-expand');
+  const setSidebarCollapsed = (collapsed, persist = true) => {
+    if (layoutEl) layoutEl.classList.toggle('sidebar-collapsed', collapsed);
+    if (sidebarToggle) sidebarToggle.setAttribute('aria-expanded', String(!collapsed));
+    if (persist) setCookie('backlog.sidebarCollapsed', collapsed ? '1' : '0');
+  };
+  if (sidebarToggle) sidebarToggle.onclick = () => setSidebarCollapsed(true);
+  if (sidebarExpand) sidebarExpand.onclick = () => setSidebarCollapsed(false);
+  setSidebarCollapsed(getCookie('backlog.sidebarCollapsed') === '1', false);
+
   // Replace the initial entry so back-button leaves the SPA cleanly instead
   // of cycling between "/" and the parsed URL.
   try {
