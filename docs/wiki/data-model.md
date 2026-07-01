@@ -32,7 +32,7 @@ Key columns:
 | `project_id` | TEXT | FK to `projects.id`, CASCADE DELETE |
 | `title` | TEXT | Short label |
 | `description` | TEXT | Markdown body (default `''`) |
-| `type` | TEXT | Enum: `task`, `bug`, `issue`, `improvement`, `feature`, `vulnerability`, `chore`, `spike` |
+| `type` | TEXT | Enum: `task`, `bug`, `issue`, `improvement`, `feature`, `vulnerability`, `chore`, `spike`, `bucket-list` |
 | `status` | TEXT | Enum: `todo`, `doing`, `done` |
 | `priority` | INTEGER | 1 (highest) – 5 (lowest), default 3 |
 | `assignee` | TEXT | Free-text name (default `''`) |

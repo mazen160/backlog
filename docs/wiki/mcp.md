@@ -1,5 +1,7 @@
 # MCP Server
 
+> Skills are the default way to connect an agent (`backlog install-skills`, no server to run); MCP is the alternative for assistants that prefer structured tool calls. See [skill.md](skill.md).
+
 ## What is MCP?
 
 The [Model Context Protocol](https://modelcontextprotocol.io) (MCP) is an open standard for connecting AI assistants to external tools and data sources. Instead of embedding tool logic inside a prompt, an MCP server exposes named tools over a standard JSON-RPC 2.0 transport. The AI assistant calls tools by name with structured arguments, and the server returns structured results.
@@ -62,7 +64,7 @@ See [architecture.md](architecture.md) for details.
 **ID formats for tasks**: `task_id` and `id` accept `TASK-N`, bare integer, or full ULID. Plan IDs, doc IDs, and memory IDs are ULIDs only (returned by the corresponding create/list calls).
 
 **Enum values:**
-- `type`: `task`, `bug`, `issue`, `improvement`, `feature`, `vulnerability`, `chore`, `spike`
+- `type`: `task`, `bug`, `issue`, `improvement`, `feature`, `vulnerability`, `chore`, `spike`, `bucket-list`
 - `status`: `todo`, `doing`, `done`
 - `priority`: integer `1` (highest/critical) through `5` (lowest/backlog)
 

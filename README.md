@@ -7,11 +7,11 @@
 
 <br><br>
 
-<img src="assets/banner.png" alt="Backlog — your AI agent shouldn't ask 'what's next?' It should just check $ backlog" width="100%">
+<img src="assets/banner.png" alt="Backlog: your AI agent shouldn't ask 'what's next?' It should just check $ backlog" width="100%">
 
 <br>
 
-**A local-first task queue and database your AI coding agents can read and write directly.**
+**A local-first task and context manager for humans and AI. One database your coding agents read and write directly.**
 
 [![CI](https://github.com/mazen160/backlog/actions/workflows/ci.yml/badge.svg)](https://github.com/mazen160/backlog/actions/workflows/ci.yml)
 [![Latest Release](https://img.shields.io/github/v/release/mazen160/backlog)](https://github.com/mazen160/backlog/releases/latest)
@@ -28,15 +28,15 @@
 
 Most AI coding agents lose state the moment a chat ends. Their "memory" is a 500k-token thread that costs you a subscription and forgets the project the next morning.
 
-Backlog moves the queue out of the chat and into a **Backlog DB** your agents read and write through MCP. Same database your CLI uses. Same database your other agents use. Every write is signed by the actor that made it (`human:alice`, `ai:claude-code`, `ai:semgrep`), so you always know who did what.
+Backlog moves the queue, and everything the agent learns, out of the chat and into a **Backlog DB** your agents read and write directly. Tasks, plans, docs, and memory live in one SQLite file that your CLI, your web UI, and every agent share. Every write is signed by the actor that made it (`human:alice`, `ai:claude-code`, `ai:semgrep`), so you always know who did what.
 
-The result is the **agentic loop**: spawn a fresh subagent, let it pull a task, plan, ship, and exit — then do it again. Four parallel sessions, ~12× the throughput of one developer running one agent, ~10× cheaper per task than a long-running thread.
+The result is the **agentic loop**: spawn a fresh subagent, let it load the project's context, pull a task, plan, ship, and exit, then do it again. Four parallel sessions, ~12× the throughput of one developer running one agent, ~10× cheaper per task than a long-running thread.
 
 > **One queue. Many agents. Every write attributed.**
 
 <div align="center">
 
-<img src="assets/backlog-concept-one-queue-many-agents.png" alt="One Backlog database at the center, read and written by multiple AI agents through MCP" width="100%">
+<img src="assets/backlog-concept-one-queue-many-agents.png" alt="One Backlog database at the center, read and written by multiple AI agents" width="100%">
 
 </div>
 
@@ -59,7 +59,7 @@ Or install from source:
 go install github.com/mazen160/backlog/cmd/backlog@latest
 ```
 
-One binary. No dependencies. No runtime to install.
+It's one binary with no dependencies and no runtime to install.
 
 ---
 
@@ -67,7 +67,7 @@ One binary. No dependencies. No runtime to install.
 
 <div align="center">
 
-<img src="assets/terminal.png" alt="Backlog CLI — backlog init, task add, task list, mcp serve" width="100%">
+<img src="assets/terminal.png" alt="Backlog CLI: backlog init, task add, task list, mcp serve" width="100%">
 
 *Everything runs from your shell. `backlog init` creates the Backlog DB. Every command attributes the write to the actor who made it.*
 
@@ -81,7 +81,7 @@ One binary. No dependencies. No runtime to install.
 
 <img src="assets/mcp-integration.png" alt="Claude Code calling backlog.task.add via MCP, creating TASK-42 attributed to ai:claude-code" width="100%">
 
-*Wire Backlog into Claude Code, Cursor, Codex, or OpenCode via MCP. Your agent's writes land in the same database your shell reads from — fully attributed to the AI that made them.*
+*Wire Backlog into Claude Code, Cursor, Codex, or OpenCode. Your agent's writes land in the same database your shell reads from, fully attributed to the AI that made them.*
 
 </div>
 
@@ -91,7 +91,7 @@ One binary. No dependencies. No runtime to install.
 
 <div align="center">
 
-<img src="assets/backlog-agentic-loop-editorial.png" alt="The agentic loop — pick, plan, ship, review, attribute, repeat — all backed by one Backlog DB" width="560">
+<img src="assets/backlog-agentic-loop-editorial.png" alt="The agentic loop: pick, plan, ship, review, attribute, repeat, all backed by one Backlog DB" width="560">
 
 </div>
 
@@ -128,9 +128,51 @@ backlog plan add --task TASK-1 --title "Fix plan" \
 backlog task move TASK-1 --status done
 ```
 
-That's the whole workflow. No accounts. No webhooks. No SaaS.
+That's the whole workflow, and it runs entirely on your machine. There's no account to create and no service to host or pay for.
+
+Once the skills are installed (`backlog install-skills`), an agent does the same from a prompt. In Claude Code:
+
+```text
+> show me the open tasks in app and start the top one
+
+⏺ I'll check the open tasks and start the top one.
+
+⏺ Bash(backlog task list -p app --status todo)
+  ⎿  TASK-1  Fix login timeout   bug   P2   todo
+     TASK-2  Add rate limiting   feat  P3   todo
+
+⏺ Bash(backlog task move TASK-1 --status doing --as ai:claude-code)
+  ⎿  ✓ TASK-1 → doing
+
+⏺ Bash(backlog comment add --task TASK-1 "Picking this up. Reproducing the timeout first." --as ai:claude-code)
+  ⎿  ✓ comment added to TASK-1
+
+⏺ Started TASK-1 (Fix login timeout, P2). Reproducing the timeout now.
+```
 
 For step-by-step setup, see [Getting Started](https://mazen160.github.io/backlog/getting-started.html).
+
+---
+
+## Connect your coding agent
+
+`backlog install-skills` drops a set of ready-made skills into Claude Code, Cursor, Codex, and OpenCode. From there your agent drives Backlog through the CLI directly. No server to run, no MCP to configure.
+
+```sh
+backlog install-skills
+```
+
+The skills it installs:
+
+| Skill | What it does |
+|---|---|
+| `backlog` | The core loop: load context, pick a task, plan, ship, and attribute every write. |
+| `/backlog-memory` | Load a project's tasks, plans, docs, and memory into the session (`learn`), or persist a fresh snapshot when the work is done (`store`). |
+| `/backlog-enhance-tasks` | Flesh out a thin ticket's title and description, and draft a plan. |
+| `/backlog-loop` | Pull the top task and iterate on it until a reviewer sub-agent agrees it's done. |
+| `/backlog-goal` | Take a whole goal, break it into tickets, and work the board end to end. |
+
+Prefer tool calls? Backlog also speaks MCP. See [MCP server](#mcp-server).
 
 ---
 
@@ -142,12 +184,12 @@ A quick glossary of the vocabulary used throughout Backlog. Full detail in [Core
 |---|---|
 | **Workspace** | A directory holding a `backlog.db` (and a `config.toml`). Every project, task, plan, and comment lives in that one SQLite file. Created by `backlog init`. |
 | **Profile** | A named pointer to a workspace, registered in `~/.config/backlog/config.toml`, so you can switch workspaces without typing paths. |
-| **Project** | A named group of tasks inside a workspace, identified by a short **alias** (e.g. `api`) — the alias is what you pass to `-p` / `--project`. |
+| **Project** | A named group of tasks inside a workspace, identified by a short **alias** (e.g. `api`). The alias is what you pass to `-p` / `--project`. |
 | **Task** | The unit of work. Has a type, status, priority, and actor; addressed as `TASK-N`. |
 | **Plan** | A versioned markdown document attached to a task. Every edit creates a new immutable version; the full history stays readable. |
 | **Comment** | An append-only, actor-attributed note on a task. |
 | **Label** | A per-project tag for filtering tasks. |
-| **Doc** | A versioned markdown document attached to a *project* (not a task) — runbooks, ADRs, design notes. |
+| **Doc** | A versioned markdown document attached to a *project* (not a task): runbooks, ADRs, design notes. |
 | **Memory** | A free-form, taggable, mutable note for cross-session agent context. |
 | **Actor** | The `human:name` or `ai:name` attributed to every write. |
 | **Activity** | An append-only log of every write across the workspace. |
@@ -158,23 +200,25 @@ A quick glossary of the vocabulary used throughout Backlog. Full detail in [Core
 
 <div align="center">
 
-<img src="assets/backlog-capability-motifs.png" alt="Backlog motifs — a typed queue, project memory, actor attribution, and an MCP hub" width="640">
+<img src="assets/backlog-capability-motifs.png" alt="Backlog motifs: a typed queue, project memory, actor attribution, and an MCP hub" width="640">
 
 </div>
 
-- **Local-first** — the Backlog DB sits next to your code. Commits with your repo (or doesn't — your call).
-- **Single binary** — ~17 MB. No runtime, no dependencies, no daemon.
-- **JIRA-style refs** — tasks are `TASK-1`, `TASK-2`, … No UUIDs in your terminal.
-- **Versioned plans** — every plan edit creates an immutable version. Full history is always readable.
-- **Actor attribution** — every write is signed `human:name` or `ai:name`. Filter, audit, blame.
-- **MCP server** — plug into Claude Code, Cursor, Codex, OpenCode, or anything that speaks MCP.
-- **Full-text search** — `backlog task list --search "injection*"` runs in milliseconds.
-- **Workflow health reports** — `backlog activity analyze` and `backlog doctor project` surface cycle time, stale work, and weakly-closed tasks across parallel agent sessions.
-- **Bulk findings import** — structured JSON intake for security scanners and AI agents.
-- **Web UI** — `backlog web` serves a clean dashboard from the same Backlog DB.
-- **Export anywhere** — JSON, CSV, or Markdown.
-- **HTTP API** — embedded server for scripts and integrations.
-- **No telemetry, no tracking** — period.
+- **Local-first.** The Backlog DB sits next to your code. Commits with your repo, or doesn't (your call).
+- **Single binary.** A ~17 MB static binary with nothing else to install or keep running.
+- **JIRA-style refs.** Tasks are `TASK-1`, `TASK-2`, … No UUIDs in your terminal.
+- **Versioned plans.** Every plan edit creates an immutable version. Full history is always readable.
+- **Actor attribution.** Every write is signed `human:name` or `ai:name`. Filter, audit, blame.
+- **Persistent project context.** Memory, docs, and plans live in the DB, so a fresh agent session loads the full picture instead of re-reading the codebase.
+- **Agent skills.** `backlog install-skills` drops ready-made skills into Claude Code, Cursor, Codex, and OpenCode; your agent drives the queue and its own memory with no extra wiring.
+- **MCP server.** Optionally plug in over MCP, for agents that prefer tool calls.
+- **Full-text search.** `backlog task list --search "injection*"` runs in milliseconds.
+- **Workflow health reports.** `backlog activity analyze` and `backlog doctor project` surface cycle time, stale work, and weakly-closed tasks across parallel agent sessions.
+- **Bulk findings import.** Structured JSON intake for security scanners and AI agents.
+- **Web UI.** `backlog web` serves a clean dashboard from the same Backlog DB.
+- **Export anywhere.** JSON, CSV, or Markdown.
+- **HTTP API.** Embedded server for scripts and integrations.
+- **Private by default.** Everything stays on your machine, and Backlog collects nothing about you.
 
 ---
 
@@ -188,13 +232,17 @@ A quick glossary of the vocabulary used throughout Backlog. Full detail in [Core
 | `backlog plan add/update/show/history` | Versioned plans on tasks |
 | `backlog comment add/list` | Comments on tasks |
 | `backlog label create/attach/detach` | Per-project labels |
+| `backlog memory add/list/append` | Cross-session project memory |
+| `backlog doc add/list/show/update/history` | Versioned project docs |
+| `backlog attachment add/list/fetch/delete` | Files attached to tasks or docs |
 | `backlog activity / activity analyze` | Audit trail and project workflow-health report |
 | `backlog doctor project` | Lint a project for stale, orphaned, and weakly-closed work |
 | `backlog import-findings <file.json>` | Bulk import from scanners/agents |
 | `backlog import <other.db>` | Merge another workspace |
 | `backlog export --format json\|csv\|md` | Export tasks |
 | `backlog sync` | Reconcile `backlog.json` with DB |
-| `backlog mcp serve` | Start MCP stdio server |
+| `backlog mcp serve` | Start MCP stdio server (optional) |
+| `backlog install-skills` | Install agent skills into Claude Code, Cursor, Codex, OpenCode |
 | `backlog web` | Serve the web UI |
 | `backlog doctor check\|backup` | Health check and backup |
 | `backlog schema` | Print JSON Schema for all payload types |
@@ -225,7 +273,7 @@ Every row in the Backlog DB carries the actor that wrote it. Audit trails are fr
 
 ## MCP server
 
-Connect any MCP-compatible AI assistant directly to your backlog:
+[Skills](#connect-your-coding-agent) are the simplest way to connect an agent. If you'd rather use MCP tool calls, Backlog also runs as an MCP server. Connect any MCP-compatible AI assistant directly to your backlog:
 
 ```sh
 backlog mcp serve --as ai:claude-code --db /path/to/backlog.db
@@ -286,14 +334,14 @@ When several agents are closing tasks against the same queue, an empty backlog d
 backlog activity analyze --project app --since 7d
 ```
 
-Cycle time by task type, status-transition latency (todo→doing, doing→done), WIP by actor, reopened work, bug follow-ups, label churn, and the human-vs-AI close ratio — one report, no dashboard required. Add `--json` to pipe it into your own.
+Cycle time by task type, status-transition latency (todo→doing, doing→done), WIP by actor, reopened work, bug follow-ups, label churn, and the human-vs-AI close ratio. One report, no dashboard required. Add `--json` to pipe it into your own.
 
 ```sh
 # What did the agents close badly?
 backlog doctor project --project app
 ```
 
-Flags stale `doing` tasks, tasks created but never started, tasks closed with no plan or completion evidence, and final-audit tasks marked done while earlier work is still open. Every issue carries a severity, a code, and the evidence behind it — so the next agent (or you) can fix it instead of rediscovering it.
+Flags stale `doing` tasks, tasks created but never started, tasks closed with no plan or completion evidence, and final-audit tasks marked done while earlier work is still open. Every issue carries a severity, a code, and the evidence behind it, so the next agent (or you) can fix it instead of rediscovering it.
 
 ---
 
@@ -301,7 +349,7 @@ Flags stale `doing` tasks, tasks created but never started, tasks closed with no
 
 | Page | Description |
 |---|---|
-| [Getting Started](https://mazen160.github.io/backlog/getting-started.html) | Install, init, first task, plans, MCP setup |
+| [Getting Started](https://mazen160.github.io/backlog/getting-started.html) | Install, init, first task, plans, agent skills |
 | [Core Concepts](https://mazen160.github.io/backlog/concepts.html) | Workspaces, projects, tasks, plans, actors, profiles |
 | [CLI Reference](https://mazen160.github.io/backlog/cli.html) | Every command and flag with examples |
 | [MCP](https://mazen160.github.io/backlog/mcp.html) | Wire into Claude Code, Cursor, Codex, OpenCode |
@@ -329,13 +377,13 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full guide.
 
 ## Found this useful?
 
-If Backlog saves you a context window, please [**star the repo**](https://github.com/mazen160/backlog) — it's the only signal that tells me to keep building it in the open.
+If Backlog saves you a context window, please [**star the repo**](https://github.com/mazen160/backlog). It's the only signal that tells me to keep building it in the open.
 
 Share what you build:
 
-[![Tweet](https://img.shields.io/badge/Share-on%20X-000?logo=x&logoColor=white&style=flat)](https://twitter.com/intent/tweet?text=Your%20AI%20agent%20shouldn%27t%20ask%20%22what%27s%20next%3F%22%20%E2%80%94%20it%20should%20just%20check%20%24%20backlog.%0A%0AA%20local-first%20task%20queue%20your%20AI%20coding%20agents%20can%20read%20and%20write.&url=https%3A%2F%2Fgithub.com%2Fmazen160%2Fbacklog&hashtags=AIAgents,AgenticLoop,DevTools)
-[![HN](https://img.shields.io/badge/Submit-Hacker%20News-FF6600?logo=ycombinator&logoColor=white&style=flat)](https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fgithub.com%2Fmazen160%2Fbacklog&t=Show%20HN%3A%20Backlog%20%E2%80%93%20a%20local-first%20task%20queue%20your%20AI%20coding%20agents%20can%20read%20and%20write)
-[![Reddit](https://img.shields.io/badge/Share-Reddit-FF4500?logo=reddit&logoColor=white&style=flat)](https://www.reddit.com/submit?url=https%3A%2F%2Fgithub.com%2Fmazen160%2Fbacklog&title=Backlog%20%E2%80%93%20a%20local-first%20task%20queue%20your%20AI%20coding%20agents%20can%20read%20and%20write)
+[![Tweet](https://img.shields.io/badge/Share-on%20X-000?logo=x&logoColor=white&style=flat)](https://twitter.com/intent/tweet?text=Your%20AI%20agent%20shouldn%27t%20ask%20%22what%27s%20next%3F%22%20%E2%80%94%20it%20should%20just%20check%20%24%20backlog.%0A%0AA%20local-first%20task%20and%20context%20manager%20your%20AI%20coding%20agents%20read%20and%20write%20directly.&url=https%3A%2F%2Fgithub.com%2Fmazen160%2Fbacklog&hashtags=AIAgents,AgenticLoop,DevTools)
+[![HN](https://img.shields.io/badge/Submit-Hacker%20News-FF6600?logo=ycombinator&logoColor=white&style=flat)](https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fgithub.com%2Fmazen160%2Fbacklog&t=Show%20HN%3A%20Backlog%20%E2%80%93%20a%20local-first%20task%20and%20context%20manager%20your%20AI%20coding%20agents%20read%20and%20write%20directly)
+[![Reddit](https://img.shields.io/badge/Share-Reddit-FF4500?logo=reddit&logoColor=white&style=flat)](https://www.reddit.com/submit?url=https%3A%2F%2Fgithub.com%2Fmazen160%2Fbacklog&title=Backlog%20%E2%80%93%20a%20local-first%20task%20and%20context%20manager%20your%20AI%20coding%20agents%20read%20and%20write%20directly)
 [![LinkedIn](https://img.shields.io/badge/Share-LinkedIn-0A66C2?logo=linkedin&logoColor=white&style=flat)](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fgithub.com%2Fmazen160%2Fbacklog)
 
 ---
@@ -344,7 +392,7 @@ Share what you build:
 
 <div align="center">
 
-<img src="assets/backlog-ledger-stilllife.png" alt="A ledger and index cards — the durable, tangible queue your agents share" width="100%">
+<img src="assets/backlog-ledger-stilllife.png" alt="A ledger and index cards: the durable, tangible queue your agents share" width="100%">
 
 </div>
 

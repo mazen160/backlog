@@ -31,7 +31,7 @@ Projects can have a `description` and an optional `repo_path` pointing to a sour
 The primary unit of work. Every task belongs to a project and carries:
 
 - **Ref**: `TASK-N` where N is a per-workspace sequential integer. Also addressable by bare integer or full ULID.
-- **Type**: `task`, `bug`, `issue`, `improvement`, `feature`, `vulnerability`, `chore`, or `spike`
+- **Type**: `task`, `bug`, `issue`, `improvement`, `feature`, `vulnerability`, `chore`, `spike`, or `bucket-list`
 - **Status**: `todo`, `doing`, or `done`
 - **Priority**: integer 1–5 where P1 is critical/highest and P5 is backlog/lowest. Default is P3.
 - **Actor**: the `kind:name` of the creator (see [Actor](#actor) below)

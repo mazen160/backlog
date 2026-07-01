@@ -1,12 +1,13 @@
 # Backlog Skills
 
-The backlog repo ships five Claude Code / Cursor skills. Skills are markdown files — no code, no binary — that become part of the AI assistant's context when invoked. They teach the assistant how to use the `backlog` CLI and how to layer richer workflows on top of it.
+The backlog repo ships five skills for Claude Code, Cursor, Codex, and OpenCode. Skills are markdown files — no code, no binary — that become part of the AI assistant's context when invoked. They teach the assistant how to use the `backlog` CLI and how to layer richer workflows on top of it.
 
 ## Skills inventory
 
 | Skill | Purpose | Invocation |
 |---|---|---|
 | `backlog` | The base skill. Full CLI reference: every command, flag, ID format, enum, JSON shape, common agent workflow. Every other skill depends on this one. | `/backlog <natural-language request>` |
+| `backlog-memory` | Project memory in two modes — **learn** (load a project's tasks, plans, docs, and memory into the session) and **store** (synthesize the project's state into persistent memory entries). Auto-selects the mode. | `/backlog-memory [learn\|store] [project]` |
 | `backlog-enhance-tasks` | Rewrites a task's title and description for clarity, adds structured sections (Context / Acceptance criteria / Implementation hints), optionally generates an implementation plan. | `/backlog-enhance-tasks TASK-N [--build-plan]` |
 | `backlog-loop` | Picks up one task, iterates implementation → verification → Judge sub-agent up to 5 attempts until the Judge approves, then exits. Designed to run headlessly via `claude -p`. | `/backlog-loop <project> [TASK-N]` or `/backlog-loop help` |
 | `backlog-goal` | Goal-driven autonomous workflow. Two strict modes: PREP (exhaustive intake, classify the goal, decompose into checkpoints, seed the board, stop) and RUN (execute the board with Scout/Judge/Worker sub-agents, parallel-safe, every checkpoint gated by a Judge, final audit before done). | `/backlog-goal <goal>` then `/backlog-goal run <slug>` |
@@ -71,6 +72,33 @@ What it covers:
 ```
 
 The skill instructs the assistant to translate the natural-language request into the matching CLI invocation, parse `--json` output, and present results in a readable form.
+
+---
+
+## `backlog-memory`
+
+Persistent project memory in two modes. This is the skill that makes Backlog's cross-session "context" half work: a fresh session loads what earlier sessions learned, and a finished session writes new knowledge back.
+
+### Invocation
+
+```
+/backlog-memory                  # auto-pick the mode for the default project
+/backlog-memory <project>        # auto-pick the mode for a project
+/backlog-memory learn [project]  # force learn (read-only)
+/backlog-memory store [project]  # force store
+```
+
+### Two modes
+
+- **learn** (read-only) — reads a project's tasks, plans, docs, and memory into the current session, so the agent starts with full situational awareness instead of re-deriving what is already known.
+- **store** — synthesizes the project's current state into persistent memory entries, grouped by theme, so the next session loads context instantly.
+
+When no mode is given it auto-selects: **learn** at the start of a fresh session, **store** after work has been done this session, and it asks when that is ambiguous.
+
+### When to use
+
+- At the start of a session, to orient on a project without re-reading the whole codebase.
+- At the end of a session, to persist decisions, gotchas, and open-work summaries for the next agent.
 
 ---
 
@@ -268,6 +296,7 @@ Across these skills, the completion sequence for a task is:
 
 ```
 skills/backlog/skill.md                # base skill
+skills/backlog-memory/skill.md         # project memory: learn + store
 skills/backlog-enhance-tasks/skill.md  # title + description enhancer
 skills/backlog-loop/skill.md           # single-task iterator with Judge gate
 skills/backlog-goal/skill.md           # goal-lifecycle with checkpoints
@@ -287,12 +316,12 @@ Skills are embedded in the `backlog` binary via `skills/skills.go`. `backlog ins
 ### Dependency graph
 
 ```
-backlog-goal           backlog-loop          backlog-enhance-tasks
-    │                       │                          │
-    └───────────────────────┴──────────────────────────┘
-                            │
-                            ▼
-                        backlog  (canonical CLI reference)
+backlog-goal    backlog-loop    backlog-enhance-tasks    backlog-memory
+     │               │                   │                     │
+     └───────────────┴───────────────────┴─────────────────────┘
+                                 │
+                                 ▼
+                          backlog  (canonical CLI reference)
 ```
 
 Every workflow skill depends on the `backlog` skill for command surface, flag semantics, and JSON shapes. Each workflow skill declares this dependency at the top of its file.

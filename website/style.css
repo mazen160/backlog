@@ -5788,3 +5788,1403 @@ body { font-optical-sizing: auto; }
   .sidebar-item { min-height: 32px; font-size: 13px; }
   .main { padding: 28px 20px 60px; max-width: 100%; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Marketing pass — cross-session handoff, stronger editorial rhythm, and
+   viewport-stable type. Scoped to the static landing page.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+body.landing * {
+  letter-spacing: 0 !important;
+}
+
+body.landing .lnav {
+  backdrop-filter: blur(16px) saturate(1.08);
+}
+
+body.landing .lnav-inner {
+  min-height: 62px;
+}
+
+body.landing .hero.hero-v2 {
+  max-width: 1200px;
+  padding-top: 72px;
+}
+
+body.landing .hero-head {
+  max-width: 920px;
+}
+
+body.landing .hero-v2 .hero-eyebrow {
+  border-radius: 4px;
+  border-color: var(--border-2);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--green-bg) 42%, var(--surface)) 0%, var(--surface) 72%);
+  box-shadow: 0 1px 0 rgba(47, 43, 37, .05);
+}
+
+body.landing .hero-v2 .hero-h1 {
+  max-width: 900px;
+  font-size: 52px;
+  line-height: 1.08;
+}
+
+body.landing .hero-v2 .hero-sub {
+  max-width: 700px;
+  font-size: 18px;
+  line-height: 1.58;
+}
+
+body.landing .hero-split {
+  gap: 32px;
+}
+
+body.landing .hero-detail-window,
+body.landing .hero-term-window {
+  border-radius: 10px;
+}
+
+body.landing .hero-detail-window {
+  box-shadow: 0 20px 54px rgba(47, 43, 37, .12), 0 2px 8px rgba(47, 43, 37, .04);
+}
+
+body.landing .hero-term-window {
+  box-shadow: 0 24px 64px rgba(20, 17, 13, .34), 0 2px 6px rgba(20, 17, 13, .22);
+}
+
+body.landing .hero-stat,
+body.landing .hero-star,
+body.landing .hero-share-btn,
+body.landing .lnav-stars {
+  border-radius: 5px;
+}
+
+body.landing .hero-stat {
+  box-shadow: none;
+}
+
+body.landing .hero-stat-num {
+  color: var(--signal-2);
+}
+
+body.landing .compat-strip {
+  margin-top: 18px;
+}
+
+body.landing .compat-strip-inner {
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 31px, color-mix(in srgb, var(--border) 42%, transparent) 31px 32px),
+    var(--surface-2);
+}
+
+.handoff-section {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--blue-bg) 28%, transparent) 0 1px, transparent 1px 100%),
+    linear-gradient(0deg, color-mix(in srgb, var(--border) 54%, transparent) 0 1px, transparent 1px 100%),
+    linear-gradient(180deg, var(--bg) 0%, var(--surface-2) 100%);
+  background-size: 72px 72px, 72px 72px, auto;
+}
+
+.handoff-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 78px 40px;
+  display: grid;
+  grid-template-columns: minmax(0, .86fr) minmax(0, 1.14fr);
+  gap: 60px;
+  align-items: center;
+}
+
+.handoff-copy {
+  min-width: 0;
+}
+
+.handoff-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.handoff-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--link);
+  flex-shrink: 0;
+}
+
+.handoff-copy h2 {
+  margin: 0 0 18px;
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: 46px;
+  font-weight: 600;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.handoff-copy p {
+  margin: 0;
+  max-width: 34em;
+  color: var(--fg-2);
+  font-size: 17px;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.handoff-visual {
+  min-width: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.handoff-flow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-muted);
+}
+
+.handoff-arrow {
+  color: var(--fg-subtle);
+}
+
+.handoff-db-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 10px;
+  border: 1px solid var(--link);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--blue-bg) 48%, var(--surface));
+  color: var(--link-hover);
+  font-weight: 700;
+}
+
+.handoff-ledger {
+  overflow: hidden;
+  border: 1px solid var(--border-2);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 18px 46px rgba(47, 43, 37, .08);
+}
+
+.handoff-ledger-head,
+.handoff-row {
+  display: grid;
+  grid-template-columns: 68px 132px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+}
+
+.handoff-ledger-head {
+  grid-template-columns: 1fr auto;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--blue-bg) 38%, var(--surface)) 0%, var(--surface) 62%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+}
+
+.handoff-row {
+  min-height: 58px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px;
+  color: var(--fg-2);
+}
+
+.handoff-row:last-child {
+  border-bottom: none;
+}
+
+.handoff-row-ai {
+  background: color-mix(in srgb, var(--blue-bg) 26%, var(--surface));
+}
+
+.handoff-row-next {
+  background: color-mix(in srgb, var(--green-bg) 30%, var(--surface));
+}
+
+.handoff-time {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--fg-subtle);
+}
+
+.handoff-actor {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+
+.handoff-write {
+  min-width: 0;
+}
+
+.handoff-write code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg);
+  background: color-mix(in srgb, var(--yellow-bg) 44%, transparent);
+  border-radius: 3px;
+  padding: 1px 4px;
+}
+
+.handoff-terminal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 13px 16px;
+  border: 1px solid #2C2520;
+  border-radius: 8px;
+  background: #14110D;
+  color: #F2E7D3;
+  box-shadow: 0 16px 38px rgba(20, 17, 13, .22);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.handoff-prompt,
+.handoff-cursor {
+  color: #C99962;
+  flex-shrink: 0;
+}
+
+.handoff-cursor {
+  animation: heroCaret 1s steps(1) infinite;
+}
+
+body.landing .pullquote {
+  margin-top: 64px;
+}
+
+body.landing .loop-title,
+body.landing .loop-title-headline,
+body.landing .webui-title,
+body.landing .surfaces-title,
+body.landing .caps-title,
+body.landing .compare-title,
+body.landing .faq-title,
+body.landing .install-wrap h2 {
+  font-size: 48px;
+  line-height: 1.08;
+}
+
+body.landing .how-section h2,
+body.landing .showcase-text h2,
+body.landing .usecases-section h2 {
+  font-size: 42px;
+  line-height: 1.1;
+}
+
+body.landing .loop-title-stat-num {
+  font-size: 112px;
+}
+
+body.landing .loop-title-stat-label {
+  font-size: 30px;
+}
+
+body.landing .loop-chart,
+body.landing .surfaces-panel,
+body.landing .compare-wrap,
+body.landing .faq-item,
+body.landing .caps-card,
+body.landing .webui-feature,
+body.landing .ui-mockup,
+body.landing .code-block,
+body.landing .plan-history {
+  border-radius: 8px;
+}
+
+body.landing .surfaces-tab {
+  border-radius: 4px;
+}
+
+body.landing .caps-grid {
+  align-items: stretch;
+}
+
+body.landing .caps-card {
+  min-height: 100%;
+}
+
+body.landing .compare-table th,
+body.landing .compare-table td {
+  min-width: 112px;
+}
+
+body.landing .faq-item summary {
+  min-height: 56px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .handoff-cursor {
+    animation: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .handoff-inner {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .handoff-copy {
+    max-width: 720px;
+  }
+
+  .handoff-flow {
+    justify-content: flex-start;
+  }
+
+  body.landing .hero-v2 .hero-h1 {
+    font-size: 46px;
+  }
+
+  body.landing .loop-title,
+  body.landing .webui-title,
+  body.landing .surfaces-title,
+  body.landing .caps-title,
+  body.landing .compare-title,
+  body.landing .faq-title,
+  body.landing .install-wrap h2 {
+    font-size: 42px;
+  }
+
+  body.landing .loop-title-stat-num {
+    font-size: 92px;
+  }
+}
+
+@media (max-width: 820px) {
+  body.landing .hero.hero-v2 {
+    padding-top: 52px;
+  }
+
+  body.landing .hero-v2 .hero-h1 {
+    font-size: 38px;
+    line-height: 1.12;
+  }
+
+  body.landing .hero-v2 .hero-sub {
+    font-size: 16px;
+  }
+
+  body.landing .hero-cta {
+    align-items: stretch;
+  }
+
+  body.landing .hero-star,
+  body.landing .hero-docs-link {
+    justify-content: center;
+  }
+
+  .handoff-inner {
+    padding: 56px 24px;
+  }
+
+  .handoff-copy h2,
+  body.landing .loop-title,
+  body.landing .webui-title,
+  body.landing .surfaces-title,
+  body.landing .caps-title,
+  body.landing .compare-title,
+  body.landing .faq-title,
+  body.landing .install-wrap h2,
+  body.landing .how-section h2,
+  body.landing .showcase-text h2,
+  body.landing .usecases-section h2 {
+    font-size: 34px;
+    line-height: 1.12;
+  }
+
+  .handoff-copy p {
+    font-size: 15.5px;
+  }
+
+  .handoff-ledger-head,
+  .handoff-row {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .handoff-ledger-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .handoff-row {
+    align-items: start;
+  }
+
+  body.landing .loop-title-stat-num {
+    font-size: 70px;
+  }
+
+  body.landing .loop-title-stat-label {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  body.landing .lnav-inner {
+    padding: 0 16px;
+  }
+
+  body.landing .hero.hero-v2 {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  body.landing .hero-v2 .hero-h1 {
+    font-size: 34px;
+  }
+
+  body.landing .hero-detail-body {
+    padding: 20px 18px 22px;
+  }
+
+  body.landing .hero-detail-url,
+  body.landing .hero-term-statusbar-r {
+    display: none;
+  }
+
+  body.landing .hero-stats {
+    align-items: stretch;
+  }
+
+  body.landing .hero-stat {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .handoff-inner {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .handoff-copy h2,
+  body.landing .loop-title,
+  body.landing .webui-title,
+  body.landing .surfaces-title,
+  body.landing .caps-title,
+  body.landing .compare-title,
+  body.landing .faq-title,
+  body.landing .install-wrap h2,
+  body.landing .how-section h2,
+  body.landing .showcase-text h2,
+  body.landing .usecases-section h2 {
+    font-size: 30px;
+  }
+
+  .handoff-ledger-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .handoff-terminal {
+    font-size: 12px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Staff product polish — quieter, sharper, more app-like. The page should
+   feel like a crafted developer tool, not a launch template.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+body.landing {
+  --bg: #f8f8f6;
+  --bg-sidebar: #f1f1ee;
+  --bg-hover: #eeeeeb;
+  --bg-selected: #e9e9e5;
+  --surface: #ffffff;
+  --surface-2: #fbfbfa;
+  --border: #e6e4df;
+  --border-2: #d7d4cb;
+  --fg: #20201d;
+  --fg-2: #4b4a45;
+  --fg-3: #66645d;
+  --fg-muted: #78766d;
+  --fg-subtle: #a19f96;
+  --link: #256f86;
+  --link-hover: #195568;
+  --signal: #9c6428;
+  --signal-2: #704716;
+  background: var(--bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  body.landing {
+    --bg: #171716;
+    --bg-sidebar: #20201e;
+    --bg-hover: #292926;
+    --bg-selected: #33322e;
+    --surface: #1f1f1d;
+    --surface-2: #22221f;
+    --border: #33322e;
+    --border-2: #424038;
+    --fg: #efeee9;
+    --fg-2: #cfccc3;
+    --fg-3: #aaa69b;
+    --fg-muted: #908d84;
+    --fg-subtle: #6d6a63;
+    --link: #8abfd1;
+    --link-hover: #b3d7e4;
+    --signal: #d39a58;
+    --signal-2: #f0b371;
+  }
+}
+
+body.landing .lnav {
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  border-bottom-color: var(--border);
+}
+
+body.landing .lnav-inner {
+  max-width: 1120px;
+}
+
+body.landing .lnav-logo-word,
+body.landing .lfooter-logo-word {
+  font-weight: 650;
+}
+
+body.landing .lnav-links a {
+  color: var(--fg-muted);
+}
+
+body.landing .lnav-cta {
+  min-height: 34px;
+  padding: 7px 13px;
+  border-radius: 6px;
+  background: var(--fg);
+  color: var(--bg);
+  box-shadow: none;
+}
+
+body.landing .lnav-stars {
+  background: var(--surface);
+  box-shadow: none;
+}
+
+body.landing .hero.hero-v2 {
+  max-width: 1120px;
+  padding: 72px 24px 52px;
+}
+
+body.landing .hero-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+  column-gap: 64px;
+  row-gap: 18px;
+  max-width: 1120px;
+  margin: 0 auto 34px;
+  text-align: left;
+  align-items: end;
+}
+
+body.landing .hero-v2 .hero-eyebrow {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin: 0;
+  padding: 4px 8px;
+  border-radius: 5px;
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: none;
+  color: var(--fg-muted);
+  font-size: 12px;
+}
+
+body.landing .hero-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  background: #2f8f66;
+  box-shadow: none;
+}
+
+body.landing .hero-v2 .hero-h1 {
+  grid-column: 1 / 2;
+  max-width: 690px;
+  margin: 0;
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 56px;
+  font-weight: 720;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+body.landing .hero-v2 .hero-sub {
+  grid-column: 2 / 3;
+  align-self: end;
+  max-width: 420px;
+  margin: 0 0 5px;
+  color: var(--fg-2);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+body.landing .hero-stats {
+  grid-column: 1 / -1;
+  justify-content: flex-start;
+  gap: 8px;
+  margin: 8px 0 0;
+}
+
+body.landing .hero-stat {
+  min-height: 36px;
+  gap: 10px;
+  padding: 7px 10px;
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+body.landing .hero-stat-num {
+  min-width: auto;
+  color: var(--fg);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+body.landing .hero-stat-label {
+  color: var(--fg-muted);
+  font-size: 12px;
+}
+
+body.landing .hero-split {
+  grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr);
+  gap: 18px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+body.landing .hero-detail-window,
+body.landing .hero-term-window,
+body.landing .handoff-ledger,
+body.landing .handoff-terminal,
+body.landing .loop-chart,
+body.landing .surfaces-panel,
+body.landing .ui-mockup,
+body.landing .compare-wrap,
+body.landing .faq-item,
+body.landing .caps-card,
+body.landing .webui-feature,
+body.landing .code-block,
+body.landing .plan-history {
+  border-radius: 7px;
+  box-shadow: none;
+}
+
+body.landing .hero-detail-window {
+  border-color: var(--border-2);
+}
+
+body.landing .hero-detail-titlebar {
+  min-height: 38px;
+  background: var(--surface-2);
+}
+
+body.landing .hero-detail-body {
+  padding: 22px 24px 24px;
+}
+
+body.landing .hero-detail-title {
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 24px;
+  font-weight: 690;
+  line-height: 1.2;
+}
+
+body.landing .hero-detail-props {
+  column-gap: 20px;
+  row-gap: 4px;
+}
+
+body.landing .hero-prop-k,
+body.landing .hero-detail-section-h {
+  color: var(--fg-subtle);
+  font-size: 11px;
+}
+
+body.landing .badge,
+body.landing .hero-proj-chip,
+body.landing .hero-term-tag,
+body.landing .hero-star-count,
+body.landing .lnav-stars-count {
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+body.landing .hero-term-window {
+  min-height: 426px;
+  background: #151513;
+  border-color: #2b2a26;
+}
+
+body.landing .hero-term-titlebar,
+body.landing .hero-term-statusbar,
+body.landing .hero-term-json {
+  background: #1d1c19;
+  border-color: #2f2e29;
+}
+
+body.landing .hero-term-tab {
+  border-radius: 5px;
+}
+
+body.landing .hero-term-tab.is-active {
+  background: #2a2822;
+}
+
+body.landing .hero-v2 .hero-install {
+  max-width: 470px;
+  min-height: 42px;
+  border-radius: 6px;
+  box-shadow: none;
+  font-size: 12.5px;
+}
+
+body.landing .hero-star {
+  min-height: 42px;
+  box-shadow: none;
+}
+
+body.landing .hero-docs-link {
+  color: var(--fg-muted);
+}
+
+body.landing .compat-strip {
+  max-width: 1120px;
+  margin-top: 0;
+  padding: 0 24px 32px;
+}
+
+body.landing .compat-strip-inner {
+  justify-content: space-between;
+  padding: 13px 16px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+}
+
+body.landing .compat-strip-dot {
+  width: 4px;
+  height: 4px;
+  background: var(--fg-subtle);
+}
+
+body.landing .pullquote {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 16px 24px 18px;
+}
+
+body.landing .pullquote-inner {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  column-gap: 18px;
+  padding: 28px 30px;
+  border-color: var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+  box-shadow: none;
+}
+
+body.landing .pullquote-inner::before {
+  width: 2px;
+  background: var(--fg);
+}
+
+body.landing .pullquote-mark {
+  grid-row: 1 / span 2;
+  width: 30px;
+  height: 30px;
+  margin: 1px 0 0;
+  color: var(--fg-subtle);
+  opacity: .45;
+}
+
+body.landing .pullquote-text {
+  margin: 0;
+  color: var(--fg);
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+body.landing .pullquote-text-em {
+  margin-top: 12px;
+  color: var(--fg-2);
+  font-size: .82em;
+  font-weight: 520;
+}
+
+body.landing .pullquote-footer {
+  grid-column: 2 / 3;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+body.landing .pullquote-tweet {
+  min-height: 34px;
+  border-radius: 6px;
+  background: var(--fg);
+  color: var(--bg);
+  box-shadow: none;
+}
+
+body.landing .pullquote-tweet:hover {
+  color: var(--bg);
+  transform: none;
+}
+
+body.landing .pullquote-cite {
+  color: var(--fg-muted);
+}
+
+body.landing .concept-band {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 14px 24px 48px;
+}
+
+body.landing .concept-fig img {
+  border-color: var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+}
+
+body.landing .concept-fig figcaption {
+  max-width: 720px;
+  margin: 12px 0 0;
+  text-align: left;
+  color: var(--fg-muted);
+  font-size: 12px;
+}
+
+body.landing .handoff-section {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+body.landing .handoff-inner {
+  max-width: 1120px;
+  padding: 56px 24px;
+  grid-template-columns: minmax(0, .84fr) minmax(0, 1.16fr);
+  gap: 48px;
+}
+
+body.landing .handoff-copy h2 {
+  font-family: var(--font);
+  font-size: 38px;
+  font-weight: 720;
+  line-height: 1.08;
+}
+
+body.landing .handoff-copy p {
+  font-size: 15.5px;
+  line-height: 1.68;
+}
+
+body.landing .handoff-flow {
+  justify-content: flex-start;
+}
+
+body.landing .handoff-db-chip {
+  min-height: 26px;
+  border-color: var(--border-2);
+  background: var(--surface);
+  color: var(--fg);
+  font-weight: 650;
+}
+
+body.landing .handoff-ledger {
+  border-color: var(--border);
+}
+
+body.landing .handoff-ledger-head {
+  background: var(--surface);
+}
+
+body.landing .handoff-row-ai,
+body.landing .handoff-row-next {
+  background: var(--surface-2);
+}
+
+body.landing .handoff-terminal {
+  background: #151513;
+  box-shadow: none;
+}
+
+body.landing .loop-section,
+body.landing .caps-section,
+body.landing .faq-section {
+  background: var(--bg);
+}
+
+body.landing .loop-section-inner,
+body.landing .surfaces-section-inner,
+body.landing .caps-section-inner,
+body.landing .compare-section-inner,
+body.landing .faq-section-inner,
+body.landing .install-wrap-inner,
+body.landing .webui-section-inner {
+  max-width: 1120px;
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
+body.landing .loop-head,
+body.landing .webui-head,
+body.landing .surfaces-head,
+body.landing .caps-head,
+body.landing .compare-head,
+body.landing .faq-head {
+  max-width: 690px;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+}
+
+body.landing .loop-eyebrow,
+body.landing .webui-eyebrow,
+body.landing .surfaces-eyebrow,
+body.landing .caps-eyebrow,
+body.landing .compare-eyebrow,
+body.landing .faq-eyebrow,
+body.landing .handoff-eyebrow {
+  color: var(--fg-muted);
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+}
+
+body.landing .loop-eyebrow::before,
+body.landing .webui-eyebrow::before,
+body.landing .surfaces-eyebrow::before,
+body.landing .caps-eyebrow::before,
+body.landing .compare-eyebrow::before,
+body.landing .faq-eyebrow::before,
+body.landing .handoff-eyebrow::before {
+  background: var(--fg-subtle);
+}
+
+body.landing .loop-title,
+body.landing .webui-title,
+body.landing .surfaces-title,
+body.landing .caps-title,
+body.landing .compare-title,
+body.landing .faq-title,
+body.landing .install-wrap h2,
+body.landing .how-section h2,
+body.landing .showcase-text h2,
+body.landing .usecases-section h2 {
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 40px;
+  font-weight: 720;
+  line-height: 1.12;
+}
+
+body.landing .caps-title::after,
+body.landing .faq-title::after {
+  display: none;
+}
+
+body.landing .loop-title {
+  align-items: flex-start;
+  gap: 10px;
+}
+
+body.landing .loop-title-headline {
+  font-family: var(--font);
+  font-weight: 720;
+}
+
+body.landing .loop-title-stat {
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+body.landing .loop-title-stat-num,
+body.landing .loop-title-stat-num-cost {
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 650;
+  line-height: 1;
+  text-shadow: none;
+}
+
+body.landing .loop-title-stat-sym,
+body.landing .loop-title-stat-num-cost .loop-title-stat-sym {
+  color: var(--fg-muted);
+}
+
+body.landing .loop-title-stat-label {
+  color: var(--fg-muted);
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 520;
+}
+
+body.landing .loop-sub,
+body.landing .loop-sub-cost,
+body.landing .webui-sub,
+body.landing .surfaces-sub,
+body.landing .compare-sub,
+body.landing .install-sub,
+body.landing .uc-sub {
+  color: var(--fg-2);
+  font-size: 15.5px;
+  line-height: 1.68;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+body.landing .loop-sub strong,
+body.landing .loop-sub-cost strong {
+  color: var(--fg);
+  font-weight: 650;
+}
+
+body.landing .loop-stages {
+  justify-content: flex-start;
+  margin: 28px 0;
+}
+
+body.landing .loop-stage {
+  border-radius: 5px;
+  background: var(--surface);
+}
+
+body.landing .loop-stage-final {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+
+body.landing .loop-chart,
+body.landing .surfaces-panel,
+body.landing .ui-mockup,
+body.landing .compare-wrap {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+body.landing .loop-track-stat,
+body.landing .loop-track-stat-hi {
+  border-radius: 5px;
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+
+body.landing .loop-track-stat-hi .loop-track-stat-num,
+body.landing .loop-track-stat-hi .loop-track-stat-unit {
+  color: var(--fg);
+}
+
+body.landing .loop-notes {
+  gap: 10px;
+}
+
+body.landing .loop-note,
+body.landing .loop-note-method,
+body.landing .loop-note-cost,
+body.landing .loop-note-cost-detail {
+  padding: 18px;
+  border-radius: 7px;
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+body.landing .loop-note:hover,
+body.landing .loop-note-method:hover,
+body.landing .loop-note-cost:hover,
+body.landing .loop-note-cost-detail:hover,
+body.landing .caps-card:hover,
+body.landing .webui-feature:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--border-2);
+}
+
+body.landing .loop-note-h,
+body.landing .loop-note-method .loop-note-h,
+body.landing .loop-note-cost .loop-note-h,
+body.landing .loop-note-cost-detail .loop-note-h {
+  color: var(--fg);
+}
+
+body.landing .loop-note-h::before,
+body.landing .loop-note-method .loop-note-h::before,
+body.landing .loop-note-cost .loop-note-h::before,
+body.landing .loop-note-cost-detail .loop-note-h::before {
+  background: var(--fg-subtle);
+}
+
+body.landing .how-section,
+body.landing .webui-section,
+body.landing .surfaces-section,
+body.landing .compare-section,
+body.landing .install-wrap {
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+
+body.landing .showcase-wrap,
+body.landing .usecases-section {
+  background: var(--bg);
+}
+
+body.landing .showcase,
+body.landing .usecase {
+  border-color: var(--border);
+}
+
+body.landing .webui-features,
+body.landing .caps-grid {
+  gap: 10px;
+}
+
+body.landing .webui-feature,
+body.landing .caps-card,
+body.landing .faq-item {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+body.landing .webui-feature-eye,
+body.landing .caps-card-num,
+body.landing .lfooter-col-h,
+body.landing .compare-eyebrow,
+body.landing .faq-eyebrow {
+  color: var(--fg-muted);
+}
+
+body.landing .surfaces-tabs {
+  justify-content: flex-start;
+  margin-left: 0;
+  margin-right: 0;
+  background: var(--surface);
+  border-radius: 7px;
+}
+
+body.landing .surfaces-tab {
+  flex: 0 0 auto;
+}
+
+body.landing .surfaces-panel {
+  grid-template-columns: minmax(0, .86fr) minmax(0, 1.14fr);
+  gap: 32px;
+}
+
+body.landing .surfaces-panel-visual {
+  border-radius: 7px;
+  background: var(--surface-2);
+}
+
+body.landing .compare-table thead th {
+  background: var(--surface-2);
+}
+
+body.landing .compare-self {
+  border-radius: 4px;
+  background: var(--fg);
+  color: var(--bg);
+}
+
+body.landing .faq-grid {
+  gap: 8px;
+}
+
+body.landing .faq-item summary {
+  min-height: 50px;
+}
+
+body.landing .lfooter-v2 {
+  background: var(--surface);
+}
+
+@media (max-width: 1100px) {
+  body.landing .hero-head {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+
+  body.landing .hero-v2 .hero-sub {
+    grid-column: 1 / -1;
+    max-width: 680px;
+  }
+
+  body.landing .hero-split,
+  body.landing .handoff-inner,
+  body.landing .surfaces-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 820px) {
+  body.landing .hero.hero-v2 {
+    padding: 44px 18px 38px;
+  }
+
+  body.landing .hero-v2 .hero-h1 {
+    font-size: 42px;
+    line-height: 1.06;
+  }
+
+  body.landing .hero-v2 .hero-sub {
+    font-size: 15.5px;
+  }
+
+  body.landing .hero-split {
+    gap: 14px;
+  }
+
+  body.landing .compat-strip {
+    padding: 0 18px 24px;
+  }
+
+  body.landing .compat-strip-inner {
+    align-items: flex-start;
+  }
+
+  body.landing .pullquote {
+    padding: 8px 18px 16px;
+  }
+
+  body.landing .pullquote-inner {
+    grid-template-columns: 1fr;
+    padding: 24px 22px;
+  }
+
+  body.landing .pullquote-mark {
+    grid-row: auto;
+    margin: 0 0 8px;
+  }
+
+  body.landing .pullquote-text {
+    font-size: 22px;
+  }
+
+  body.landing .pullquote-footer {
+    grid-column: 1 / -1;
+    align-items: flex-start;
+  }
+
+  body.landing .concept-band {
+    padding: 8px 18px 38px;
+  }
+
+  body.landing .loop-section-inner,
+  body.landing .surfaces-section-inner,
+  body.landing .caps-section-inner,
+  body.landing .compare-section-inner,
+  body.landing .faq-section-inner,
+  body.landing .install-wrap-inner,
+  body.landing .webui-section-inner,
+  body.landing .handoff-inner {
+    padding: 52px 18px;
+  }
+
+  body.landing .handoff-copy h2,
+  body.landing .loop-title,
+  body.landing .webui-title,
+  body.landing .surfaces-title,
+  body.landing .caps-title,
+  body.landing .compare-title,
+  body.landing .faq-title,
+  body.landing .install-wrap h2,
+  body.landing .how-section h2,
+  body.landing .showcase-text h2,
+  body.landing .usecases-section h2 {
+    font-size: 32px;
+    line-height: 1.12;
+  }
+
+  body.landing .loop-title-stat {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  body.landing .hero-v2 .hero-h1 {
+    font-size: 36px;
+  }
+
+  body.landing .hero-stats {
+    gap: 6px;
+  }
+
+  body.landing .hero-stat {
+    width: auto;
+    justify-content: flex-start;
+  }
+
+  body.landing .hero-term-window {
+    min-height: 390px;
+  }
+
+  body.landing .hero-cta {
+    gap: 10px;
+  }
+
+  body.landing .hero-v2 .hero-install {
+    max-width: none;
+  }
+
+  body.landing .pullquote-inner {
+    padding: 22px 18px;
+  }
+
+  body.landing .pullquote-text {
+    font-size: 20px;
+  }
+
+  body.landing .pullquote-tweet {
+    width: 100%;
+    justify-content: center;
+  }
+
+  body.landing .handoff-flow {
+    gap: 6px;
+  }
+}

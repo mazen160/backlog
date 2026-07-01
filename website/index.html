@@ -99,12 +99,16 @@
     <section class="hero hero-v2" aria-label="Product introduction">
 
       <header class="hero-head">
-        <h1 class="hero-h1">Your AI agent shouldn't ask <em class="hero-h1-em">&ldquo;what&rsquo;s next?&rdquo;</em><br>It should just check <code class="hero-h1-code">$ backlog</code></h1>
-        <p class="hero-sub">Your AI agent forgets between sessions. Backlog remembers. Open Claude Code tomorrow, Cursor next week. Every task, plan, comment, and decision is right where you left it. Ship more in less time. One binary. <strong>$0 forever.</strong></p>
-        <ul class="hero-stats" aria-label="Why solo devs ship with Backlog">
-          <li class="hero-stat"><span class="hero-stat-num">12<span class="hero-stat-sym">×</span></span><span class="hero-stat-label">more loops closed per workday</span></li>
-          <li class="hero-stat"><span class="hero-stat-num">10<span class="hero-stat-sym">×</span></span><span class="hero-stat-label">cheaper per task vs long threads</span></li>
-          <li class="hero-stat"><span class="hero-stat-num">1</span><span class="hero-stat-label">file. Zero infra.</span></li>
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow-dot" aria-hidden="true"></span>
+          Local task database for coding agents
+        </div>
+        <h1 class="hero-h1">A shared task database for you and your coding agents.</h1>
+        <p class="hero-sub">Backlog gives every session the same working state: tasks, plans, memory, comments, and an append-only activity trail. Use it from the CLI, web UI, or MCP without adding another SaaS account.</p>
+        <ul class="hero-stats" aria-label="Backlog product properties">
+          <li class="hero-stat"><span class="hero-stat-num">Local</span><span class="hero-stat-label">SQLite workspace file</span></li>
+          <li class="hero-stat"><span class="hero-stat-num">MCP</span><span class="hero-stat-label">native agent read/write</span></li>
+          <li class="hero-stat"><span class="hero-stat-num">Audit</span><span class="hero-stat-label">actor on every row</span></li>
         </ul>
       </header>
 
@@ -279,31 +283,6 @@
         <a href="getting-started.html" class="hero-docs-link">Full getting started guide →</a>
       </div>
 
-      <!-- Share row -->
-      <div class="hero-share" aria-label="Share Backlog">
-        <span class="hero-share-label">Share</span>
-        <a class="hero-share-btn hero-share-x" href="https://twitter.com/intent/tweet?text=Your%20AI%20agent%20shouldn%27t%20ask%20%22what%27s%20next%3F%22.%20It%20should%20just%20check%20%24%20backlog.%20A%20local-first%20task%20queue%20for%20AI%20coding%20agents.&url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&hashtags=AIAgents,AgenticLoop,DevTools" target="_blank" rel="noopener" aria-label="Share on X (Twitter)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          X
-        </a>
-        <a class="hero-share-btn hero-share-hn" href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&t=Backlog%3A%20a%20local-first%20task%20queue%20your%20AI%20coding%20agents%20can%20read%20and%20write" target="_blank" rel="noopener" aria-label="Submit to Hacker News">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M0 0v24h24V0zm6.951 4h2.9l2.15 4.473L14.158 4h2.9l-3.6 7.473V19h-2.9v-7.527z"/></svg>
-          HN
-        </a>
-        <a class="hero-share-btn hero-share-reddit" href="https://www.reddit.com/submit?url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F&title=Backlog%3A%20a%20local-first%20task%20queue%20your%20AI%20coding%20agents%20can%20read%20and%20write" target="_blank" rel="noopener" aria-label="Share on Reddit">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12.5c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
-          Reddit
-        </a>
-        <a class="hero-share-btn hero-share-li" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F" target="_blank" rel="noopener" aria-label="Share on LinkedIn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.063 2.063 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-        <button class="hero-share-btn hero-share-copy" id="share-copy-link" aria-label="Copy link">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-          <span id="share-copy-label">Copy link</span>
-        </button>
-      </div>
-
     </section>
 
     <!-- ─── Compatibility strip (honest social proof) ──────────────────── -->
@@ -331,13 +310,13 @@
       </div>
     </section>
 
-    <!-- ─── Pull quote (screenshot-bait) ───────────────────────────────── -->
+    <!-- ─── Pull quote ─────────────────────────────────────────────────── -->
     <section class="pullquote" aria-label="The case for an agentic backlog">
       <div class="pullquote-inner">
         <svg class="pullquote-mark" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.97 6c-3.99 0-7 3.137-7 7.082 0 3.252 2.025 4.918 4.245 4.918 1.79 0 3.245-1.379 3.245-3.082 0-1.582-1.052-2.857-2.428-3.082 0-1.969 1.587-3.836 3.428-3.836V6h-1.49zm9.06 0c-3.99 0-7 3.137-7 7.082 0 3.252 2.025 4.918 4.245 4.918 1.79 0 3.245-1.379 3.245-3.082 0-1.582-1.052-2.857-2.428-3.082 0-1.969 1.587-3.836 3.428-3.836V6h-1.49z"/></svg>
         <blockquote class="pullquote-text">
-          We spent a decade teaching humans to fit into Jira. Now we're going to ask an LLM to do it?
-          <span class="pullquote-text-em">An agent's backlog should live in its context, with tooling built for agentic AI usage.</span>
+          We spent a decade teaching humans to fit into Jira. Now we&rsquo;re going to ask an LLM to do it?
+          <span class="pullquote-text-em">An agent&rsquo;s backlog should live in its context, with tooling built for agentic AI usage.</span>
         </blockquote>
         <div class="pullquote-footer">
           <a class="pullquote-tweet" href="https://twitter.com/intent/tweet?text=%22An%20agent%27s%20backlog%20should%20live%20in%20its%20context%2C%20with%20tooling%20built%20for%20agentic%20AI%20usage.%22%20via%20%40mazen160%20backlog&url=https%3A%2F%2Fmazen160.github.io%2Fbacklog%2F" target="_blank" rel="noopener">
@@ -357,6 +336,55 @@
       </figure>
     </section>
 
+    <!-- ─── Cross-session handoff ─────────────────────────────────────── -->
+    <section id="handoff" class="handoff-section" aria-label="Cross-session handoff">
+      <div class="handoff-inner">
+        <div class="handoff-copy">
+          <div class="handoff-eyebrow">Context handoff</div>
+          <h2>Close one agent. Open another. The queue is still there.</h2>
+          <p>Backlog turns work state into rows: task, plan, memory, comment, actor. A fresh session starts from the database instead of from a recap prompt.</p>
+        </div>
+
+        <div class="handoff-visual" aria-label="Backlog database handoff example">
+          <div class="handoff-flow" aria-hidden="true">
+            <span>Claude Code exits</span>
+            <span class="handoff-arrow">→</span>
+            <span class="handoff-db-chip">backlog.db</span>
+            <span class="handoff-arrow">→</span>
+            <span>Codex starts</span>
+          </div>
+
+          <div class="handoff-ledger">
+            <div class="handoff-ledger-head">
+              <span>api workspace</span>
+              <span>append-only activity</span>
+            </div>
+            <div class="handoff-row handoff-row-ai">
+              <span class="handoff-time">10:42</span>
+              <span class="handoff-actor">ai:claude-code</span>
+              <span class="handoff-write">attached plan v3 to <code>TASK-12</code></span>
+            </div>
+            <div class="handoff-row">
+              <span class="handoff-time">10:47</span>
+              <span class="handoff-actor">human:alice</span>
+              <span class="handoff-write">approved scope and moved <code>TASK-12</code> to doing</span>
+            </div>
+            <div class="handoff-row handoff-row-next">
+              <span class="handoff-time">11:03</span>
+              <span class="handoff-actor">ai:codex</span>
+              <span class="handoff-write">reads last write, continues from plan v3</span>
+            </div>
+          </div>
+
+          <div class="handoff-terminal" aria-hidden="true">
+            <span class="handoff-prompt">$</span>
+            <span>backlog task show TASK-12 --json</span>
+            <span class="handoff-cursor">▌</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ─── The agentic loop ───────────────────────────────────────────── -->
     <section id="loop" class="loop-section" aria-label="The agentic loop">
       <div class="loop-section-inner">
@@ -364,18 +392,10 @@
         <header class="loop-head">
           <div class="loop-eyebrow">The agentic loop</div>
           <h2 class="loop-title">
-            <span class="loop-title-headline">Same workday.</span>
-            <span class="loop-title-stat" aria-hidden="true">
-              <span class="loop-title-stat-num">12<span class="loop-title-stat-sym">×</span></span>
-              <span class="loop-title-stat-label">more loops closed.</span>
-            </span>
-            <span class="loop-title-stat loop-title-stat-cost" aria-hidden="true">
-              <span class="loop-title-stat-num loop-title-stat-num-cost">10<span class="loop-title-stat-sym">×</span></span>
-              <span class="loop-title-stat-label">less agent cost.</span>
-            </span>
+            <span class="loop-title-headline">Fresh sessions, same queue.</span>
           </h2>
-          <p class="loop-sub">A loop is one unit of work: <strong>pick → plan → run → review → ship</strong>. Backlog is the persistent state your AI agent is missing. The queue, the plans, the comments, the activity log all live in the same local database. Tomorrow's session, next week's session, Cursor today and Claude Code in an hour. They all see the same backlog, so nothing needs re-onboarding and no session opens with a "where was I?" prompt. The same developer running fresh sessions across the day closes about <strong>12× the loops</strong> of one long-running thread.</p>
-          <p class="loop-sub loop-sub-cost">And because each task spawns a fresh subagent with only the context it needs, the average session fits in <strong>under 50k tokens</strong> instead of the 500k a single long-running thread bloats into. Same quality, roughly <strong>10× cheaper</strong> per loop.</p>
+          <p class="loop-sub">A loop is one unit of work: <strong>pick → plan → run → review → ship</strong>. Backlog keeps the queue, plans, comments, and activity trail in one local database, so the next agent starts from the current state instead of a recap prompt.</p>
+          <p class="loop-sub loop-sub-cost">Each task can run in a fresh, focused session with only the context it needs. The database becomes the handoff contract between humans, agents, CLI scripts, and the web UI.</p>
         </header>
 
         <div class="loop-stages" aria-hidden="true">
