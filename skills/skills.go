@@ -3,7 +3,7 @@
 //
 // The canonical source of each skill is the corresponding directory next to
 // this file. Keeping the directives co-located with the markdown means a
-// contributor can drop a new `<skill-name>/skill.md` in here, add a single
+// contributor can drop a new `<skill-name>/SKILL.md` in here, add a single
 // embed line below, and have it picked up by `backlog install-skills`.
 package skill
 
@@ -15,11 +15,11 @@ import (
 	"strings"
 )
 
-//go:embed backlog/skill.md
-//go:embed backlog-enhance-tasks/skill.md
-//go:embed backlog-loop/skill.md
-//go:embed backlog-goal/skill.md
-//go:embed backlog-memory/skill.md
+//go:embed backlog/SKILL.md
+//go:embed backlog-enhance-tasks/SKILL.md
+//go:embed backlog-loop/SKILL.md
+//go:embed backlog-goal/SKILL.md
+//go:embed backlog-memory/SKILL.md
 var fsys embed.FS
 
 // Skill is one named skill with its markdown body.
@@ -40,7 +40,7 @@ func All() ([]Skill, error) {
 		if !e.IsDir() {
 			continue
 		}
-		body, err := fs.ReadFile(fsys, e.Name()+"/skill.md")
+		body, err := fs.ReadFile(fsys, e.Name()+"/SKILL.md")
 		if err != nil {
 			return nil, fmt.Errorf("read skill %s: %w", e.Name(), err)
 		}
@@ -61,7 +61,7 @@ func All() ([]Skill, error) {
 
 // Get returns a single skill by name.
 func Get(name string) (Skill, error) {
-	body, err := fs.ReadFile(fsys, name+"/skill.md")
+	body, err := fs.ReadFile(fsys, name+"/SKILL.md")
 	if err != nil {
 		return Skill{}, fmt.Errorf("skill %q not found", name)
 	}

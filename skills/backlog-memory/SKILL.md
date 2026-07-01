@@ -1,4 +1,5 @@
 ---
+name: backlog-memory
 description: One skill for a backlog project's persistent memory. It does two jobs — learn (load the project's tasks, plans, docs, and memory into the session) and store (synthesize the project's state into persistent memory entries). When invoked without a mode it auto-picks: learn at the start of a fresh session, store after work has been done this session, and it asks when that's ambiguous.
 ---
 

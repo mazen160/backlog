@@ -30,7 +30,7 @@ var skillTargets = []skillTarget{
 		tool:   "Claude Code",
 		detect: ".claude",
 		dest: func(home, name string) string {
-			return filepath.Join(home, ".claude", "skills", name, "skill.md")
+			return filepath.Join(home, ".claude", "skills", name, "SKILL.md")
 		},
 		wrap: plain,
 	},
@@ -46,7 +46,7 @@ var skillTargets = []skillTarget{
 		tool:   "OpenCode",
 		detect: ".config/opencode",
 		dest: func(home, name string) string {
-			return filepath.Join(home, ".config", "opencode", "skills", name, "skill.md")
+			return filepath.Join(home, ".config", "opencode", "skills", name, "SKILL.md")
 		},
 		wrap: plain,
 	},
