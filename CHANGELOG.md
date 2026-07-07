@@ -7,8 +7,22 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Unreleased
 
+## v1.0.4 — 2026-07-07
+
+Public release polish for Backlog's website, docs, embedded skills, and web UI.
+
 **Changed**
+- Refreshed the public website, README, docs, API pages, and launch assets so the project is ready for a broader public release.
 - Consolidated the project-memory skills into a single `backlog-memory` skill. It does both jobs and auto-selects the mode: **learn** (load a project's tasks, plans, docs, and memory into the session) at the start of a fresh session, **store** (synthesize the project's state into persistent memory entries) after work has been done, and it asks when that's ambiguous. Force a mode with `/backlog-memory learn` or `/backlog-memory store`. Replaces the separate `backlog-memory-learn` and `backlog-memory-store` skills.
+- Standardized embedded skill files on `SKILL.md` casing for Codex-compatible installs.
+
+**Improved**
+- Added first-release launch material for the blog, X/Twitter, LinkedIn, and Hacker News.
+- Added new brand, Open Graph, banner, and website imagery used across the public docs and landing pages.
+- Added a sidebar collapse toggle in the web UI.
+
+**Fixed**
+- Long task titles now wrap correctly in board cards, task headers, and header toolbars.
 
 ## v1.0.3 — 2026-05-25
 
