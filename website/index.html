@@ -61,7 +61,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
   <link rel="stylesheet" href="style.css">
@@ -86,7 +86,7 @@
         <a href="https://github.com/mazen160/backlog" rel="noopener" class="lnav-stars" aria-label="Star Backlog on GitHub">
           <svg class="lnav-stars-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg>
           <span class="lnav-stars-label">Star</span>
-          <span class="lnav-stars-count" id="gh-star-count" data-stars-target>—</span>
+          <span class="lnav-stars-count" id="gh-star-count" data-stars-target hidden></span>
         </a>
         <a href="getting-started.html" class="lnav-cta">Install →</a>
       </div>
@@ -107,7 +107,7 @@
         <p class="hero-sub">Backlog gives every session the same working state: tasks, plans, memory, comments, and an append-only activity trail. Use it from the CLI, web UI, or MCP without adding another SaaS account.</p>
         <ul class="hero-stats" aria-label="Backlog product properties">
           <li class="hero-stat"><span class="hero-stat-num">Local</span><span class="hero-stat-label">SQLite workspace file</span></li>
-          <li class="hero-stat"><span class="hero-stat-num">MCP</span><span class="hero-stat-label">native agent read/write</span></li>
+          <li class="hero-stat"><span class="hero-stat-num">MCP</span><span class="hero-stat-label">Model Context Protocol · read/write</span></li>
           <li class="hero-stat"><span class="hero-stat-num">Audit</span><span class="hero-stat-label">actor on every row</span></li>
         </ul>
       </header>
@@ -278,7 +278,7 @@
         <a href="https://github.com/mazen160/backlog" rel="noopener" class="hero-star" aria-label="Star Backlog on GitHub">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25z"/></svg>
           <span>Star on GitHub</span>
-          <span class="hero-star-count" data-stars-target>—</span>
+          <span class="hero-star-count" data-stars-target hidden></span>
         </a>
         <a href="getting-started.html" class="hero-docs-link">Full getting started guide →</a>
       </div>
@@ -340,7 +340,6 @@
     <section id="handoff" class="handoff-section" aria-label="Cross-session handoff">
       <div class="handoff-inner">
         <div class="handoff-copy">
-          <div class="handoff-eyebrow">Context handoff</div>
           <h2>Close one agent. Open another. The queue is still there.</h2>
           <p>Backlog turns work state into rows: task, plan, memory, comment, actor. A fresh session starts from the database instead of from a recap prompt.</p>
         </div>
@@ -390,7 +389,6 @@
       <div class="loop-section-inner">
 
         <header class="loop-head">
-          <div class="loop-eyebrow">The agentic loop</div>
           <h2 class="loop-title">
             <span class="loop-title-headline">Fresh sessions, same queue.</span>
           </h2>
@@ -563,6 +561,11 @@
             <div class="loop-note-h">Why it scales</div>
             <p>The queue is just rows in the Backlog DB. Four sessions is a starting point. Add more for bigger backlogs, or run nightly batches against the same database. The CLI, the MCP server, and the web UI all share the same writes.</p>
           </div>
+        </div>
+
+        <details class="loop-method">
+          <summary>Methodology — how we measured 12×, and why it's ~10× cheaper</summary>
+          <div class="loop-method-body">
           <div class="loop-note loop-note-method">
             <div class="loop-note-h">How we measured 12×</div>
             <p>Baseline: one developer running a single agent session, plan-then-run-then-review per task. Same developer, same agent model, same workday, four sessions hitting one queue. Throughput measured by <code>done</code> tasks in the activity log. The 12× figure is the median across week-long runs. Longer queues run higher, tasks needing human review per PR run lower.</p>
@@ -575,7 +578,8 @@
             <div class="loop-note-h">Specialized subagents per task</div>
             <p>Different work needs different context. A SAST finding gets a security-focused subagent with the scanner output and the auth-related docs. A feature task gets a feature-shaped subagent with the PRD memory and the affected handler files. Each subagent is born fresh, knows only what it needs, and is gone when the task is done. One task's context never bleeds into the next, and nothing accumulates the bloat of a long-running thread.</p>
           </div>
-        </div>
+          </div>
+        </details>
 
       </div>
     </section>
@@ -714,7 +718,6 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
     <section class="webui-section" aria-label="Web UI">
       <div class="webui-section-inner">
         <div class="webui-head">
-          <div class="webui-eyebrow">backlog web</div>
           <h2 class="webui-title">The same backlog, in your browser.</h2>
           <p class="webui-sub">A polished workspace served straight from the binary. List, board, grid, and timeline views. Inline editing on every property. It needs no build step and no separate front-end repo.</p>
         </div>
@@ -846,7 +849,6 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
     <section class="surfaces-section" aria-label="Backlog surfaces">
       <div class="surfaces-section-inner">
         <header class="surfaces-head">
-          <div class="surfaces-eyebrow">All in one DB</div>
           <h2 class="surfaces-title">Six surfaces. One file. Every write attributed.</h2>
           <p class="surfaces-sub">Tasks are the core, but the agent loop needs more. Plans the agent writes, docs it reads, memory it remembers, attachments it analyses, an activity feed humans audit.</p>
         </header>
@@ -945,7 +947,7 @@ backlog task list --actor-name alice --type vulnerability</code></pre>
           <article class="surfaces-panel" data-surface="activity" role="tabpanel" aria-hidden="true">
             <div class="surfaces-panel-text">
               <h3>Append-only audit log. Who, what, when.</h3>
-              <p>Every write across the workspace lands in <code>activity_log</code>. Filter by project, entity, or actor. The morning standup writes itself.</p>
+              <p>Every write across the workspace lands in <code>activity_log</code>. Filter by project, entity, or actor. Reconstruct exactly who did what, and when.</p>
               <code class="surfaces-cmd">backlog activity --project api --actor-kind ai --limit 50</code>
             </div>
             <div class="surfaces-panel-visual">
@@ -1069,7 +1071,6 @@ backlog task move "$ID" --status done --as ai:claude-code</code></pre>
     <section class="caps-section" aria-label="Capabilities">
       <div class="caps-section-inner">
         <header class="caps-head">
-          <div class="caps-eyebrow">Everything ships in the binary</div>
           <h2 class="caps-title">Four capability areas. No plugins, no tiers, no paid upgrades.</h2>
         </header>
         <div class="caps-grid">
@@ -1150,7 +1151,6 @@ backlog task move "$ID" --status done --as ai:claude-code</code></pre>
     <section class="compare-section" aria-label="Comparison">
       <div class="compare-section-inner">
         <header class="compare-head">
-          <div class="compare-eyebrow">Compare tools</div>
           <h2 class="compare-title">Backlog wins where the agent loop matters.</h2>
           <p class="compare-sub">It loses on real-time human collaboration and integration marketplaces. Different tools, different problems.</p>
         </header>
@@ -1185,7 +1185,6 @@ backlog task move "$ID" --status done --as ai:claude-code</code></pre>
     <section class="faq-section" aria-label="Frequently asked questions">
       <div class="faq-section-inner">
         <header class="faq-head">
-          <div class="faq-eyebrow">FAQ</div>
           <h2 class="faq-title">Common questions.</h2>
         </header>
         <div class="faq-grid">
@@ -1351,7 +1350,10 @@ sudo mv backlog /usr/local/bin/</code></pre>
       }
       function paint(n) {
         const label = fmt(n);
-        targets.forEach((el) => { el.textContent = label; });
+        targets.forEach((el) => { el.textContent = label; el.hidden = false; });
+      }
+      function hideCount() {
+        targets.forEach((el) => { el.hidden = true; });
       }
 
       try {
@@ -1365,12 +1367,12 @@ sudo mv backlog /usr/local/bin/</code></pre>
       fetch('https://api.github.com/repos/mazen160/backlog', { headers: { Accept: 'application/vnd.github+json' } })
         .then((r) => r.ok ? r.json() : null)
         .then((data) => {
-          if (!data || typeof data.stargazers_count !== 'number') return;
+          if (!data || typeof data.stargazers_count !== 'number') { hideCount(); return; }
           const n = data.stargazers_count;
           paint(n);
           try { localStorage.setItem(cacheKey, JSON.stringify({ n, t: Date.now() })); } catch (_) {}
         })
-        .catch(() => { /* leave dash */ });
+        .catch(() => { hideCount(); });
     })();
 
     // ─── Share row — Copy link button ─────────────────────────────────────
@@ -1482,18 +1484,10 @@ sudo mv backlog /usr/local/bin/</code></pre>
 
       tabs.forEach((t) => t.addEventListener('click', () => switchTab(t.dataset.tab)));
 
-      // Auto-play: type first, then after a pause auto-flip to the skill tab once.
+      // Type the initially-active pane. No auto-flip: content must not move under
+      // the reader (user control); tabs stay manually switchable.
       const initialTab = root.querySelector('.hero-term-tab.is-active');
       if (initialTab) runTypewriter(root.querySelector(`.hero-term-pane[data-pane="${initialTab.dataset.tab}"]`));
-
-      let autoSwitched = false;
-      setTimeout(() => {
-        if (autoSwitched) return;
-        autoSwitched = true;
-        // Only auto-flip if user hasn't already clicked a tab.
-        if (document.activeElement && document.activeElement.classList.contains('hero-term-tab')) return;
-        switchTab('skill');
-      }, 6500);
     })();
 
     // ─── Surfaces tab switcher ─────────────────────────────────────────────
@@ -1533,10 +1527,10 @@ sudo mv backlog /usr/local/bin/</code></pre>
         const laneYs = [10, 60, 110, 160];
         const widths = [44, 56, 38, 64, 50, 46, 60, 42, 54, 48];
         const palettes = [
-          ['#D8E7EE', '#2F6F8F'], // blue
-          ['#DCEADB', '#2D6A4F'], // green
-          ['#F5DEC5', '#AD5C18'], // orange
-          ['#E9E0EF', '#6A4B89'], // purple
+          ['#F5DEC5', '#9c6428'], // copper
+          ['#DCEADB', '#2d5a43'], // terminal green
+          ['#D8E7EE', '#256f86'], // slate teal
+          ['#E7E4DD', '#5B554C'], // warm neutral
         ];
         for (let lane = 0; lane < 4; lane++) {
           let x = 0;
@@ -1611,5 +1605,8 @@ sudo mv backlog /usr/local/bin/</code></pre>
       }
     })();
   </script>
+<!-- impeccable-live-start -->
+<script src="http://localhost:8400/live.js"></script>
+<!-- impeccable-live-end -->
 </body>
 </html>

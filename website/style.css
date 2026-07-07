@@ -2007,8 +2007,7 @@ th {
 .usecase-tag {
   background: transparent;
   color: var(--signal-2);
-  border-left: 2px solid var(--signal);
-  padding-left: 8px;
+  font-weight: 600;
 }
 
 .features-grid {
@@ -4648,6 +4647,38 @@ body::before { display: none; }
   gap: 18px;
   margin-top: 32px;
 }
+.loop-method {
+  margin-top: 18px;
+}
+.loop-method > summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--signal-2);
+  padding: 6px 0;
+  transition: color var(--t-quick);
+}
+.loop-method > summary::-webkit-details-marker { display: none; }
+.loop-method > summary::before {
+  content: "+";
+  font-weight: 600;
+  color: var(--signal);
+}
+.loop-method[open] > summary::before { content: "−"; }
+.loop-method > summary:hover { color: var(--signal); }
+.loop-method-body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 12px;
+}
+@media (max-width: 860px) {
+  .loop-method-body { grid-template-columns: 1fr; }
+}
 .loop-note {
   padding: 18px 20px;
   background: var(--surface);
@@ -6104,14 +6135,6 @@ body.landing .usecases-section h2 {
   line-height: 1.1;
 }
 
-body.landing .loop-title-stat-num {
-  font-size: 112px;
-}
-
-body.landing .loop-title-stat-label {
-  font-size: 30px;
-}
-
 body.landing .loop-chart,
 body.landing .surfaces-panel,
 body.landing .compare-wrap,
@@ -6438,10 +6461,11 @@ body.landing .hero-v2 .hero-h1 {
   max-width: 690px;
   margin: 0;
   color: var(--fg);
-  font-family: var(--font);
-  font-size: 56px;
-  font-weight: 720;
-  line-height: 1.02;
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5vw, 60px);
+  font-weight: 370;
+  letter-spacing: -0.04em;
+  line-height: 1.0;
   text-wrap: balance;
 }
 
@@ -6573,8 +6597,12 @@ body.landing .hero-v2 .hero-install {
   max-width: 470px;
   min-height: 42px;
   border-radius: 6px;
-  box-shadow: none;
+  box-shadow: 7px 7px 0 var(--signal);
   font-size: 12.5px;
+}
+body.landing .hero-v2 .hero-install:hover {
+  box-shadow: 9px 9px 0 var(--signal);
+  opacity: 1;
 }
 
 body.landing .hero-star {
@@ -6815,10 +6843,11 @@ body.landing .how-section h2,
 body.landing .showcase-text h2,
 body.landing .usecases-section h2 {
   color: var(--fg);
-  font-family: var(--font);
-  font-size: 40px;
-  font-weight: 720;
-  line-height: 1.12;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.6vw, 42px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
 }
 
 body.landing .caps-title::after,

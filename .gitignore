@@ -31,6 +31,9 @@ e2e/node_modules/
 # Internal design artifacts (not for public consumption)
 docs/CLAUDE/
 launch/
+.impeccable/
+DESIGN.md
+PRODUCT.md
 
 # Stray files
 tests/*.txt
