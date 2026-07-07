@@ -30,9 +30,9 @@ e2e/node_modules/
 
 # Internal design artifacts (not for public consumption)
 docs/CLAUDE/
+launch/
 
 # Stray files
 tests/*.txt
 bin/backlog-test
 tests/
-

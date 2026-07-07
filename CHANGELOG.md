@@ -17,7 +17,6 @@ Public release polish for Backlog's website, docs, embedded skills, and web UI.
 - Standardized embedded skill files on `SKILL.md` casing for Codex-compatible installs.
 
 **Improved**
-- Added first-release launch material for the blog, X/Twitter, LinkedIn, and Hacker News.
 - Added new brand, Open Graph, banner, and website imagery used across the public docs and landing pages.
 - Added a sidebar collapse toggle in the web UI.
 

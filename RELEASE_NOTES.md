@@ -1,11 +1,10 @@
 # Backlog v1.0.4: Public Release
 
-This release gets Backlog ready for its broader public launch. The CLI and local-first database model are unchanged; the work here is the website, docs, release copy, embedded skills, and a few web UI edges that showed up while tightening the public docs.
+This release gets Backlog ready for its broader public launch. The CLI and local-first database model are unchanged; the work here is the website, docs, embedded skills, and a few web UI edges that showed up while tightening the public docs.
 
 ## Public release polish
 
 - Refreshed the README, website, docs, API reference, MCP pages, skill docs, and wiki copy.
-- Added public launch material for the blog, X/Twitter, LinkedIn, and Hacker News.
 - Added updated brand, banner, Open Graph, and website imagery so shared links and docs look consistent.
 
 ## Skill cleanup
